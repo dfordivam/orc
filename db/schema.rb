@@ -10,10 +10,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502171703) do
+ActiveRecord::Schema.define(:version => 20110512103852) do
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_date_time"
+    t.datetime "end_date_time"
+    t.integer  "capacity"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rooms", :force => true do |t|
+    t.boolean  "is_ac"
+    t.boolean  "is_extensible"
+    t.integer  "beds_extensible"
+    t.integer  "floor"
+    t.integer  "empty_beds"
+    t.integer  "occupied_beds"
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,5 +57,21 @@ ActiveRecord::Schema.define(:version => 20110502171703) do
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
   add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
+
+  create_table "visitors", :force => true do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.string   "address"
+    t.boolean  "gender"
+    t.integer  "mobile_no"
+    t.string   "visitor_type"
+    t.string   "designation"
+    t.string   "organisation"
+    t.string   "transport_mode"
+    t.time     "checkin_time"
+    t.date     "checkin_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
