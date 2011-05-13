@@ -14,4 +14,9 @@
 
 class User < ActiveRecord::Base
   belongs_to :role
+
+  validates :username , :presence => true, :length => { :minimum => 5} , :uniqueness => true
+  validates :crypted_password, :presence => true
+  validates :password_salt, :presence => true
+  validates :role_id, :presence => true
 end
