@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Visitor do
 
   before(:each) do
-    @attr = { :name => "example" }
+    @attr = { :name => "name_test", :age => 30, :gender => 1, :address => "address test" , :type => "General" }
   end
 
   it "should create a new instance given valid attributes" do
