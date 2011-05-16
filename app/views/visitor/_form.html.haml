@@ -1,0 +1,23 @@
+= form_for @visitor do |f|
+  = f.label :name, 'Name'
+  = f.text_field :name
+  %br
+  = f.label :age, 'Age'
+  = f.text_field :age
+  %br
+  = f.label :address, 'Address'
+  = f.text_field :address
+  %br
+  = f.label :gender, 'Gender'
+  = f.radio_button :gender , "Male" 
+  Male
+  = f.radio_button :gender , "Female"
+  Female
+  %br
+  = f.label :mobile_no, 'Mobile No.'
+  = f.text_field :mobile_no
+  %br
+  = f.label :visitor_type, 'Type'
+  = select :visitor, :visitor_type, @coll
+  %br
+  
