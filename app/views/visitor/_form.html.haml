@@ -3,7 +3,7 @@
   = f.text_field :name
   %br
   = f.label :age, 'Age'
-  = f.text_field :age
+  = f.number_field :age, :in => [1,110], :step => 1
   %br
   = f.label :address, 'Address'
   = f.text_field :address
@@ -20,4 +20,4 @@
   = f.label :visitor_type, 'Type'
   = select :visitor, :visitor_type, @coll
   %br
-  
+  = submit_tag 'Create'  
