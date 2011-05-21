@@ -1,4 +1,4 @@
-class VisitorController < ApplicationController
+class VisitorsController < ApplicationController
   def new
     @visitor = Visitor.new
     @coll = ["BK" , "Non BK"] #_visitor_types
