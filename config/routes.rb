@@ -10,15 +10,10 @@ Orc::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
-  get 'visitors/show', :as => :visitor
-  get 'visitors/new', :as => :new_visitor
-  post 'visitors/create', :as => :visitors
-  get 'visitors/list', :as => :visitors
 
-  get 'buildings/show', :as => :building
-  get 'buildings/new', :as => :new_building
-  post 'buildings/create', :as => :buildings
-  get 'buildings/list', :as => :buildings
+  resources :visitors
+  resources :buildings
+  resources :rooms
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

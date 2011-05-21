@@ -4,6 +4,8 @@ gem 'rails', '3.0.7'
 gem 'haml' 
 
 gem 'mysql'
+gem 'annotate'
+gem 'annotate-models'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

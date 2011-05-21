@@ -1,14 +1,14 @@
 # == Schema Information
-# Schema version: 20110512103852
+# Schema version: 20110521152423
 #
 # Table name: visitors
 #
-#  id             :integer         not null, primary key
+#  id             :integer(4)      not null, primary key
 #  name           :string(255)
-#  age            :integer
+#  age            :integer(4)
 #  address        :string(255)
-#  gender         :boolean
-#  mobile_no      :integer
+#  gender         :boolean(1)
+#  mobile_no      :integer(4)
 #  visitor_type   :string(255)
 #  designation    :string(255)
 #  organisation   :string(255)

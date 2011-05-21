@@ -1,15 +1,15 @@
 # == Schema Information
-# Schema version: 20110513125313
+# Schema version: 20110521152423
 #
 # Table name: users
 #
-#  id               :integer         not null, primary key
+#  id               :integer(4)      not null, primary key
 #  username         :string(255)
 #  crypted_password :string(255)
 #  password_salt    :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
-#  role_id          :integer
+#  role_id          :integer(4)
 #
 
 class User < ActiveRecord::Base

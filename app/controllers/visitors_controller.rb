@@ -15,7 +15,7 @@ class VisitorsController < ApplicationController
     
   end
 
-  def list
+  def index
     @visitors = Visitor.find(:all)
 
   end
