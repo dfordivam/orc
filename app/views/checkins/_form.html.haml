@@ -1,0 +1,6 @@
+= form_for @checkin do |f|
+  = f.label :event, 'Event'
+  = select :checkin, :event, @event_list
+  %br
+  = submit_tag 'Create'
+
