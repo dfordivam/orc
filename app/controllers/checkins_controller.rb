@@ -13,12 +13,10 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.new(params[:checkin])
     @checkin.save
   end
-  def search
+  def roomsearch
     respond_to do |format|
       format.js do 
-        render(:update) do |page|
-          page.replace_html 'Working'
-        end
+        render :text => 'hello'
       end
     end
 

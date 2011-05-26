@@ -16,7 +16,7 @@ Orc::Application.routes.draw do
   resources :rooms
   resources :checkins do
     collection do
-      post :search
+      post :roomsearch
     end
   end
 
