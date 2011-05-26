@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20110521152423
+# Schema version: 20110526065356
 #
 # Table name: buildings
 #
-#  id         :integer(4)      not null, primary key
+#  id         :integer         not null, primary key
 #  name       :string(255)
-#  rooms      :integer(4)
-#  floors     :integer(4)
+#  rooms      :integer
+#  floors     :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
