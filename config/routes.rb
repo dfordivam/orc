@@ -14,6 +14,12 @@ Orc::Application.routes.draw do
   resources :visitors
   resources :buildings
   resources :rooms
+  resources :checkins do
+    collection do
+      post :search
+    end
+  end
+
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
