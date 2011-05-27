@@ -1,4 +1,6 @@
 Orc::Application.routes.draw do
+  get "events/create"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -12,6 +14,7 @@ Orc::Application.routes.draw do
 
 
   resources :visitors
+  resources :events
   resources :buildings
   resources :rooms
   resources :checkins do

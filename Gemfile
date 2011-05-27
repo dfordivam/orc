@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
 gem 'haml' 
+# Added below rake version, as 0.9.0 not working
+gem 'rake', '0.8.7'
 
 gem 'mysql'
 gem 'annotate'
