@@ -5,10 +5,14 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    if @event.save
-       flash[:notice] = 'Done !!'
+    if @event.start_date_time > @event.end_date_time
+      flash[:notice] = 'Start date can\'t be more than end date !!'  
     else
-       flash[:notice] = 'Error !!'
+      if @event.save
+         flash[:notice] = 'Done !!'
+      else
+         flash[:notice] = 'Error !!'
+      end
     end
     render :action => 'new'
   end
