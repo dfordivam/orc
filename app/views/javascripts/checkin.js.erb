@@ -11,7 +11,7 @@ function buildingSelected() {
   // HACK - here i is used as an index (as there was some problem using it directly)
   $(rooms).each(function(i) {
     if (rooms[i][0] == building_id) {
-      $("#checkin_room_id").append("<option value=’" + rooms[i][2] + "’>" + rooms[i][1] + "</option>")
+      $("#checkin_room_id").append("<option value=" + rooms[i][2] + ">" + rooms[i][1] + "</option>")
     }
   });
 }

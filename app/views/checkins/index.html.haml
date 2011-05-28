@@ -17,4 +17,10 @@
       %td= checkin.visitor.address
       %td= checkin.visitor.mobile_no
       %td= checkin.visitor.visitor_type
+      %td= checkin.event.name
+      %td= checkin.room.nil? ? " " : checkin.room.building.name
+      %td= checkin.room.nil? ? " " : checkin.room.room_no
+      %td= link_to "show", checkin_path(checkin.id)
+      %td= link_to "edit", edit_checkin_path(checkin.id)
+      %td= link_to "delete", checkin_path(checkin.id), :method => :delete
 

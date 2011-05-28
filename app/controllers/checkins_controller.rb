@@ -22,4 +22,10 @@ class CheckinsController < ApplicationController
     @checkin.save
     redirect_to checkins_path
   end
+
+  def destroy
+    @checkin = Checkin.find(params[:id])
+    @checkin.destroy
+    redirect_to checkins_path
+  end
 end

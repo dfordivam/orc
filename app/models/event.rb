@@ -14,5 +14,4 @@
 #
 
 class Event < ActiveRecord::Base
-  has_many :checkins
 end
