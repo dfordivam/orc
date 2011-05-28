@@ -1,0 +1,22 @@
+var states = new Array();
+<% for state in @room_list -%>
+  states.push(new Array(<%= state.building_id %>, '<%=h state.room_no %>', <%= state.id %>));
+<% end -%>
+
+function countrySelected() {
+  country_id = $("#room_building_id").attr("value");
+  //Clear all the select menu options
+  $("#checkin_room_id").html("");
+  // fill the select menu options
+  // HACK - here state is used as an index (as there was some problem using it directly)
+  $(states).each(function(i) {
+    if (states[i][0] == country_id) {
+      $("#checkin_room_id").append("<option value=’" + states[i][2] + "’>" + states[i][1] + "</option>")
+    }
+  });
+}
+
+jQuery(document).ready(function(){
+  countrySelected();
+  $("#room_building_id").change(countrySelected);
+});

@@ -5,7 +5,6 @@ class CheckinsController < ApplicationController
     @room = Room.new
     @event_list = Event.find(:all)
     @building_list = Building.find(:all)
-    @room_list = Room.find(:all)
   end
 
   def index
