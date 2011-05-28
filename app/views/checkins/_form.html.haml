@@ -1,3 +1,4 @@
+= javascript_include_tag 'checkin'
 = form_for @checkin do |f|
   = f.label :event, 'Event'
   = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id]}, { include_blank: true}
@@ -5,7 +6,8 @@
   = f.label :building, 'Building'
   = select :room, :building_id, @building_list.collect { |e| [e.name, e.id]}, { include_blank: true}
   %br
-  = text_field_tag 'building_name'
+  = f.label :room, 'Room'
+  = select :checkin, :room_id ,{ include_blank: true}  
   %br
   .rooms_result
 

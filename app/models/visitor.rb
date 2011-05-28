@@ -20,7 +20,7 @@
 #
 
 class Visitor < ActiveRecord::Base
-  attr_accessible :name
+#  attr_accessible :name, :age
 
   validates :name, :presence => true
 end

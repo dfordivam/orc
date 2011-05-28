@@ -17,6 +17,19 @@ class VisitorsController < ApplicationController
 
   def index
     @visitors = Visitor.find(:all)
+  end
 
+  def show
+    @visitor = Visitor.find(params[:id])
+  end
+
+  def edit
+    @visitor = Visitor.find(params[:id])
+  end
+
+  def destroy
+    @visitor = Visitor.find(params[:id])
+    @visitor.destroy
+    redirect_to visitors_path
   end
 end

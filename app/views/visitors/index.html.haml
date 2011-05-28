@@ -1,1 +1,21 @@
-= debug @visitors
+= link_to "Add new Visitor Information", new_visitor_path
+%table
+  %tr
+    %th Name
+    %th Age
+    %th Gender
+    %th Address
+    %th Mobile
+    %th Type
+  - @visitors.each do |visitor|
+    %tr
+      %td= visitor.name
+      %td= visitor.age
+      %td= visitor.gender
+      %td= visitor.address
+      %td= visitor.mobile_no
+      %td= visitor.visitor_type
+      %td= link_to "show", visitor_path(visitor.id)
+      %td= link_to "edit", edit_visitor_path(visitor.id)
+      %td= link_to "delete", visitor_path(visitor.id), :method => :delete
+

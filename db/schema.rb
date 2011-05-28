@@ -11,8 +11,11 @@
 # It's strongly recommended to check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 0) do
 =======
+=======
+>>>>>>> e86699bb8639ccf4b57e18304bdb2353741e4e86
 ActiveRecord::Schema.define(:version => 20110526065356) do
 
   create_table "buildings", :force => true do |t|
@@ -64,10 +67,6 @@ ActiveRecord::Schema.define(:version => 20110526065356) do
     t.integer  "room_no"
   end
 
-  create_table "test", :id => false, :force => true do |t|
-    t.string "Name", :limit => 20, :default => "", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "crypted_password"
@@ -102,6 +101,9 @@ ActiveRecord::Schema.define(:version => 20110526065356) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+<<<<<<< HEAD
 >>>>>>> cucumber
+=======
+>>>>>>> e86699bb8639ccf4b57e18304bdb2353741e4e86
 
 end
