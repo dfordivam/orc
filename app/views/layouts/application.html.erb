@@ -7,6 +7,15 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+  <nav class="navigation">
+  <ul>
+    <li><%= link_to "Home", '#' %></li>
+    <li><%= link_to "Visitors", visitors_path %></li>
+    <li><%= link_to "Buildings", buildings_path %></li>
+    <li><%= link_to "Events", events_path %></li>
+    <li><%= link_to "Checkins", checkins_path %></li>
+  </ul>
+  </nav>
 
 <%= yield %>
 

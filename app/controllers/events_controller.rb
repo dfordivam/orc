@@ -22,4 +22,7 @@ class EventsController < ApplicationController
     end
     render :action => 'new'
   end
+  def index
+    @events = Event.find(:all)
+  end
 end
