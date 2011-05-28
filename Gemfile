@@ -1,13 +1,19 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
+gem 'haml' 
+# Added below rake version, as 0.9.0 not working
+gem 'rake', '0.8.7'
 
 gem 'mysql'
+gem 'annotate'
+gem 'annotate-models'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
+gem "jquery-rails"
+gem 'sqlite3'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -22,7 +28,7 @@ gem 'mysql'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
@@ -30,7 +36,10 @@ gem 'mysql'
 # and rake tasks are available in development mode:
 
 group :development, :test do
-  gem 'webrat'
+#  gem 'webrat'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'cucumber-rails'
 end
 
 group :development do

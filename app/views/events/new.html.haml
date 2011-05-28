@@ -1,0 +1,20 @@
+- if flash[:notice]
+  %p= flash[:notice]
+= form_for @event do |f|
+  = f.label :name, 'Event Name'
+  = f.text_field :name, :value => ''
+  %br
+  = f.label :start_date_time, 'Start Date/Time'
+  = f.datetime_select :start_date_time,:start_year => Time.new.strftime('%Y').to_i-1,:end_year => Time.new.strftime('%Y').to_i+1
+  %br
+  = f.label :end_date_time, 'End Date/Time::'
+  = f.datetime_select :end_date_time,:start_year => Time.new.strftime('%Y').to_i-1,:end_year => Time.new.strftime('%Y').to_i+1
+  %br
+  = f.label :capacity, 'Capacity'
+  = f.number_field :capacity, :in => [1,100000], :step => 1, :value=>''
+  %br
+  = f.label :location, 'Location'
+  = f.text_field :location,:value=>''
+  %br
+  
+  = submit_tag 'Create' 

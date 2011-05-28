@@ -1,0 +1,26 @@
+= form_for @room do |f|
+  = f.label :building, 'Building'
+  = select :room, :building, @buildings
+  %br
+  = f.label :room_no, 'Room No.'
+  = f.number_field :room_no, :step => 1
+  %br
+  = f.label :floor, 'Floor'
+  = f.number_field :floor
+  %br
+  = f.label :empty_beds, 'Empty Beds'
+  = f.number_field :empty_beds
+  %br
+  = f.label :occupied_beds, 'Occupied Beds'
+  = f.number_field :occupied_beds
+  %br
+  = f.label :category, 'Type/Category'
+  = select :room, :category, @room_category
+  %br
+  = f.label :is_ac, 'Is AC?'
+  = f.radio_button :is_ac , "No" 
+  Male
+  = f.radio_button :is_ac , "Yes"
+  Female
+  %br
+  = submit_tag 'Create'  

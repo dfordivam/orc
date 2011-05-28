@@ -10,6 +10,94 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110526065356) do
+
+  create_table "buildings", :force => true do |t|
+    t.string   "name"
+    t.integer  "rooms"
+    t.integer  "floors"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "checkins", :force => true do |t|
+    t.date     "checkin_date"
+    t.time     "checkin_time"
+    t.integer  "no_of_days"
+    t.integer  "visitor_id"
+    t.integer  "event_id"
+    t.integer  "room_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", :force => true do |t|
+    t.string   "name"
+    t.datetime "start_date_time"
+    t.datetime "end_date_time"
+    t.integer  "capacity"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "rolename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rooms", :force => true do |t|
+    t.boolean  "is_ac"
+    t.boolean  "is_extensible"
+    t.integer  "beds_extensible"
+    t.integer  "floor"
+    t.integer  "empty_beds"
+    t.integer  "occupied_beds"
+    t.integer  "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "building_id"
+    t.integer  "room_no"
+  end
+
+  create_table "test", :id => false, :force => true do |t|
+    t.string "Name", :limit => 20, :default => "", :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "role_id"
+  end
+
+  create_table "users_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
+  add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
+
+  create_table "visitors", :force => true do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.string   "address"
+    t.boolean  "gender"
+    t.integer  "mobile_no"
+    t.string   "visitor_type"
+    t.string   "designation"
+    t.string   "organisation"
+    t.string   "transport_mode"
+    t.time     "checkin_time"
+    t.date     "checkin_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
