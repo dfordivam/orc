@@ -5,7 +5,8 @@
   = f.label :building, 'Building'
   = select :room, :building_id, @building_list.collect { |e| [e.name, e.id]}, { include_blank: true}
   %br
-  = text_field_tag 'building_name'
+  = f.label :room, 'Room'
+  = select :checkin, :room_id, @room_list.collect { |e| [e.room_no, e.id]}, { include_blank: true}  
   %br
   .rooms_result
 

@@ -61,10 +61,6 @@ ActiveRecord::Schema.define(:version => 20110526065356) do
     t.integer  "room_no"
   end
 
-  create_table "test", :id => false, :force => true do |t|
-    t.string "Name", :limit => 20, :default => "", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "crypted_password"
