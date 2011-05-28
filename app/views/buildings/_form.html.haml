@@ -1,0 +1,11 @@
+= form_for @building do |f|
+  = f.label :name, 'Name'
+  = f.text_field :name
+  %br
+  = f.label :rooms, 'No. of Rooms'
+  = f.number_field :rooms
+  %br
+  = f.label :floors, 'No. of Floors'
+  = f.number_field :floors
+  %br
+  = submit_tag 'Create'  
