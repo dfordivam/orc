@@ -20,6 +20,7 @@
 #
 
 class Visitor < ActiveRecord::Base
+  has_many :checkins
 #  attr_accessible :name, :age
 
   validates :name, :presence => true

@@ -1,5 +1,9 @@
 = javascript_include_tag 'checkin'
 = form_for @checkin do |f|
+  // need this dummy form fields so that visitor details are passed on to the create checkin
+  = f.label :visitor, 'Visitor', :hidden => true
+  = f.text_field :visitor_id, :hidden =>true
+  %br
   = f.label :event, 'Event'
   = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id]}, { include_blank: true}
   %br

@@ -15,4 +15,7 @@
 #
 
 class Checkin < ActiveRecord::Base
+  belongs_to :visitor
+  has_one :event
+  has_one :room
 end

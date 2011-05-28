@@ -1,10 +1,16 @@
 class CheckinsController < ApplicationController
   def new
-    @checkin = Checkin.new
-    @building = Building.new
-    @room = Room.new
-    @event_list = Event.find(:all)
-    @building_list = Building.find(:all)
+    @visitor = Visitor.find(params[:visitor_id])
+    if (@visitor)
+      @checkin = Checkin.new
+      @checkin.visitor = @visitor
+      @building = Building.new
+      @room = Room.new
+      @event_list = Event.find(:all)
+      @building_list = Building.find(:all)
+    else
+      redirect_to visitors_path
+    end
   end
 
   def index
@@ -14,5 +20,6 @@ class CheckinsController < ApplicationController
   def create
     @checkin = Checkin.new(params[:checkin])
     @checkin.save
+    redirect_to checkins_path
   end
 end
