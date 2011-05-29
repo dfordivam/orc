@@ -1,1 +1,17 @@
-= debug params[:building]
+= link_to "Add new Building Information", new_building_path
+%table
+  %tr
+    %th Name
+    %th No. of Vacant Rooms
+    %th Total No. of Rooms
+    %th Floors
+  - @buildings.each do |building|
+    %tr
+      %td= building.name
+      %td= building.rooms.count
+      %td= building.rooms.count
+      %td= building.floors
+      %td= link_to "show", building_path(building.id)
+      %td= link_to "edit", edit_building_path(building.id)
+      %td= link_to "delete", building_path(building.id), :method => :delete
+

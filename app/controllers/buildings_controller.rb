@@ -7,5 +7,10 @@ class BuildingsController < ApplicationController
     @building.save
   end
   def index
+    @buildings = Building.find(:all)
+  end
+
+  def show
+    @building = Building.find(params[:id])
   end
 end

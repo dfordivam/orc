@@ -1,6 +1,7 @@
 = form_for @room do |f|
   = f.label :building, 'Building'
-  = select :room, :building, @buildings
+  = f.text_field :building, :value => @building.id, :hidden => true
+  = text_field_tag :building_name, @building.name, :readonly => true
   %br
   = f.label :room_no, 'Room No.'
   = f.number_field :room_no, :step => 1
@@ -18,9 +19,9 @@
   = select :room, :category, @room_category
   %br
   = f.label :is_ac, 'Is AC?'
-  = f.radio_button :is_ac , "No" 
-  Male
-  = f.radio_button :is_ac , "Yes"
-  Female
+  = f.radio_button :is_ac , 0 
+  No
+  = f.radio_button :is_ac , 1
+  Yes
   %br
   = submit_tag 'Create'  

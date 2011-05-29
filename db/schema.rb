@@ -10,17 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 0) do
-=======
-=======
->>>>>>> e86699bb8639ccf4b57e18304bdb2353741e4e86
-ActiveRecord::Schema.define(:version => 20110526065356) do
+ActiveRecord::Schema.define(:version => 20110529105026) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
-    t.integer  "rooms"
+    t.integer  "no_of_rooms"
     t.integer  "floors"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -101,9 +95,5 @@ ActiveRecord::Schema.define(:version => 20110526065356) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-<<<<<<< HEAD
->>>>>>> cucumber
-=======
->>>>>>> e86699bb8639ccf4b57e18304bdb2353741e4e86
 
 end
