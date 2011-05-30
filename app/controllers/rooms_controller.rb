@@ -9,9 +9,6 @@ class RoomsController < ApplicationController
     end
   end
 
-  def list
-  end
-
   def create
     #HACK- need to send building info from the form
     @building = Building.find(params[:room][:building])
@@ -22,5 +19,25 @@ class RoomsController < ApplicationController
     else
       redirect_to new_room_path
     end
+  end
+
+  def index
+    @rooms = Room.find(:all)
+  end
+
+  def show 
+    @room = Room.find(params[:id])
+  end
+
+  def destroy 
+    @room = Room.find(params[:id])
+    @room.destroy
+  end
+
+  def edit 
+    @room = Room.find(params[:id])
+  end
+
+  def update
   end
 end

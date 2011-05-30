@@ -17,6 +17,17 @@ class CheckinsController < ApplicationController
     @checkins = Checkin.find(:all)
   end
 
+  def show 
+    @checkin = Checkin.find(params[:id])
+  end
+
+  def edit
+    @checkin = Checkin.find(params[:id])
+  end
+
+  def update
+  end
+
   def create
     @checkin = Checkin.new(params[:checkin])
     @checkin.save

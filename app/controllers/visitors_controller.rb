@@ -32,4 +32,7 @@ class VisitorsController < ApplicationController
     @visitor.destroy
     redirect_to visitors_path
   end
+
+  def update
+  end
 end

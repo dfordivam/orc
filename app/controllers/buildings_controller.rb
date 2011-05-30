@@ -13,4 +13,16 @@ class BuildingsController < ApplicationController
   def show
     @building = Building.find(params[:id])
   end
+
+  def destroy
+    @building = Building.find(params[:id])
+    @building.destroy
+  end
+
+  def edit
+    @building = Building.find(params[:id])
+  end
+
+  def update
+  end
 end
