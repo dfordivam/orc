@@ -8,13 +8,13 @@
   = f.number_field :no_of_days 
   %br
   = f.label :event, 'Event'
-  = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id]} 
+  = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id] }
   %br
   = f.label :building, 'Building'
-  = select :room, :building_id, @building_list.collect { |e| [e.name, e.id]} 
+  = select :room, :building_id, @building_list.collect {|e| [e.name, e.id] }
   %br
   = f.label :room, 'Room'
-  = select :checkin, :room_id ,{ include_blank: true}  
+  = select :checkin, :room_id, {:include_blank => true}  
   %br
   .rooms_result
 
