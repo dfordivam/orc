@@ -11,16 +11,19 @@
     %th Room No.
   - @checkins.each do |checkin|
     %tr
-      %td= checkin.visitor.name
-      %td= checkin.visitor.age
-      %td= checkin.visitor.gender
-      %td= checkin.visitor.address
-      %td= checkin.visitor.mobile_no
-      %td= checkin.visitor.visitor_type
-      %td= checkin.event.name
-      %td= checkin.room.nil? ? " " : checkin.room.building.name
-      %td= checkin.room.nil? ? " " : checkin.room.room_no
-      %td= link_to "show", checkin_path(checkin.id)
-      %td= link_to "edit", edit_checkin_path(checkin.id)
-      %td= link_to "delete", checkin_path(checkin.id), :method => :delete
+      - if checkin.visitor 
+        %td= checkin.visitor.name
+        %td= checkin.visitor.age
+        %td= checkin.visitor.gender
+        %td= checkin.visitor.address
+        %td= checkin.visitor.mobile_no
+        %td= checkin.visitor.visitor_type
+        - if checkin.event
+          %td= checkin.event.name
+        - if checkin.room
+          %td= checkin.room.building.name
+          %td= checkin.room.room_no
+          %td= link_to "show", checkin_path(checkin.id)
+          %td= link_to "edit", edit_checkin_path(checkin.id)
+          %td= link_to "delete", checkin_path(checkin.id), :method => :delete
 

@@ -4,6 +4,9 @@
   = f.label :visitor, 'Visitor', :hidden => true
   = f.text_field :visitor_id, :hidden =>true
   %br
+  = f.label :no_of_days, 'No. of Days'
+  = f.number_field :no_of_days 
+  %br
   = f.label :event, 'Event'
   = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id]}, { include_blank: true}
   %br

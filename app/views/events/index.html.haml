@@ -1,1 +1,18 @@
-= debug @events
+= link_to "Add new Event", new_event_path
+%table
+  %tr
+    %th Event Name
+    %th Start Date
+    %th End Date
+    %th Capacity
+    %th Location
+  - @events.each do |event|
+    %tr
+      %td= event.name
+      %td= event.start_date_time
+      %td= event.end_date_time
+      %td= event.capacity
+      %td= event.location
+      %td= link_to "show", event_path(event.id)
+      %td= link_to "edit", edit_event_path(event.id)
+      %td= link_to "delete", event_path(event.id), :method => :delete
