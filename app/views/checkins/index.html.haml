@@ -13,7 +13,7 @@
   - @checkins.each do |checkin|
     %tr
       - if checkin.visitor 
-        %td= checkin.visitor.name
+        %td= link_to checkin.visitor.name, visitor_path(checkin.visitor.id)
         %td= checkin.visitor.age
         %td= checkin.visitor.gender
         %td= checkin.visitor.address
