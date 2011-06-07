@@ -1,26 +1,31 @@
 = javascript_include_tag 'checkin'
 = form_for @checkin do |f|
-  = label_tag :visitor_name, 'Visitor Name'
-  = text_field_tag 'visitor[name]'
-  %br
-  = label_tag :visitor_age, 'Age'
-  = number_field_tag 'visitor[age]', :in => [1,110], :step => 1
-  %br
-  = label_tag :visitor_address, 'Address'
-  = text_field_tag 'visitor[address]'
-  %br
-  = label_tag :visitor_gender, 'Gender'
-  = radio_button_tag 'visitor[gender]' , 0
-  Male
-  = radio_button_tag 'visitor[gender]' , 1
-  Female
-  %br
-  = label_tag :visitor_mobile_no, 'Mobile No.'
-  = text_field_tag 'visitor[mobile_no]'
-  %br
-  = label_tag :visitor_type, 'Type'
-  = select :visitor, :visitor_type, @coll
-  %br
+  -if @visitor.id.nil?
+    = label_tag :visitor_name, 'Visitor Name'
+    = text_field_tag 'visitor[name]'
+    %br
+    = label_tag :visitor_age, 'Age'
+    = number_field_tag 'visitor[age]', :in => [1,110], :step => 1
+    %br
+    = label_tag :visitor_address, 'Address'
+    = text_field_tag 'visitor[address]'
+    %br
+    = label_tag :visitor_gender, 'Gender'
+    = radio_button_tag 'visitor[gender]' , 0
+    Male
+    = radio_button_tag 'visitor[gender]' , 1
+    Female
+    %br
+    = label_tag :visitor_mobile_no, 'Mobile No.'
+    = text_field_tag 'visitor[mobile_no]'
+    %br
+    = label_tag :visitor_type, 'Type'
+    = select :visitor, :visitor_type, @coll
+    %br
+  -else
+    = f.label :visitor, 'Visitor id'
+    = f.text_field :visitor_id, :hidden => true, :readonly => true
+    %br
 
   = f.label :no_of_days, 'No. of Days'
   = f.number_field :no_of_days 

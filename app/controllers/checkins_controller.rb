@@ -1,6 +1,10 @@
 class CheckinsController < ApplicationController
   def new
-    @visitor = Visitor.new
+    if (params[:visitor_id])
+      @visitor = Visitor.find(params[:visitor_id])
+    else
+      @visitor = Visitor.new
+    end
     @checkin = Checkin.new
     @checkin.visitor = @visitor
     @building = Building.new
@@ -34,9 +38,11 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    @visitor = Visitor.create(params[:visitor])
     @checkin = Checkin.new(params[:checkin])
-    @checkin.visitor = @visitor
+    if params[:visitor]
+      @visitor = Visitor.create(params[:visitor])
+      @checkin.visitor = @visitor
+    end
     @checkin.save
     redirect_to checkins_path
   end
