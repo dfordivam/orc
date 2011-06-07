@@ -43,12 +43,18 @@ class CheckinsController < ApplicationController
       @visitor = Visitor.create(params[:visitor])
       @checkin.visitor = @visitor
     end
+    @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+    @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
     @checkin.save
     redirect_to checkins_path
   end
 
   def destroy
     @checkin = Checkin.find(params[:id])
+    if @checkin.room && @checkin.room.occupied_beds > 0 
+      @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds - 1)
+      @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+    end
     @checkin.destroy
     redirect_to checkins_path
   end

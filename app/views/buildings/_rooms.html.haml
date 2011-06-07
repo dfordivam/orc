@@ -1,7 +1,7 @@
 %table
   %tr
     %th Room No.
-    %th Empty Beds
+    %th Occupied Beds
     %th Total Beds
     %th Is AC
     %th Category
@@ -9,8 +9,8 @@
   - @building.rooms.each do |room|
     %tr
       %td= room.room_no
-      %td= room.empty_beds
       %td= room.occupied_beds
+      %td= room.total_beds
       %td= room.is_ac
       %td= room.category
       %td= room.floor

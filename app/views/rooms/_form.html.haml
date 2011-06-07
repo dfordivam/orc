@@ -9,11 +9,11 @@
   = f.label :floor, 'Floor'
   = f.number_field :floor
   %br
-  = f.label :empty_beds, 'Empty Beds'
-  = f.number_field :empty_beds
+  = f.label :total_beds, 'Total Beds'
+  = f.number_field :total_beds
   %br
   = f.label :occupied_beds, 'Occupied Beds'
-  = f.number_field :occupied_beds
+  = f.number_field :occupied_beds, :value => 0
   %br
   = f.label :category, 'Type/Category'
   = select :room, :category, @room_category
