@@ -1,3 +1,4 @@
+= link_to 'Add new Checkin', new_checkin_path
 %table
   %tr
     %th Visitor Name
@@ -23,7 +24,7 @@
         - if checkin.room
           %td= checkin.room.building.name
           %td= checkin.room.room_no
-          %td= link_to "show", checkin_path(checkin.id)
-          %td= link_to "edit", edit_checkin_path(checkin.id)
-          %td= link_to "delete", checkin_path(checkin.id), :method => :delete
+      %td= link_to "show", checkin_path(checkin.id)
+      %td= link_to "edit", edit_checkin_path(checkin.id)
+      %td= link_to "delete", checkin_path(checkin.id), :method => :delete
 

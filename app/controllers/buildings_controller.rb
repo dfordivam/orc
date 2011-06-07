@@ -2,10 +2,12 @@ class BuildingsController < ApplicationController
   def new
     @building = Building.new
   end
+
   def create
     @building = Building.new(params[:building])
     @building.save
   end
+
   def index
     @buildings = Building.find(:all)
   end
@@ -24,5 +26,11 @@ class BuildingsController < ApplicationController
   end
 
   def update
+    @building = Building.find(params[:id])
+    if @building.update_attributes(params[:building])
+      redirect_to buildings_path
+    else
+      render 'edit'
+    end
   end
 end

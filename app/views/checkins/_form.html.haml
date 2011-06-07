@@ -1,9 +1,27 @@
 = javascript_include_tag 'checkin'
 = form_for @checkin do |f|
-  // need this dummy form fields so that visitor details are passed on to the create checkin
-  = f.label :visitor, 'Visitor', :hidden => true
-  = f.text_field :visitor_id, :hidden =>true
+  = label_tag :visitor_name, 'Visitor Name'
+  = text_field_tag 'visitor[name]'
   %br
+  = label_tag :visitor_age, 'Age'
+  = number_field_tag 'visitor[age]', :in => [1,110], :step => 1
+  %br
+  = label_tag :visitor_address, 'Address'
+  = text_field_tag 'visitor[address]'
+  %br
+  = label_tag :visitor_gender, 'Gender'
+  = radio_button_tag 'visitor[gender]' , 0
+  Male
+  = radio_button_tag 'visitor[gender]' , 1
+  Female
+  %br
+  = label_tag :visitor_mobile_no, 'Mobile No.'
+  = text_field_tag 'visitor[mobile_no]'
+  %br
+  = label_tag :visitor_type, 'Type'
+  = select :visitor, :visitor_type, @coll
+  %br
+
   = f.label :no_of_days, 'No. of Days'
   = f.number_field :no_of_days 
   %br
@@ -17,7 +35,5 @@
   = select :checkin, :room_id, {:include_blank => true}  
   %br
   .rooms_result
-
-  
-  = submit_tag 'Create'
+  = submit_tag 'Submit'
 
