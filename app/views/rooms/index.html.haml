@@ -1,0 +1,20 @@
+%table
+  %tr
+    %th Room No.
+    %th Empty Beds
+    %th Total Beds
+    %th Is AC
+    %th Category
+    %th Floor
+  - @rooms.each do |room|
+    %tr
+      %td= room.room_no
+      %td= room.empty_beds
+      %td= room.occupied_beds
+      %td= room.is_ac
+      %td= room.category
+      %td= room.floor
+      %td= link_to "show", room_path(room.id)
+      %td= link_to "edit", edit_room_path(room.id)
+      %td= link_to "delete", room_path(room.id), :method => :delete
+
