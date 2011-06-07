@@ -15,7 +15,7 @@
       - if checkin.visitor 
         %td= link_to checkin.visitor.name, visitor_path(checkin.visitor.id)
         %td= checkin.visitor.age
-        %td= checkin.visitor.gender
+        %td= gender(checkin.visitor.gender)
         %td= checkin.visitor.address
         %td= checkin.visitor.mobile_no
         %td= checkin.visitor.visitor_type
