@@ -45,5 +45,11 @@ class VisitorsController < ApplicationController
   end
 
   def update
+    @visitor = Visitor.find(params[:id])
+    if @visitor.update_attributes(params[:visitor])
+      redirect_to visitors_path
+    else
+      render 'edit'
+    end
   end
 end

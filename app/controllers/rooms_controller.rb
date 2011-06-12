@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
     @room = Room.new(params[:room])
     @room.empty_beds = @room.total_beds - @room.occupied_beds
     if @room.save
-      redirect_to buildings_path
+      redirect_to building_path(@building.id)
     else
       redirect_to new_room_path
     end
@@ -33,6 +33,7 @@ class RoomsController < ApplicationController
   def destroy 
     @room = Room.find(params[:id])
     @room.destroy
+    redirect_to building_path(@room.building.id)
   end
 
   def edit 
@@ -40,5 +41,11 @@ class RoomsController < ApplicationController
   end
 
   def update
+    @room = Room.find(params[:id])
+    if @room.update_attributes(params[:room])
+      redirect_to rooms_path
+    else
+      render 'edit'
+    end
   end
 end

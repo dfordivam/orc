@@ -10,6 +10,7 @@
     %th Event
     %th Building
     %th Room No.
+    %th Is Active?
   - @checkins.each do |checkin|
     %tr
       - if checkin.visitor 
@@ -24,7 +25,9 @@
         - if checkin.room
           %td= checkin.room.building.name
           %td= checkin.room.room_no
+        %td= checkin.is_active
       %td= link_to "show", checkin_path(checkin.id)
       %td= link_to "edit", edit_checkin_path(checkin.id)
+      %td= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
       %td= link_to "delete", checkin_path(checkin.id), :method => :delete
 

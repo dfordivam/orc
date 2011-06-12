@@ -58,4 +58,12 @@ class CheckinsController < ApplicationController
     @checkin.destroy
     redirect_to checkins_path
   end
+
+  def inactivate
+    @checkin = Checkin.find(params[:id])
+    if @checkin
+      @checkin.update_attribute(:is_active, 0)
+    end
+    redirect_to checkins_path
+  end
 end

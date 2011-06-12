@@ -40,5 +40,8 @@
   = select :checkin, :room_id, {:include_blank => true}  
   %br
   .rooms_result
+  = f.label :is_active, 'Is Active?'
+  = f.check_box :is_active, :checked => true 
+  %br
   = submit_tag 'Submit'
 
