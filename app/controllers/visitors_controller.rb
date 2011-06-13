@@ -16,7 +16,7 @@ class VisitorsController < ApplicationController
   end
 
   def index
-    @visitors = Visitor.find(:all).paginate(page: params[:page], per_page: 5)
+    @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
