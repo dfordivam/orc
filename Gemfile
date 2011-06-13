@@ -8,6 +8,7 @@ gem 'rake', '0.8.7'
 gem 'mysql'
 gem 'annotate'
 gem 'annotate-models'
+gem 'will_paginate'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

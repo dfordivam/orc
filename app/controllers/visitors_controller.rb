@@ -1,4 +1,5 @@
 class VisitorsController < ApplicationController
+
   def new
     @visitor = Visitor.new
     @coll = ["BK" , "Non BK"] #_visitor_types
@@ -15,7 +16,7 @@ class VisitorsController < ApplicationController
   end
 
   def index
-    @visitors = Visitor.find(:all)
+    @visitors = Visitor.find(:all).paginate(page: params[:page], per_page: 5)
   end
 
   def show
