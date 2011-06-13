@@ -26,6 +26,7 @@ Orc::Application.routes.draw do
   match "checkins/inactivate/:id" => "checkins#inactivate"
 
   get 'javascripts/checkin' => 'javascripts#checkin'
+  get 'javascripts/visitor' => 'javascripts#visitor'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

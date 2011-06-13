@@ -1,27 +1,108 @@
-= javascript_include_tag 'checkin'
+= javascript_include_tag 'checkin', 'visitor'
 = form_for @checkin do |f|
   -if @visitor.id.nil?
-    = label_tag :visitor_name, 'Visitor Name'
-    = text_field_tag 'visitor[name]'
-    %br
-    = label_tag :visitor_age, 'Age'
-    = number_field_tag 'visitor[age]', :in => [1,110], :step => 1
-    %br
-    = label_tag :visitor_address, 'Address'
-    = text_field_tag 'visitor[address]'
-    %br
-    = label_tag :visitor_gender, 'Gender'
-    = radio_button_tag 'visitor[gender]' , 0
-    Male
-    = radio_button_tag 'visitor[gender]' , 1
-    Female
-    %br
-    = label_tag :visitor_mobile_no, 'Mobile No.'
-    = text_field_tag 'visitor[mobile_no]'
-    %br
-    = label_tag :visitor_type, 'Type'
-    = select :visitor, :visitor_type, @coll
-    %br
+    .visitors
+      = fields_for @checkin.visitor do |visitor|
+        = visitor.label :name, 'Name'
+        = visitor.text_field :name
+        %br
+        = visitor.label :age, 'Age'
+        = visitor.number_field :age, :in => [1,110], :step => 1
+        %br
+        = visitor.label :address, 'Address'
+        = visitor.text_field :address
+        %br
+        = visitor.label :gender, 'Gender'
+        = visitor.radio_button :gender , 0 
+        Male
+        = visitor.radio_button :gender , 1
+        Female
+        %br
+        = visitor.label :mobile_no, 'Mobile No.'
+        = visitor.text_field :mobile_no
+        %br
+        = visitor.label :visitor_type, 'Type'
+        = select :visitor, :visitor_type, @coll
+        %br
+        = visitor.label :designation, 'Designation'
+        = visitor.text_field :designation
+        %br
+        = visitor.label :organisation, 'Organisation'
+        = visitor.text_field :organisation
+        %br
+        = visitor.label :transport_mode, 'Mode of Transport'
+        = visitor.text_field :transport_mode
+        %br
+        = visitor.label :dob, 'Date of Birth'
+        = visitor.text_field :dob
+        %br
+        = visitor.label :in_gyan_years, 'In Gyan years'
+        = visitor.number_field :in_gyan_years
+        %br
+        = visitor.label :centre_addr, 'Centre Address'
+        = visitor.text_field :centre_addr
+        %br
+        = visitor.label :is_guide, 'Is Guide?'
+        = visitor.radio_button :is_guide , 0 
+        No
+        = visitor.radio_button :is_guide , 1
+        Yes
+        %br
+        = visitor.label :email, 'Email'
+        = visitor.text_field :email
+        %br
+        = visitor.label :qualification, 'Qualification'
+        = visitor.text_field :qualification
+        %br
+        = visitor.label :vehicle_no, 'Vehicle No.'
+        = visitor.text_field :vehicle_no
+        %br
+        = visitor.label :is_driver_along, 'Is Driver Along'
+        = visitor.radio_button :is_driver_along , 0 
+        No
+        = visitor.radio_button :is_driver_along , 1
+        Yes
+        %br
+        = visitor.label :driver_name, 'Driver Name'
+        = visitor.text_field :driver_name
+        %br
+        = visitor.label :driver_contact_no, 'Driver Contact No.'
+        = visitor.text_field :driver_contact_no
+        %br
+        = visitor.label :is_driver_accom_req, 'Is Driver Accomodation Required'
+        = visitor.radio_button :is_driver_accom_req , 0 
+        No
+        = visitor.radio_button :is_driver_accom_req , 1
+        Yes
+        %br
+        = visitor.label :is_driver_in_gyan, 'Is Driver in Gyan'
+        = visitor.radio_button :is_driver_in_gyan , 0 
+        No
+        = visitor.radio_button :is_driver_in_gyan , 1
+        Yes
+        %br
+        = visitor.label :type_of_food, 'Type of Food'
+        = visitor.text_field :type_of_food
+        %br
+        = visitor.label :medicine_requirement, 'Medicine Requirement'
+        = visitor.text_field :medicine_requirement
+        %br
+        = visitor.label :remarks, 'Remarks'
+        = visitor.text_field :remarks
+        %br
+        = visitor.label :is_special_care_req, 'Special Care Required' 
+        = visitor.radio_button :is_special_care_req , 0 
+        No
+        = visitor.radio_button :is_special_care_req , 1
+        Yes
+        %br
+        = visitor.label :is_physically_challenged, 'Is Physically Challenged'
+        = visitor.radio_button :is_physically_challenged , 0 
+        No
+        = visitor.radio_button :is_physically_challenged , 1
+        Yes
+        %br
+       
   -else
     = f.label :visitor, 'Visitor id'
     = f.text_field :visitor_id, :hidden => true, :readonly => true
