@@ -24,6 +24,7 @@ class CheckinsController < ApplicationController
 
   def edit
     @checkin = Checkin.find(params[:id])
+    @visitor = @checkin.visitor
     @event_list = Event.find(:all)
     @building_list = Building.find(:all)
   end
@@ -63,6 +64,10 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.find(params[:id])
     if @checkin
       @checkin.update_attribute(:is_active, 0)
+      if @checkin.room && @checkin.room.occupied_beds > 0 
+        @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds - 1)
+        @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+      end
     end
     redirect_to checkins_path
   end

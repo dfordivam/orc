@@ -6,6 +6,7 @@ class BuildingsController < ApplicationController
   def create
     @building = Building.new(params[:building])
     @building.save
+    redirect_to buildings_path
   end
 
   def index
@@ -19,6 +20,7 @@ class BuildingsController < ApplicationController
   def destroy
     @building = Building.find(params[:id])
     @building.destroy
+    redirect_to buildings_path
   end
 
   def edit

@@ -1,0 +1,19 @@
+= form_for @event do |f|
+  = f.label :name, 'Event Name'
+  = f.text_field :name
+  %br
+  = f.label :start_date_time, 'Start Date'
+  = f.text_field :start_date_time
+  %br
+  = f.label :end_date_time, 'End Date'
+  = f.text_field :end_date_time
+  %br
+  = f.label :capacity, 'Capacity'
+  = f.number_field :capacity, :in => [1,100000], :step => 1
+  %br
+  = f.label :location, 'Location'
+  = f.text_field :location
+  %br
+  %br  
+  = submit_tag 'Submit' 
+
