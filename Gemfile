@@ -9,7 +9,8 @@ gem 'mysql'
 gem 'annotate'
 gem 'annotate-models'
 gem 'will_paginate'
-
+gem 'authlogic', '3.0.3'
+gem 'cancan', '1.6.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

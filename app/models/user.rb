@@ -15,6 +15,10 @@
 class User < ActiveRecord::Base
   belongs_to :role
 
+  acts_as_authentic do |config|
+    config.crypto_provider = Authlogic::CryptoProviders::MD5
+  end
+
   validates :username , :presence => true, :length => { :minimum => 5} , :uniqueness => true
   validates :crypted_password, :presence => true
   validates :password_salt, :presence => true

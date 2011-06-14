@@ -31,7 +31,11 @@ GEM
     annotate (2.4.0)
     annotate-models (1.0.4)
     arel (2.0.10)
+    authlogic (3.0.3)
+      activerecord (>= 3.0.7)
+      activerecord (>= 3.0.7)
     builder (2.1.2)
+    cancan (1.6.5)
     capybara (1.0.0.beta1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -131,6 +135,8 @@ PLATFORMS
 DEPENDENCIES
   annotate
   annotate-models
+  authlogic (= 3.0.3)
+  cancan (= 1.6.5)
   capybara
   cucumber-rails
   database_cleaner
