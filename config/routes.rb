@@ -13,6 +13,8 @@ Orc::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
 
+  resource :user_session
+  resources :users
   resources :visitors
   resources :events
   resources :buildings
