@@ -1,21 +1,21 @@
 # == Schema Information
-# Schema version: 20110613040550
+# Schema version: 20110614113903
 #
 # Table name: checkins
 #
-#  id                  :integer(4)      not null, primary key
+#  id                  :integer         not null, primary key
 #  checkin_date        :date
 #  checkin_time        :time
-#  no_of_days          :integer(4)
-#  visitor_id          :integer(4)
-#  event_id            :integer(4)
-#  room_id             :integer(4)
+#  no_of_days          :integer
+#  visitor_id          :integer
+#  event_id            :integer
+#  room_id             :integer
 #  created_at          :datetime
 #  updated_at          :datetime
-#  is_active           :boolean(1)
-#  is_accom_req        :boolean(1)
-#  meals_req           :integer(4)
-#  is_sight_seeing_req :boolean(1)
+#  is_active           :boolean
+#  is_accom_req        :boolean
+#  meals_req           :integer
+#  is_sight_seeing_req :boolean
 #  remarks             :string(255)
 #
 

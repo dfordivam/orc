@@ -13,7 +13,9 @@ Orc::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
 
-  resource :user_session
+  match 'login' => 'user_sessions#new'
+  match 'logout' => 'user_sessions#destroy'
+  resources :user_sessions
   resources :users
   resources :visitors
   resources :events

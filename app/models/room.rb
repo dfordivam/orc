@@ -1,21 +1,21 @@
 # == Schema Information
-# Schema version: 20110611144930
+# Schema version: 20110614113903
 #
 # Table name: rooms
 #
-#  id              :integer(4)      not null, primary key
-#  is_ac           :boolean(1)
-#  is_extensible   :boolean(1)
-#  beds_extensible :integer(4)
-#  floor           :integer(4)
-#  empty_beds      :integer(4)
-#  occupied_beds   :integer(4)
-#  category        :integer(4)
+#  id              :integer         not null, primary key
+#  is_ac           :boolean
+#  is_extensible   :boolean
+#  beds_extensible :integer
+#  floor           :integer
+#  empty_beds      :integer
+#  occupied_beds   :integer
+#  category        :integer
 #  created_at      :datetime
 #  updated_at      :datetime
-#  building_id     :integer(4)
-#  room_no         :integer(4)
-#  total_beds      :integer(4)
+#  building_id     :integer
+#  room_no         :integer
+#  total_beds      :integer
 #
 
 class Room < ActiveRecord::Base

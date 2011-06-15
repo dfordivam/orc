@@ -1,0 +1,8 @@
+= form_for @user_session do |f|
+  = f.label :login, 'Login ID'
+  = f.text_field :login
+  %br
+  = f.label :password, 'Password'
+  = f.password_field :password
+  %br
+  = submit_tag 'Submit'
