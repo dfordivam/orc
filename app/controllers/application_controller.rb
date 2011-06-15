@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   protected
+  def authenticate
+    unless current_user
+      flash[:notice] = "Please Login First"
+      redirect_to new_user_session_path
+      return false
+    end
+  end
+
   def current_user_session
       @current_user_session ||= UserSession.find
   end
