@@ -16,7 +16,7 @@
     .right_column_building= building.rooms.count
     .col_building= building.floors
     .show_index= link_to "Add Room", new_room_path(:building_id => building.id)
-    -#.show_index= link_to  "show", building_path(building.id)
+    .show_index= link_to  "show", building_path(building.id)
     .edit_index= link_to "edit", edit_building_path(building.id)
     .delete_index= link_to "delete", building_path(building.id), :method => :delete
     .spacer
