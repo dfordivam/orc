@@ -1,24 +1,30 @@
-= link_to "Add new Visitor Information", new_visitor_path
+.div_link
+  = link_to "Add new Visitor Information", new_visitor_path
 .paginate_visitor
   = will_paginate
-  %table
-    %tr
-      %th Name
-      %th Age
-      %th Gender
-      %th Address
-      %th Mobile
-      %th Type
-    - @visitors.each do |visitor|
-      %tr
-        %td= visitor.name
-        %td= visitor.age
-        %td= gender(visitor.gender)
-        %td= visitor.address
-        %td= visitor.mobile_no
-        %td= visitor.visitor_type
-        %td= link_to "show", visitor_path(visitor.id)
-        %td= link_to "edit", edit_visitor_path(visitor.id)
-        %td= link_to "delete", visitor_path(visitor.id), :method => :delete
+  .wrapper
+    .left_column Name
+    .central-colunm{:align => "center"} Age
+    .right_column Gender
+    .col Address
+    .col2 Mobile
+    .col3 Visitor Type
+    .show_index
+    .edit_index
+    .delete_index
+    .spacer
+  - @visitors.each do |visitor|
+    .wrapper
+      .left_column= visitor.name
+      .central-colunm{:align => "center"}= visitor.age
+      .right_column= gender(visitor.gender)
+      .col= visitor.address
+      .col2= visitor.mobile_no
+      .col3= visitor.visitor_type
+      -#.show_index= link_to "show", visitor_path(visitor.id)
+      .show_index= link_to "checkin", new_checkin_path(:visitor_id => visitor.id)
+      .edit_index_index= link_to "edit", edit_visitor_path(visitor.id)
+      .delete_index= link_to "delete", visitor_path(visitor.id), :method => :delete
+      .spacer
   = will_paginate
 

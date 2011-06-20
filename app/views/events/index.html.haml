@@ -1,18 +1,22 @@
-= link_to "Add new Event", new_event_path
-%table
-  %tr
-    %th Event Name
-    %th Start Date
-    %th End Date
-    %th Capacity
-    %th Location
-  - @events.each do |event|
-    %tr
-      %td= event.name
-      %td= event.start_date_time
-      %td= event.end_date_time
-      %td= event.capacity
-      %td= event.location
-      %td= link_to "show", event_path(event.id)
-      %td= link_to "edit", edit_event_path(event.id)
-      %td= link_to "delete", event_path(event.id), :method => :delete
+.div_link
+  = link_to "Add new Event", new_event_path
+.wrapper_event
+  .left_column_event Event Name
+  .central-colunm-event{:align => "center"} Start Date
+  .right_column_event End Date
+  .col_event Capacity
+  .col2_event Location
+  .edit_index
+  .delete_index
+  .spacer
+
+- @events.each do |event|
+  .wrapper
+    .left_column_event= event.name
+    .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%YYYY")
+    .right_column_event= event.end_date_time.strftime("%d-%m-%YYYY")
+    .col_event= event.capacity
+    .col2_event= event.location
+    .edit_index= link_to "edit", edit_event_path(event.id)
+    .delete_index= link_to "delete", event_path(event.id), :method => :delete
+    .spacer

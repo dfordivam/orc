@@ -2,22 +2,18 @@
 <html>
 <head>
   <title>Orc</title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "application", "screen" %>
   <%= javascript_include_tag :defaults, 'jquery', 'jquery.min', 'jquery_ujs', 'jquery-ui' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <nav class="navigation">
-  <ul>
-    <li><%= link_to "Home", '#' %></li>
-    <li><%= link_to "Visitors", visitors_path %></li>
-    <li><%= link_to "Buildings", buildings_path %></li>
-    <li><%= link_to "Events", events_path %></li>
-    <li><%= link_to "Checkins", checkins_path %></li>
-  </ul>
-  </nav>
-
-<%= yield %>
-
+  <div id="header">
+    <div id="navigation">
+      <%= render_navigation %>
+    </div>
+  </div>
+  <div id="contentBody">
+    <%= yield %>
+  </div>
 </body>
 </html>

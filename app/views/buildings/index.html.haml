@@ -1,17 +1,22 @@
-= link_to "Add new Building Information", new_building_path
-%table
-  %tr
-    %th Name
-    %th No. of Vacant Rooms
-    %th Total No. of Rooms
-    %th Floors
-  - @buildings.each do |building|
-    %tr
-      %td= building.name
-      %td= building.rooms.count
-      %td= building.rooms.count
-      %td= building.floors
-      %td= link_to "show", building_path(building.id)
-      %td= link_to "edit", edit_building_path(building.id)
-      %td= link_to "delete", building_path(building.id), :method => :delete
-
+.div_link
+  = link_to "Add new Building Information", new_building_path
+.wrapper_building
+  .left_column_building Name
+  .central-colunm-building{:align => "center"} No. of Vacant Rooms
+  .right_column_building Total No. of Rooms
+  .col_building Floors
+  .show_index
+  .edit_index
+  .delete_index
+  .spacer
+- @buildings.each do |building|
+  .wrapper_building
+    .left_column_building= building.name
+    .central-colunm-building{:align => "center"}= building.rooms.count
+    .right_column_building= building.rooms.count
+    .col_building= building.floors
+    .show_index= link_to "Add Room", new_room_path(:building_id => building.id)
+    -#.show_index= link_to  "show", building_path(building.id)
+    .edit_index= link_to "edit", edit_building_path(building.id)
+    .delete_index= link_to "delete", building_path(building.id), :method => :delete
+    .spacer

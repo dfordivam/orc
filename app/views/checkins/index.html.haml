@@ -1,33 +1,39 @@
-= link_to 'Add new Checkin', new_checkin_path
-%table
-  %tr
-    %th Visitor Name
-    %th Age
-    %th Gender
-    %th Address
-    %th Mobile
-    %th Type
-    %th Event
-    %th Building
-    %th Room No.
-    %th Is Active?
-  - @checkins.each do |checkin|
-    %tr
-      - if checkin.visitor 
-        %td= link_to checkin.visitor.name, visitor_path(checkin.visitor.id)
-        %td= checkin.visitor.age
-        %td= gender(checkin.visitor.gender)
-        %td= checkin.visitor.address
-        %td= checkin.visitor.mobile_no
-        %td= checkin.visitor.visitor_type
-        - if checkin.event
-          %td= checkin.event.name
-        - if checkin.room
-          %td= checkin.room.building.name
-          %td= checkin.room.room_no
-        %td= checkin.is_active
-      %td= link_to "show", checkin_path(checkin.id)
-      %td= link_to "edit", edit_checkin_path(checkin.id)
-      %td= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
-      %td= link_to "delete", checkin_path(checkin.id), :method => :delete
-
+.div_link
+  = link_to 'Add new Checkin', new_checkin_path
+.wrapper_checkin
+  .left_column_checkin Visitor Name
+  .central-colunm-checkin{:align => "center"} Age
+  .right_column_checkin Gender
+  .col_checkin Address
+  .col2_checkin Mobile
+  .col3_checkin Visitor Type
+  .col4_checkin Event
+  .col5_checkin Building
+  .col6_checkin Room No
+  .col7_checkin Is Active
+  .show_index_checkin
+  .edit_index_checkin
+  .inactivate_checkin
+  .delete_index_checkin
+  .spacer
+- @checkins.each do |checkin|
+  .wrapper_checkin
+    - if checkin.visitor
+      .left_column_checkin= checkin.visitor.name
+      -#.left_column_checkin= link_to checkin.visitor.name, visitor_path(checkin.visitor.id)
+      .central-colunm-checkin{:align => "center"}= checkin.visitor.age
+      .right_column_checkin= gender(checkin.visitor.gender)
+      .col_checkin= checkin.visitor.address
+      .col2_checkin= checkin.visitor.mobile_no
+      .col3_checkin= checkin.visitor.visitor_type
+      - if checkin.event
+        .col4_checkin= checkin.event.name
+      - if checkin.room
+        .col5_checkin= checkin.room.building.name
+        .col6_checkin= checkin.room.room_no
+      .col7_checkin= checkin.is_active
+    .show_index= link_to "show", checkin_path(checkin.id)
+    .edit_index= link_to "edit", edit_checkin_path(checkin.id)
+    .inactivate_checkin= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
+    .delete_index= link_to "delete", checkin_path(checkin.id), :method => :delete
+    .spacer
