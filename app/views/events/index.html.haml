@@ -13,8 +13,8 @@
 - @events.each do |event|
   .wrapper
     .left_column_event= event.name
-    .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%YYYY")
-    .right_column_event= event.end_date_time.strftime("%d-%m-%YYYY")
+    .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%Y")
+    .right_column_event= event.end_date_time.strftime("%d-%m-%Y")
     .col_event= event.capacity
     .col2_event= event.location
     .edit_index= link_to "edit", edit_event_path(event.id)

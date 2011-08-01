@@ -1,5 +1,6 @@
 body {
-  background-color: #F0F0F0;
+  /*background-color: #F0F0F0;*/
+  background-color: #ffffff;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -390,5 +391,36 @@ width:50px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+/* Tabular Form*/
+.wrapper-box {
+width:1000px;
+/*border:1px #CCCCCC solid;*/
+padding:3px;
+}
+.left-column-row {
+width:179px;
+float:left;
+text-align:center;
+margin:1px;
+}
+.central-colunm-row {
+width:50px;
+float:left;
+margin:1px;
+}
+
+.middle-right-column-row {
+padding-right: 400px;
+float:right;
+text-align:center;
+margin:1px;
+}
+.right-column-row {
+padding-right: 10px;
+float:right;
+text-align:center;
 margin:1px;
 }
