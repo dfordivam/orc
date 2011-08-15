@@ -982,3 +982,6 @@ input[type=hidden] {
 .padd20tp-1{padding-top:20px;}
 .mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 900px;}
 .table-structure {width:100%;}
+#add_info {cursor: pointer}
+/* .field_with_errors { display: inline; }*/
+#add_fields2{padding: 0px; margin: 0px;}

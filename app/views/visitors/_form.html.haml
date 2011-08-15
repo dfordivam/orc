@@ -1,112 +1,60 @@
 = javascript_include_tag 'visitor'
 = form_for @visitor do |visitor|
+  = render "shared/error_messages", :target => @visitor
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
     %tbody
       %tr
         %td
-          = visitor.label :name, 'Name'
+          = visitor.label :name, 'Name*'
         %td
           = visitor.text_field :name, :class => 'text_feld_area'
         %td
-          = visitor.label :age, 'Age'
+          = visitor.label :dob, 'Date of Birth*'
         %td
-          = visitor.number_field :age, :in => [1,110], :step => 1, :class => 'text_feld_area'
+          = visitor.text_field :dob, :readonly => true, :class => 'text_feld_area'
       %tr
         %td
-          = visitor.label :address, 'Address'
+          = visitor.label :address, 'Address*'
         %td
-          = visitor.text_field :address, :class => 'text_feld_area'
+          = visitor.text_area :address, :size=> "20x1"
         %td
-          = visitor.label :gender, 'Gender'
+          = visitor.label :gender, 'Gender*'
         %td
-          = visitor.radio_button :gender , 0
+          = visitor.radio_button :gender , "male"
           Male
-          = visitor.radio_button :gender , 1
+          = visitor.radio_button :gender , "female"
           Female
       %tr
         %td
-          = visitor.label :mobile_no, 'Mobile No.'
+          = visitor.label :mobile_no, 'Mobile No*'
         %td
           = visitor.text_field :mobile_no, :class => 'text_feld_area'
         %td
-          = visitor.label :visitor_type, 'Type'
+          = visitor.label :visitor_type, 'Type*'
         %td
-          = select :visitor, :visitor_type, @coll
+          = select :visitor, :visitor_type, VISITOR_TYPE, :include_blank => ""
+      %tr{:id => 'add_fields'}
+        - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk') || @controller.action_name == 'edit'
+          = render :partial => "add_fields"
       %tr
         %td
-          = visitor.label :designation, 'Designation'
+          = visitor.label :is_physically_challenged, 'Physically Challenged*'
         %td
-          = visitor.text_field :designation, :class => 'text_feld_area'
-        %td
-          = visitor.label :organisation, 'Organisation'
-        %td
-          = visitor.text_field :organisation, :class => 'text_feld_area'
-      %tr
-        %td
-          = visitor.label :transport_mode, 'Mode of Transport'
-        %td
-          = visitor.text_field :transport_mode, :class => 'text_feld_area'
-        %td
-          = visitor.label :dob, 'Date of Birth'
-        %td
-          = visitor.text_field :dob, :class => 'text_feld_area'
-      %tr
-        %td
-          = visitor.label :in_gyan_years, 'In Gyan years'
-        %td
-          = visitor.number_field :in_gyan_years, :class => 'text_feld_area'
-        %td
-          = visitor.label :centre_addr, 'Centre Address'
-        %td
-          = visitor.text_field :centre_addr, :class => 'text_feld_area'
-      %tr
-        %td
-          = visitor.label :is_guide, 'Is Guide?'
-        %td
-          = visitor.radio_button :is_guide , 0
+          = visitor.radio_button :is_physically_challenged , 'false'
           No
-          = visitor.radio_button :is_guide , 1
-          Yes
-        %td
-          = visitor.label :is_driver_along, 'Is Driver Along'
-        %td
-          = visitor.radio_button :is_driver_along , 0
-          No
-          = visitor.radio_button :is_driver_along , 1
-          Yes
-      %tr
-        %td
-          = visitor.label :driver_name, 'Driver Name'
-        %td
-          = visitor.text_field :driver_name, :class => 'text_feld_area'
-        %td
-          = visitor.label :driver_contact_no, 'Driver Contact No.'
-        %td
-          = visitor.text_field :driver_contact_no, :class => 'text_feld_area'
-      %tr
-        %td
-          = visitor.label :is_driver_accom_req, 'Is Driver Accomodation Required'
-        %td
-          = visitor.radio_button :is_driver_accom_req , 0
-          No
-          = visitor.radio_button :is_driver_accom_req , 1
-          Yes
-        %td
-          = visitor.label :is_driver_in_gyan, 'Is Driver in Gyan'
-        %td
-          = visitor.radio_button :is_driver_in_gyan , 0
-          No
-          = visitor.radio_button :is_driver_in_gyan , 1
-          Yes
-      %tr
-        %td
-          = visitor.label :is_physically_challenged, 'Is Physically Challenged'
-        %td
-          = visitor.radio_button :is_physically_challenged , 0
-          No
-          = visitor.radio_button :is_physically_challenged , 1
+          = visitor.radio_button :is_physically_challenged , 'true'
           Yes
         %td{:colspan => "2"}
+      %tr
+        %td{:colspan =>3, :id => 'add_info'}
+          %b
+            %u Addintional Info
+            = image_tag('add-Icon.png')
+      %tr
+        %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+          %tbody{:id => 'additional_info'}
+            - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
+              = render :partial => "additional_info"
       %tr
         %td{:colspan => "4"} &nbsp;
       %tr

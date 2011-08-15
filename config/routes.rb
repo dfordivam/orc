@@ -11,10 +11,18 @@ Orc::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
      match 'home/index_list' => 'home#index_list', :as => :index_list
+#     match 'visitors/add_fields_1' => 'visitors#add_fields_1'
+#     match 'visitors/additional_info' => 'visitors#additional_info'
   # This route can be invoked with purchase_url(:id => product.id)
 
 
-  resources :visitors
+  resources :visitors do
+    collection do
+      post :add_fields_1
+      post :add_fields_2
+      post :additional_info
+    end
+  end
   resources :events
   resources :buildings
   resources :rooms
@@ -29,6 +37,7 @@ Orc::Application.routes.draw do
   get 'javascripts/checkin' => 'javascripts#checkin'
   get 'javascripts/visitor' => 'javascripts#visitor'
 
+  
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

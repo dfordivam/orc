@@ -1,8 +1,19 @@
 class VisitorsController < ApplicationController
 
+  def index
+    @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def show
+    @visitor = Visitor.find(params[:id])
+  end
+
   def new
     @visitor = Visitor.new
-    @coll = ["BK" , "Non BK"] #_visitor_types
+  end
+
+  def edit
+    @visitor = Visitor.find(params[:id])
   end
 
   def create
@@ -15,17 +26,14 @@ class VisitorsController < ApplicationController
     end
   end
 
-  def index
-    @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
-  end
-
-  def show
+  def update
     @visitor = Visitor.find(params[:id])
-  end
-
-  def edit
-    @visitor = Visitor.find(params[:id])
-    @coll = ["BK" , "Non BK"] #_visitor_types
+    if @visitor.update_attributes(params[:visitor])
+      flash[:notice] = "Visitor successfully updated"
+      redirect_to visitors_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -34,12 +42,18 @@ class VisitorsController < ApplicationController
     redirect_to visitors_path
   end
 
-  def update
-    @visitor = Visitor.find(params[:id])
-    if @visitor.update_attributes(params[:visitor])
-      redirect_to visitors_path
-    else
-      render 'edit'
-    end
+  # Adding form fields
+  def add_fields_1
+    render :partial => "add_fields"
+  end
+
+  # Adding form fields
+  def add_fields_2
+    render :partial => "add_fields2"
+  end
+
+  # Adding additional form fields
+  def additional_info
+    render :partial => "additional_info"
   end
 end

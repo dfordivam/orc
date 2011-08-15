@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110613040550) do
+ActiveRecord::Schema.define(:version => 20110814222805) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(:version => 20110613040550) do
   create_table "visitors", :force => true do |t|
     t.string   "name"
     t.integer  "age"
-    t.string   "address"
-    t.boolean  "gender"
-    t.integer  "mobile_no"
+    t.text     "address"
+    t.string   "gender"
+    t.string   "mobile_no"
     t.string   "visitor_type"
     t.string   "designation"
     t.string   "organisation"
@@ -102,21 +102,21 @@ ActiveRecord::Schema.define(:version => 20110613040550) do
     t.datetime "updated_at"
     t.date     "dob"
     t.integer  "in_gyan_years"
-    t.string   "centre_addr"
-    t.boolean  "is_guide"
+    t.text     "centre_addr"
+    t.string   "is_guide"
     t.string   "email"
     t.string   "qualification"
     t.string   "vehicle_no"
-    t.boolean  "is_driver_along"
+    t.string   "is_driver_along"
     t.string   "driver_name"
-    t.integer  "driver_contact_no"
-    t.boolean  "is_driver_accom_req"
-    t.boolean  "is_driver_in_gyan"
+    t.string   "driver_contact_no"
+    t.string   "is_driver_accom_req"
+    t.string   "is_driver_in_gyan"
     t.string   "type_of_food"
     t.string   "medicine_requirement"
     t.string   "remarks"
     t.boolean  "is_special_care_req"
-    t.boolean  "is_physically_challenged"
+    t.string   "is_physically_challenged"
     t.string   "create_by"
     t.string   "updated_by"
   end
