@@ -1,0 +1,28 @@
+%tr
+  %td
+    = label_tag :driver_name, 'Driver Name'
+  %td
+    = text_field_tag "visitor[driver_name]", "#{!params["visitor"].blank? ? params["visitor"]["driver_name"] : !@visitor.blank? ? @visitor.driver_name : nil}", :class => 'text_feld_area'
+  %td
+    = label_tag :driver_contact_no, 'Driver Contact No.'
+  %td
+    = text_field_tag "visitor[driver_contact_no]", "#{!params["visitor"].blank? ? params["visitor"]["driver_contact_no"] : !@visitor.blank? ? @visitor.driver_contact_no : nil}", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :is_driver_accom_req, 'Driver Accomodation Required'
+  %td
+    - checked_is_driver_accom_req_false = ((!params["visitor"].blank? && params["visitor"]["is_driver_accom_req"] == 'false') || (!@visitor.blank? && @visitor.is_driver_accom_req == 'false')) ? 'checked' : nil
+    - checked_is_driver_accom_req_true = ((!params["visitor"].blank? && params["visitor"]["is_driver_accom_req"] == 'true') || (!@visitor.blank? && @visitor.is_driver_accom_req == 'true')) ? 'checked' : nil
+    = radio_button_tag "visitor[is_driver_accom_req]" , 'false', checked_is_driver_accom_req_false
+    No
+    = radio_button_tag "visitor[is_driver_accom_req]" , 'true', checked_is_driver_accom_req_true
+    Yes
+  %td
+    = label_tag :is_driver_in_gyan, 'Is Driver in Gyan'
+  %td
+    - checked_is_driver_in_gyan_false = ((!params["visitor"].blank? && params["visitor"]["is_driver_in_gyan"] == 'false') || (!@visitor.blank? && @visitor.is_driver_in_gyan == 'false')) ? 'checked' : nil
+    - checked_is_driver_in_gyan_true = ((!params["visitor"].blank? && params["visitor"]["is_driver_in_gyan"] == 'true') || (!@visitor.blank? && @visitor.is_driver_in_gyan == 'true')) ? 'checked' : nil
+    = radio_button_tag "visitor[is_driver_in_gyan]" , 'false', checked_is_driver_in_gyan_false
+    No
+    = radio_button_tag "visitor[is_driver_in_gyan]" , 'true', checked_is_driver_in_gyan_true
+    Yes

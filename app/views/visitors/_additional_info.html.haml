@@ -1,0 +1,44 @@
+%tr
+  %td
+    = label_tag :designation, 'Designation'
+  %td
+    = text_field_tag "visitor[designation]", "#{!params["visitor"].blank? ? params["visitor"]["designation"] : !@visitor.blank? ? @visitor.designation : nil}", :class => 'text_feld_area'
+  %td
+    = label_tag :organisation, 'Organisation'
+  %td
+    = text_field_tag "visitor[organisation]", "#{!params["visitor"].blank? ? params["visitor"]["organisation"] : !@visitor.blank? ? @visitor.organisation : nil}", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :transport_mode, 'Mode of Transport'
+  %td
+    = text_field_tag "visitor[transport_mode]", "#{!params["visitor"].blank? ? params["visitor"]["transport_mode"] : !@visitor.blank? ? @visitor.transport_mode : nil}", :class => 'text_feld_area'
+  %td
+    = label_tag :age, 'Age'
+  %td
+    = number_field_tag "visitor[age]", "#{!params["visitor"].blank? ? params["visitor"]["age"] : !@visitor.blank? ? @visitor.age : nil}", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :is_guide, 'Is Guide?'
+  %td
+    - checked_is_guide_false = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'false') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'false') ? @visitor.is_guide : nil
+    - checked_is_guide_true = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'true') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'true') ? @visitor.is_guide : nil
+    = radio_button_tag "visitor[is_guide]" , 'false', checked_is_guide_false
+    No
+    = radio_button_tag "visitor[is_guide]", 'true', checked_is_guide_true
+    Yes
+  %td
+    = label_tag :is_driver_along, 'Is Driver Along'
+  %td
+    - checked_is_driver_along_false = (!params["visitor"].blank? && params["visitor"]["is_driver_along"] == 'false') ? 'checked' : (!@visitor.blank? && @visitor.is_driver_along == 'false') ? @visitor.is_driver_along : nil
+    - checked_is_driver_along_true = (!params["visitor"].blank? && params["visitor"]["is_driver_along"] == 'true') ? 'checked' : (!@visitor.blank? && @visitor.is_driver_along == 'true') ? @visitor.is_driver_along : nil
+    = radio_button_tag "visitor[is_driver_along]", 'false', checked_is_driver_along_false
+    No
+    = radio_button_tag "visitor[is_driver_along]", 'true', checked_is_driver_along_true
+    Yes
+%tr
+  %td{:colspan =>4}
+    %table{:class => "table-structure", :cellpadding=>"10"}
+      %tbody{:id => 'add_fields2'}
+        - if(!params["visitor"].blank? && params["visitor"]["is_driver_along"] == 'true') || (!@visitor.blank? && @visitor.is_driver_along == 'true')
+          = render :partial => "add_fields2"
+

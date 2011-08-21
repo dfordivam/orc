@@ -512,10 +512,10 @@ body{width:100%;
 	margin:0 auto;}
 
 body, table, div, td, input, textarea {
-	font-family: 'Trebuchet MS', sans-serif;
-	font-size: 12px;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
 	line-height:1.4em;
-	color: #333333;
+	color: #000000;
 }
 
 #container {
@@ -528,11 +528,13 @@ body, table, div, td, input, textarea {
 #header {
 	width: 100%;
 /*	height: 79px;*/
-	background-color: #780F3C !important;
+	background-color: #ffffff !important;
+        border-bottom: 3px solid #064B70 !important;
+	/*background-color: #064B70 !important;*/
 /*	background-image: url("/images/admin/header-bg.gif");
 	background-repeat: repeat-x;*/
 	/*height: 150px;*/
-	height:75px;
+	height:140px;
 	margin-bottom: 30px;
 	margin-top: -5px;
 }
@@ -552,6 +554,7 @@ body, table, div, td, input, textarea {
 	margin-bottom:20px;
 	clear: both;
 	float:left;
+        width: 99%;
 }
 
 
@@ -723,15 +726,15 @@ div.line {
 /* TOP NAVIGATION */
 #navigation {
 	margin-left: 10px;
-/*	margin-top: 110px;*/
+	margin-top: 46px;
 	z-index: 200;
 	position: absolute;
-	font-size: 16px;
-	margin-top: 35px;
+	font-size: 16px;	
 }
 
 #navigation ul.navigation li {
-	background-color:#590C2D;
+	/*background-color:#590C2D;*/
+	background-color:#064B70;
 	line-height: 40px;
 	height: 40px;
 	background-repeat: no-repeat;
@@ -751,12 +754,14 @@ div.line {
 	white-space: nowrap;
 }
 #navigation ul.navigation li.active {
-	background-color: white;
+	/*background-color: white;*/
+	background-color: #C0C0C0;
 	font-size: 1em;
 }
 
 #navigation ul.navigation li.active a{
-	background-color: white;
+	/*background-color: white;*/
+	background-color: #C0C0C0;
 	color: #333333;
 	font-style:normal;
 	font-weight: bold;
@@ -967,3 +972,16 @@ input[type=hidden] {
 	border-radius: 5px;
 	width:28px;
 }
+
+.paddlt5{padding-left:20%;}
+.paddtp10{padding-top:2%;}
+.padd20tp{padding-top:20px;padding-right:10px;float: right;}
+.text_feld_area{width:215px; height:22px; background:url(../images/text_feld_img.png) left top no-repeat; border:none; padding-left:10px; line-height:22px;}
+.text_add_6{font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#3A3A3A;}
+.padd25bt{padding-bottom:25px;}
+.padd20tp-1{padding-top:20px;}
+.mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 900px;}
+.table-structure {width:100%;}
+#add_info {cursor: pointer}
+/* .field_with_errors { display: inline; }*/
+#add_fields2{padding: 0px; margin: 0px;}

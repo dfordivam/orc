@@ -31,7 +31,7 @@ SimpleNavigation::Configuration.run do |navigation|
     # url - the address that the generated item links to. You can also use url_helpers (named routes, restful routes helper, url_for etc.)
     # options - can be used to specify attributes that will be included in the rendered navigation item (e.g. id, class etc.)
     #
-    primary.item :home, 'Home', root_path
+    primary.item :registration, 'Registration', root_path
     primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
     primary.item :buildings, 'Buildings', buildings_path, :highlights_on => /\/buildings/
     primary.item :events, 'Events', events_path, :highlights_on => /\/events/
