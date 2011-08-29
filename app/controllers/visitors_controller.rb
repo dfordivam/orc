@@ -1,4 +1,7 @@
 class VisitorsController < ApplicationController
+  require 'mime/types'
+  require 'spreadsheet'
+  require 'action_mailer'
 
   def index
     @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
