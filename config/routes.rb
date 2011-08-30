@@ -1,4 +1,9 @@
 Orc::Application.routes.draw do
+  get "users/new"
+
+  get "users/edit"
+
+  resources :users
   get "events/create"
 
   # The priority is based upon order of creation:

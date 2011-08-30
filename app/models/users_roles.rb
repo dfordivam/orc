@@ -1,3 +1,8 @@
+class UsersRoles < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :role
+end
+
 # == Schema Information
 # Schema version: 20110611144930
 #
@@ -9,6 +14,3 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
-
-class UsersRoles < ActiveRecord::Base
-end

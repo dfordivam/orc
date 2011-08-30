@@ -1,3 +1,8 @@
+class Role < ActiveRecord::Base
+  has_many :users_roles
+  has_many :users, :through => :users_roles
+end
+
 # == Schema Information
 # Schema version: 20110611144930
 #
@@ -9,6 +14,3 @@
 #  updated_at :datetime
 #
 
-class Role < ActiveRecord::Base
-  has_many :users
-end
