@@ -1,11 +1,24 @@
-= form_for @building do |f|
-  = f.label :name, 'Name'
-  = f.text_field :name
-  %br
-  = f.label :rooms, 'No. of Rooms'
-  = f.number_field :no_of_rooms
-  %br
-  = f.label :floors, 'No. of Floors'
-  = f.number_field :floors
-  %br
-  = submit_tag 'Submit'  
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @building do |f|
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :edit_bilding_info, 'Provide Building Information Here'
+        %tr
+          %td
+            = f.label :name, 'Name'
+          %td
+            = f.text_field :name, :class => 'text_feld_area'
+          %td
+            = f.label :rooms, 'No. of Rooms'
+          %td
+            = f.number_field :no_of_rooms, :class => 'text_feld_area'
+        %tr
+          %td{:colspan=>"2"}
+            = submit_tag 'Submit'
+          %td
+            = f.label :floors, 'No. of Floors '
+          %td
+            = f.number_field :floors, :class => 'text_feld_area'

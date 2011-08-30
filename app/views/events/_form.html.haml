@@ -1,19 +1,35 @@
-= form_for @event do |f|
-  = f.label :name, 'Event Name'
-  = f.text_field :name
-  %br
-  = f.label :start_date_time, 'Start Date'
-  = f.text_field :start_date_time
-  %br
-  = f.label :end_date_time, 'End Date'
-  = f.text_field :end_date_time
-  %br
-  = f.label :capacity, 'Capacity'
-  = f.number_field :capacity, :in => [1,100000], :step => 1
-  %br
-  = f.label :location, 'Location'
-  = f.text_field :location
-  %br
-  %br  
-  = submit_tag 'Submit' 
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @event do |f|
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :edit_event_info, 'Provide Event Information Here'
+        %tr
+          %td
+            = f.label :name, 'Event Name'
+          %td
+            = f.text_field :name, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :start_date_time, 'Start Date'
+          %td
+            = f.text_field :start_date_time, :class => 'text_feld_area'
+          %td
+            = f.label :end_date_time, 'End Date'
+          %td
+            = f.text_field :end_date_time, :class => 'text_feld_area'
+        %tr
+          %td 
+            = f.label :capacity, 'Capacity'
+          %td
+            = f.number_field :capacity, :in => [1,100000], :step => 1, :class => 'text_feld_area'
+          %td  
+            = f.label :location, 'Location'
+          %td
+            = f.text_field :location, :class => 'text_feld_area'
+        %tr
+          %td
+            = submit_tag 'Submit' 
 
