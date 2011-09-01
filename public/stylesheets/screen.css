@@ -980,8 +980,11 @@ input[type=hidden] {
 .text_add_6{font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#3A3A3A;}
 .padd25bt{padding-bottom:25px;}
 .padd20tp-1{padding-top:20px;}
-.mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 900px;}
+.mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 950px;}
+.mid_bg_add_checkin{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1150px;}
+.mid_bg_add_visitors{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1000px;}
 .table-structure {width:100%;}
+.header_font{font-weight:bold;font-size:25px;font-family:Arial, Helvetica, sans-serif;color:black;}
 #add_info {cursor: pointer}
 /* .field_with_errors { display: inline; }*/
 #add_fields2{padding: 0px; margin: 0px;}

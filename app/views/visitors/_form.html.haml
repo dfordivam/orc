@@ -5,6 +5,12 @@
     %tbody
       %tr
         %td
+          .header_font
+            = visitor.label :visitor_registration, 'Visitor Information Here'
+      %tr
+      %tr
+      %tr
+        %td
           = visitor.label :name, 'Name*'
         %td
           = visitor.text_field :name, :class => 'text_feld_area'

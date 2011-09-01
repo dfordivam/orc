@@ -67,6 +67,10 @@ ActiveRecord::Schema.define(:version => 20110814222805) do
     t.integer  "total_beds"
   end
 
+  create_table "test", :id => false, :force => true do |t|
+    t.string "Name", :limit => 20, :default => "", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "crypted_password"

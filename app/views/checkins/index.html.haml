@@ -1,23 +1,34 @@
-.div_link
-  = link_to 'Add new Checkin', new_checkin_path
-.wrapper_checkin
-  .left_column_checkin Visitor Name
-  .central-colunm-checkin{:align => "center"} Age
-  .right_column_checkin Gender
-  .col_checkin Address
-  .col2_checkin Mobile
-  .col3_checkin Visitor Type
-  .col4_checkin Event
-  .col5_checkin Building
-  .col6_checkin Room No
-  .col7_checkin Is Active
-  .show_index_checkin
-  .edit_index_checkin
-  .inactivate_checkin
-  .delete_index_checkin
-  .spacer
-- @checkins.each do |checkin|
+%div{:class=>"mid_bg_add_checkin text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"1"}
+  .div_link
+    = link_to 'Add new Checkin', new_checkin_path
   .wrapper_checkin
+    .left_column_checkin 
+      %b Visitor Name
+    .central-colunm-checkin{:align => "center"} 
+      %b Age
+    .right_column_checkin 
+      %b Gender
+    .col_checkin 
+      %b Address
+    .col2_checkin 
+      %b Mobile
+    .col3_checkin 
+      %b Visitor Type
+    .col4_checkin 
+      %b Event
+    .col5_checkin 
+      %b Building
+    .col6_checkin 
+      %b Room No
+    .col7_checkin 
+      %b Is Active
+    -#.show_index_checkin
+    .edit_index_checkin
+    .inactivate_checkin
+    .delete_index_checkin
+    .spacer
+  - @checkins.each do |checkin|
+    .wrapper_checkin
     - if checkin.visitor
       .left_column_checkin= checkin.visitor.name
       -#.left_column_checkin= link_to checkin.visitor.name, visitor_path(checkin.visitor.id)
@@ -32,8 +43,8 @@
         .col5_checkin= checkin.room.building.name
         .col6_checkin= checkin.room.room_no
       .col7_checkin= checkin.is_active
-    .show_index= link_to "show", checkin_path(checkin.id)
-    .edit_index= link_to "edit", edit_checkin_path(checkin.id)
+    -#.show_index_checkin= link_to "show", checkin_path(checkin.id)
+    .edit_index_checkin= link_to "edit", edit_checkin_path(checkin.id)
     .inactivate_checkin= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
-    .delete_index= link_to "delete", checkin_path(checkin.id), :method => :delete
+    .delete_index_checkin= link_to "delete", checkin_path(checkin.id), :method => :delete
     .spacer

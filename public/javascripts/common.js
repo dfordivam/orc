@@ -16,6 +16,10 @@ $(document).ready(function() {
     );
   });
 
+  $("#add_info_checkin").click(function(){$("#additional_info_checkin").show("slow");});
+  $("#is_driver_along_checkin_1").click(function(){$("#additional_info2_checkin").show("slow");});
+  $("#is_driver_along_checkin_0").click(function(){$("#additional_info2_checkin").hide("slow");});
+
   $("#visitor_is_driver_along_true").live('change', function(){
     $.post("/visitors/add_fields_2",
       function(data){$("#add_fields2").html(data)}

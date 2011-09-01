@@ -37,7 +37,7 @@
     Yes
 %tr
   %td{:colspan =>4}
-    %table{:class => "table-structure", :cellpadding=>"10"}
+    %table{:class => "table-structure", :cellspacing => "0"}
       %tbody{:id => 'add_fields2'}
         - if(!params["visitor"].blank? && params["visitor"]["is_driver_along"] == 'true') || (!@visitor.blank? && @visitor.is_driver_along == 'true')
           = render :partial => "add_fields2"

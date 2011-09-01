@@ -16,6 +16,12 @@ function buildingSelected() {
   });
 }
 
+function hideAdditionalInfo() {
+$("#additional_info2_checkin").hide("slow");
+$("#additional_info_checkin").hide("slow");
+//alert("Hi");
+}
+
 jQuery(document).ready(function(){
   buildingSelected();
   $("#room_building_id").change(buildingSelected);
