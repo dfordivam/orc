@@ -1,10 +1,11 @@
 %br
 %tr
-  %td
+%tr
+%tr
+  %td{:colspan=>"4"}
     %b
       %u 
         = label_tag :driver_details, 'Driver Details'
-%tr
 %tr
   %td
     = label_tag :driver_name, 'Driver Name'
@@ -14,9 +15,6 @@
     = label_tag :driver_contact_no, 'Contact No.'
   %td
     = text_field_tag "visitor[driver_contact_no]", "#{!params["visitor"].blank? ? params["visitor"]["driver_contact_no"] : !@visitor.blank? ? @visitor.driver_contact_no : nil}", :class => 'text_feld_area'
-%tr
-%tr
-%tr
 %tr
   %td
     = label_tag :is_driver_accom_req, 'Need Accomodation'

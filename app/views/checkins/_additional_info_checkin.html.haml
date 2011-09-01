@@ -1,4 +1,9 @@
 %tr
+  %td{:colspan=>"4", :id => 'hide_info_checkin'}
+    %b
+      %u Hide Additional Info
+      = image_tag('Minus.png', :onclick => "javascript:hideAdditionalInfo()")
+%tr
   %td
     = label_tag :designation, 'Designation'
   %td
@@ -65,9 +70,9 @@
   %td
     = label_tag :is_driver_along, 'Is Driver Along'
   %td{:colspan=>"3"}
-    = radio_button_tag :is_driver_along , 0, :value=>"true" 
+    = radio_button_tag :is_driver_along_checkin , 0, :value=>"true" 
     No
-    = radio_button_tag :is_driver_along , 1
+    = radio_button_tag :is_driver_along_checkin , 1
     Yes
 %tr
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
