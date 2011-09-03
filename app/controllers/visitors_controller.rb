@@ -21,8 +21,18 @@ class VisitorsController < ApplicationController
   end
 
   def checkinfacebox
-    flash[:notice] = "Done !"
-    render :layout => false
+    # flash[:notice] = Visitor.find(params[:visitor_id]).name
+    @visitor = Visitor.find(params[:visitor_id])
+    @checkin = Checkin.new
+    @checkin.visitor = @visitor
+    @building = Building.new
+    @room = Room.new
+    @event_list = Event.find(:all)
+    @building_list = Building.find(:all)
+    @room_list = Room.find(:all)
+    @coll = ["BK" , "Non BK"] 
+    render :layout => "aboutblank"
+    #render :layout => false
   end
 
   def create

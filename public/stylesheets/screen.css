@@ -983,6 +983,7 @@ input[type=hidden] {
 .mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 950px;}
 .mid_bg_add_checkin{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1150px;}
 .mid_bg_add_visitors{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1000px;}
+.mid_bg_add_visitors_facebox{border:#AFB0B0 10px solid; margin-left: 1px;width: 1100px;}
 .table-structure {width:100%;}
 .header_font{font-weight:bold;font-size:25px;font-family:Arial, Helvetica, sans-serif;color:black;}
 #add_info {cursor: pointer}

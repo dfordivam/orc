@@ -1,3 +1,67 @@
-%b Hi
-%br
-%b flash[:notice]
+= javascript_include_tag 'checkin', 'visitor', 'common'
+%div{:class=>"mid_bg_add_visitors_facebox text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @checkin do |f|
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :visitor_checkin, 'Visitor ' + @visitor.name + ' Check In Here' 
+          %td
+            = f.label :visitor, 'ID', :hidden => true
+            = f.text_field :visitor_id, :hidden => true, :readonly => true, :size => 1
+        %tr
+          %td
+            = f.label :is_accom_req, 'Accomodation Required'
+          %td
+            = f.radio_button :is_accom_req , 0 
+            No
+            = f.radio_button :is_accom_req , 1
+            Yes
+          %td
+            = f.label :meals_req, 'Meals Required'
+          %td
+            = check_box_tag :meals , 'breakfast'
+            Breakfast
+            = check_box_tag :meals , 'lunch'
+            Lunch
+            = check_box_tag :meals , 'dinner'
+            Dinner
+        %tr
+          %td
+            = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
+          %td
+            = f.radio_button :is_sight_seeing_req , 0 
+            No
+            = f.radio_button :is_sight_seeing_req , 1
+            Yes
+          %td
+            = f.label :remarks, 'Checkin Remarks'
+          %td
+            = f.text_field :remarks, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :no_of_days, 'No. of Days'
+          %td
+            = f.number_field :no_of_days, :class => 'text_feld_area' 
+          %td
+            = f.label :event, 'Event'
+          %td
+            = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id] }
+        %tr
+          %td
+            = f.label :building, 'Building'
+          %td
+            = select :room, :building_id, @building_list.collect {|e| [e.name, e.id]}
+          %td
+            = f.label :room, 'Room'
+          %td
+            = select :checkin, :room_id, :include_blank => true 
+        %tr
+          %td{:colspan=>"4"}
+            .rooms_result
+              = f.label :is_active, 'Is Active?'
+              = f.check_box :is_active, :checked => true 
+        %tr
+          %td{:colspan=>"4"}
+            = submit_tag 'Submit'
