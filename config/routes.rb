@@ -1,4 +1,9 @@
 Orc::Application.routes.draw do
+  get "users/new"
+
+  get "users/edit"
+
+  resources :users
   get "events/create"
   # Ravi Added Start
   match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
