@@ -12,11 +12,17 @@ class VisitorsController < ApplicationController
   end
 
   def new
+    @event_list = Event.find(:all)
     @visitor = Visitor.new
   end
 
   def edit
     @visitor = Visitor.find(params[:id])
+  end
+
+  def checkinfacebox
+    flash[:notice] = "Done !"
+    render :layout => false
   end
 
   def create

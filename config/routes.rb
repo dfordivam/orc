@@ -1,5 +1,8 @@
 Orc::Application.routes.draw do
   get "events/create"
+  # Ravi Added Start
+  match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
+  # Ravi Added End
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

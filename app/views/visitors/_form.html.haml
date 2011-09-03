@@ -6,7 +6,7 @@
       %tr
         %td
           .header_font
-            = visitor.label :visitor_registration, 'Visitor Information Here'
+            = visitor.label :visitor_registration, 'Visitor Registration Here'
       %tr
       %tr
       %tr
@@ -26,7 +26,7 @@
         %td
           = visitor.label :gender, 'Gender*'
         %td
-          = visitor.radio_button :gender , "male"
+          = visitor.radio_button :gender , "male", :value=>"true"
           Male
           = visitor.radio_button :gender , "female"
           Female
@@ -46,11 +46,14 @@
         %td
           = visitor.label :is_physically_challenged, 'Physically Challenged*'
         %td
-          = visitor.radio_button :is_physically_challenged , 'false'
+          = visitor.radio_button :is_physically_challenged , 'false', :value=>"true"
           No
           = visitor.radio_button :is_physically_challenged , 'true'
           Yes
-        %td{:colspan => "2"}
+        %td
+          = visitor.label :event, 'Event*'
+        %td
+          = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] }
       %tr
         %td{:colspan =>3, :id => 'add_info'}
           %b

@@ -1,3 +1,11 @@
+// Ravi Start for FaceBox
+jQuery(document).ready(function($) {
+      $('a[rel*=facebox]').facebox({
+        loadingImage : '/images/loading.gif',
+        closeImage   : '/images/closelabel.png'
+      })
+    })
+// Ravi End
 $(document).ready(function() {
   $("#visitor_visitor_type").change(function(){
     value = $(this).val();

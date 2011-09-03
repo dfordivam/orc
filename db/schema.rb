@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110814222805) do
+ActiveRecord::Schema.define(:version => 20110902131358) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20110814222805) do
     t.string   "is_physically_challenged"
     t.string   "create_by"
     t.string   "updated_by"
+    t.integer  "event_id"
   end
 
 end
