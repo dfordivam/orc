@@ -1,6 +1,6 @@
 // Ravi Start for FaceBox
 jQuery(document).ready(function($) {
-      $('a[rel*=facebox]').facebox({
+	    $('a[rel*=facebox]').facebox({
         loadingImage : '/images/loading.gif',
         closeImage   : '/images/closelabel.png'
       })
