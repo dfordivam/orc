@@ -1,4 +1,5 @@
 jQuery(document).ready(function(){
+  $("a[rel='colorbox']").colorbox({transition:"fade", open:false, overlayClose: false, loop: false, scrolling: false, current:'', previous:'', next:'' });
   $("#visitor_dob").datepicker({
     dateFormat: 'dd MM yy', changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, yearRange: "1900:2036"
   });
