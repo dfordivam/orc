@@ -1,9 +1,20 @@
 Orc::Application.routes.draw do
-  get "users/new"
-
-  get "users/edit"
-
   resources :users
+  resources :user_sessions
+#  resources :user_sessions do
+#    collection do
+#      post :signup
+#      post :add_fields_2
+#      post :additional_info
+#    end
+#  end
+  match 'users/new' => 'users#new', :as => :signup
+  match 'user_sessions/logout/:id' => 'user_sessions#logout', :as => :logout
+  match 'user_sessions/new' => 'user_sessions#new', :as => :login
+  
+  get "user_sessions/new"
+  get "users/new"
+  get "users/edit"
   get "events/create"
   # Ravi Added Start
   match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
@@ -86,7 +97,8 @@ Orc::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   #root :to => "home#index"
-  root :to => "visitors#new"
+#  root :to => "visitors#new"
+  root :to => "user_sessions#new"
 
   # See how all your routes lay out with "rake routes"
 

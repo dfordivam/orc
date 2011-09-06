@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_filter :login_required
   def new
     @event = Event.new
   end

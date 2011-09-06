@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110902131358) do
+ActiveRecord::Schema.define(:version => 20110904071625) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -67,10 +67,6 @@ ActiveRecord::Schema.define(:version => 20110902131358) do
     t.integer  "total_beds"
   end
 
-  create_table "test", :id => false, :force => true do |t|
-    t.string "Name", :limit => 20, :default => "", :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "crypted_password"
@@ -78,6 +74,10 @@ ActiveRecord::Schema.define(:version => 20110902131358) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
+    t.string   "email"
+    t.string   "persistence_token"
+    t.integer  "roles_mask"
+    t.string   "role"
   end
 
   create_table "users_roles", :force => true do |t|

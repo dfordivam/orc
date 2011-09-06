@@ -1,4 +1,5 @@
 class CheckinsController < ApplicationController
+  before_filter :login_required
   def new
     if (params[:visitor_id])
       @visitor = Visitor.find(params[:visitor_id])

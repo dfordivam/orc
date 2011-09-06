@@ -989,3 +989,4 @@ input[type=hidden] {
 #add_info {cursor: pointer}
 /* .field_with_errors { display: inline; }*/
 #add_fields2{padding: 0px; margin: 0px;}
+.login{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin:100px; margin-left:350px;width: 530px; padding: 25px;}

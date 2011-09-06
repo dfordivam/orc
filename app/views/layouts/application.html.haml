@@ -7,8 +7,12 @@
     = csrf_meta_tag
   %body
     #header
-      %a{:href => "#"}
-        %img.padd20tp{:border => "0", :src => "/images/login_img.png"}/
+      #user_nav{:style =>"float:right;"}
+        - if current_user
+          = link_to image_tag("logout2.png", :class => "padd20tp"), logout_path(current_user)
+        - else
+          = link_to "Register", new_user_path
+          = link_to image_tag("login_img.png", :class => "padd20tp"), login_path
       %a{:href => root_path}
         %img.paddlt5.paddtp10{:border => "0", :src => "/images/copny_name_img.png"}/
       #navigation

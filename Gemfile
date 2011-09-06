@@ -10,7 +10,8 @@ gem 'mysql'
 gem 'annotate'
 gem 'annotate-models'
 gem 'will_paginate'
-gem 'authlogic'
+#gem 'authlogic'
+gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
 gem 'cancan'
 
 # Bundle edge Rails instead:

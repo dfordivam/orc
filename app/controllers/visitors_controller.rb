@@ -1,7 +1,8 @@
+require 'mime/types'
+require 'spreadsheet'
+require 'action_mailer'
 class VisitorsController < ApplicationController
-  require 'mime/types'
-  require 'spreadsheet'
-  require 'action_mailer'
+  before_filter :login_required
 
   def index
     @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)

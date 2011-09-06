@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  before_filter :login_required
   def new
     @building = Building.find(params[:building_id])
     if @building

@@ -1,0 +1,13 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title ORC Accomodation Administration Console
+    = stylesheet_link_tag "application", "screen"
+    = csrf_meta_tag
+  %body
+    #header
+      %a{:href => root_path}
+        %img.paddlt5.paddtp10{:border => "0", :src => "/images/copny_name_img.png"}/
+      #navigation
+    #contentBody
+      = yield

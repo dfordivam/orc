@@ -1,4 +1,5 @@
 class BuildingsController < ApplicationController
+  before_filter :login_required
   def new
     @building = Building.new
   end
