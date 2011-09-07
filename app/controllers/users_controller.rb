@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   before_filter :login_required
+
+  def index
+    @users = User.paginate(:page => params[:page], :per_page => 5)
+  end
+
   def new
     @roles = Role.all
     @user = User.new
@@ -15,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:notice] = "Registration successful."
-      redirect_to root_url
+      redirect_to users_url
     else
       render :action => 'new'
     end
@@ -23,13 +28,19 @@ class UsersController < ApplicationController
 
   def update
    @roles = Role.all
-   @user = current_user
+   @user = User.find(params[:id])
    if @user.update_attributes(params[:user])
      flash[:notice] = "Successfully updated profile."
-     redirect_to root_url
+     redirect_to users_url
    else
     render :action => 'edit'
    end
+ end
+
+ def destroy
+   @user = User.find(params[:id])
+   @user.destroy
+   redirect_to users_path
  end
 
 end

@@ -1,5 +1,7 @@
 class BuildingsController < ApplicationController
   before_filter :login_required
+  load_and_authorize_resource
+  
   def new
     @building = Building.new
   end

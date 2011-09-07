@@ -46,5 +46,6 @@
     -#.show_index_checkin= link_to "show", checkin_path(checkin.id)
     .edit_index_checkin= link_to "edit", edit_checkin_path(checkin.id)
     .inactivate_checkin= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
-    .delete_index_checkin= link_to "delete", checkin_path(checkin.id), :method => :delete
+    - if can? :update, @user
+      .delete_index_checkin= link_to "delete", checkin_path(checkin.id), :method => :delete
     .spacer

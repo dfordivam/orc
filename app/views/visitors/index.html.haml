@@ -1,7 +1,5 @@
 = javascript_include_tag 'visitor'
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
-  -#.div_link
-    -#= link_to "Add new Visitor Information", new_visitor_path
   .paginate_visitor
     = will_paginate
     .wrapper_vistors
@@ -29,14 +27,15 @@
     .col= visitor.address
     .col2= visitor.mobile_no
     .col3= visitor.visitor_type
-    -#.show_index_visitors= link_to "checkin", new_checkin_path(:visitor_id => visitor.id)
     -###########################################################################################################################
     .show_index_visitors= link_to "checkin", checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
     -###### Comment the above line And Uncomment the below one If You need ColorBox Effect..
     -#.show_index_visitors= link_to "checkin",checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox"
     -###########################################################################################################################
     .edit_index_visitors= link_to "edit", edit_visitor_path(visitor.id)
-    .delete_index_visitors= link_to "delete", visitor_path(visitor.id), :method => :delete
+    .delete_index_visitors
+      - if can? :update, @user
+        = link_to "delete", visitor_path(visitor.id), :method => :delete
     .spacer
     = will_paginate
 

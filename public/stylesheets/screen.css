@@ -990,3 +990,7 @@ input[type=hidden] {
 /* .field_with_errors { display: inline; }*/
 #add_fields2{padding: 0px; margin: 0px;}
 .login{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin:100px; margin-left:350px;width: 530px; padding: 25px;}
+.signin{border:#AFB0B0 5px solid; background-color: #AFB0B0;}
+.username-title{padding-top:10px;}
+.logout{float:right;padding-top:110px;padding-right: 25px;}
+.currentuser{float:left;padding-top:110px;}

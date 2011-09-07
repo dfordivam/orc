@@ -479,3 +479,7 @@ float:right;
 text-align:center;
 margin:1px;
 }
+
+.left_column_user {width:150px;float:left;text-align:center;margin:1px;}
+.central-colunm-user {width:287px;float:left;margin:1px;}
+.right_column_user {width:285;float:left;text-align:center;margin:1px;}

@@ -1,0 +1,23 @@
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  .div_link
+    = link_to "Add new User", new_user_path
+  .paginate_user
+    = will_paginate
+    .wrapper_vistors
+      .left_column_user
+        %b UserName
+      .central-colunm-user{:align => "center"}
+        %b Email
+      .right_column_user
+        %b Role
+      .edit_index
+      .delete_index
+      .spacer
+  - @users.each do |user|
+    .wrapper_vistors
+      .left_column_user= user.username
+      .central-colunm-user{:align => "center"}= user.email
+      .right_column_user= user.role.rolename
+      .edit_index= link_to "edit", edit_user_path(user)
+      .delete_index= link_to "delete", user_path(user), :method => :delete
+      .spacer

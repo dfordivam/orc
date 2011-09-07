@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
   before_filter :login_required
 
   def index
-    @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
+    @visitors = Visitor.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
@@ -18,6 +18,7 @@ class VisitorsController < ApplicationController
   end
 
   def edit
+    @event_list = Event.find(:all)
     @visitor = Visitor.find(params[:id])
   end
 
@@ -33,7 +34,6 @@ class VisitorsController < ApplicationController
     @room_list = Room.find(:all)
     @coll = ["BK" , "Non BK"] 
     render :layout => "aboutblank"
-    #render :layout => false
   end
 
   def create
