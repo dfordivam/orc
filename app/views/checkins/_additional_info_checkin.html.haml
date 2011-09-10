@@ -75,6 +75,7 @@
     = radio_button_tag :is_driver_along_checkin , 1
     Yes
 %tr
-  %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
-    %tbody{:id=>"additional_info2_checkin", :style=>"display:none"}
-      = render :partial => "additional_info2_checkin"
+  %td{:colspan => "4"}
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+      %tbody{:id=>"additional_info2_checkin", :style=>"display:none"}
+        = render :partial => "additional_info2_checkin"

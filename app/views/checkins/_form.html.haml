@@ -27,7 +27,7 @@
                 %td
                   = visitor.label :gender, 'Gender'
                 %td
-                  = visitor.radio_button :gender , 0 
+                  = visitor.radio_button :gender , 0, :value=>"true" 
                   Male
                   = visitor.radio_button :gender , 1
                   Female
@@ -55,12 +55,17 @@
                     %u Additional Info
                     = image_tag('add-Icon.png')
               %tr
-                %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
-                  %tbody{:id => 'additional_info_checkin',:style=>'display:none'}
-                    = render :partial => "additional_info_checkin" 
+                %td{:colspan => "4"}
+                  %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+                    %tbody{:id => 'additional_info_checkin',:style=>'display:none'}
+                      = render :partial => "additional_info_checkin" 
               %tr
-                %td{:colspan=>"4"}
-                  = submit_tag 'Submit'
+                %td{:colspan => "4",:align=>"center"}
+                  - if @checkin.id.nil?
+                    = submit_tag "Submit"
+                  - else
+                    = submit_tag "Update"
+                  = link_to "Cancel",checkins_path
     -else
       %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
         %tbody
@@ -75,7 +80,7 @@
             %td
               = f.label :is_accom_req, 'Accomodation Required'
             %td
-              = f.radio_button :is_accom_req , 0 
+              = f.radio_button :is_accom_req , 0, :value=>"true" 
               No
               = f.radio_button :is_accom_req , 1
               Yes
@@ -92,7 +97,7 @@
             %td
               = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
             %td
-              = f.radio_button :is_sight_seeing_req , 0 
+              = f.radio_button :is_sight_seeing_req , 0, :value=>"true" 
               No
               = f.radio_button :is_sight_seeing_req , 1
               Yes
@@ -124,5 +129,9 @@
                 = f.label :is_active, 'Is Active?'
                 = f.check_box :is_active, :checked => true 
           %tr
-            %td{:colspan=>"4"}
-              = submit_tag 'Submit'
+            %td{:colspan => "4",:align=>"center"}
+              - if @checkin.id.nil?
+                = submit_tag "Submit"
+              - else
+                = submit_tag "Update"
+              = link_to "Cancel",checkins_path

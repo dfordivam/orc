@@ -42,11 +42,17 @@ class EventsController < ApplicationController
 
   def destroy 
     @event = Event.find(params[:id])
-    @event.destroy
+    ## @event.destroy
+    @event.is_delete = 1
+    if @event.save 
+      flash[:notice] = "Event #{@event.name} has been deleted" 
+    else
+      flash[:notice] = "Error in deleting event #{@event.name} !!" 
+    end
     redirect_to events_path
   end    
 
   def index
-    @events = Event.find(:all)
+    @events = Event.find(:all, :conditions => ["is_delete = ?", 0])
   end
 end

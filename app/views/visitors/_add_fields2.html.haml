@@ -21,7 +21,7 @@
   %td
     - checked_is_driver_accom_req_false = ((!params["visitor"].blank? && params["visitor"]["is_driver_accom_req"] == 'false') || (!@visitor.blank? && @visitor.is_driver_accom_req == 'false')) ? 'checked' : nil
     - checked_is_driver_accom_req_true = ((!params["visitor"].blank? && params["visitor"]["is_driver_accom_req"] == 'true') || (!@visitor.blank? && @visitor.is_driver_accom_req == 'true')) ? 'checked' : nil
-    = radio_button_tag "visitor[is_driver_accom_req]" , 'false', checked_is_driver_accom_req_false
+    = radio_button_tag "visitor[is_driver_accom_req]" , 'false', checked_is_driver_accom_req_false, :value=>"true"
     No
     = radio_button_tag "visitor[is_driver_accom_req]" , 'true', checked_is_driver_accom_req_true
     Yes
@@ -30,7 +30,7 @@
   %td
     - checked_is_driver_in_gyan_false = ((!params["visitor"].blank? && params["visitor"]["is_driver_in_gyan"] == 'false') || (!@visitor.blank? && @visitor.is_driver_in_gyan == 'false')) ? 'checked' : nil
     - checked_is_driver_in_gyan_true = ((!params["visitor"].blank? && params["visitor"]["is_driver_in_gyan"] == 'true') || (!@visitor.blank? && @visitor.is_driver_in_gyan == 'true')) ? 'checked' : nil
-    = radio_button_tag "visitor[is_driver_in_gyan]" , 'false', checked_is_driver_in_gyan_false
+    = radio_button_tag "visitor[is_driver_in_gyan]" , 'false', checked_is_driver_in_gyan_false, :value=>"true"
     No
     = radio_button_tag "visitor[is_driver_in_gyan]" , 'true', checked_is_driver_in_gyan_true
     Yes

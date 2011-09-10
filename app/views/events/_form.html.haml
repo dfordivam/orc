@@ -30,6 +30,10 @@
           %td
             = f.text_field :location, :class => 'text_feld_area'
         %tr
-          %td
-            = submit_tag 'Submit' 
+          %td{:colspan => "4",:align=>"center"}
+            - if @event.id.nil?
+              = submit_tag "Submit"
+            - else
+              = submit_tag "Update"
+            = link_to "Cancel",events_path
 

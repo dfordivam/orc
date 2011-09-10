@@ -5,33 +5,33 @@ class VisitorsController < ApplicationController
   before_filter :login_required
 
   def index
-    @visitors = Visitor.paginate(:page => params[:page], :per_page => 5)
+    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
-    @visitor = Visitor.find(params[:id])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
   end
 
   def new
-    @event_list = Event.find(:all)
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.new
   end
 
   def edit
-    @event_list = Event.find(:all)
-    @visitor = Visitor.find(params[:id])
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
   end
 
   def checkinfacebox
     # flash[:notice] = Visitor.find(params[:visitor_id]).name
-    @visitor = Visitor.find(params[:visitor_id])
+    @visitor = Visitor.find(params[:visitor_id], :conditions => ["is_delete = ?", 0])
     @checkin = Checkin.new
     @checkin.visitor = @visitor
     @building = Building.new
     @room = Room.new
-    @event_list = Event.find(:all)
-    @building_list = Building.find(:all)
-    @room_list = Room.find(:all)
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
+    @room_list = Room.find(:all, :conditions => ["is_delete = ?", 0])
     @coll = ["BK" , "Non BK"] 
     render :layout => "aboutblank"
   end
@@ -58,8 +58,15 @@ class VisitorsController < ApplicationController
 
   def destroy
     @visitor = Visitor.find(params[:id])
-    @visitor.destroy
-    redirect_to visitors_path
+    ## @visitor.destroy
+    @visitor.is_delete = 1
+    if @visitor.save 
+      flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
+      redirect_to visitors_path
+    else
+      flash[:notice] = "Can not delete Visitor #{@visitor.name} !!" 
+      redirect_to visitors_path
+    end
   end
 
   # Adding form fields

@@ -984,7 +984,9 @@ input[type=hidden] {
 .mid_bg_add_checkin{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1150px;}
 .mid_bg_add_visitors{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1000px;}
 .mid_bg_add_visitors_facebox{border:#AFB0B0 10px solid; margin-left: 1px;width: 1100px;}
+.mid_bg_add_users{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 250px;width: 700px;}
 .table-structure {width:100%;}
+.table-structure_new_user {width:100%;}
 .header_font{font-weight:bold;font-size:25px;font-family:Arial, Helvetica, sans-serif;color:black;}
 #add_info {cursor: pointer}
 /* .field_with_errors { display: inline; }*/

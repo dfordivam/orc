@@ -47,5 +47,5 @@
     .edit_index_checkin= link_to "edit", edit_checkin_path(checkin.id)
     .inactivate_checkin= link_to "inactivate", :controller => :checkins, :action => :inactivate , :id => checkin.id
     - if can? :update, @user
-      .delete_index_checkin= link_to "delete", checkin_path(checkin.id), :method => :delete
+      .delete_index_checkin= link_to "delete", checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?" 
     .spacer

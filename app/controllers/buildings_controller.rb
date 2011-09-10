@@ -13,7 +13,7 @@ class BuildingsController < ApplicationController
   end
 
   def index
-    @buildings = Building.find(:all)
+    @buildings = Building.find(:all, :conditions => ["is_delete = ?", 0])
   end
 
   def show
@@ -22,7 +22,13 @@ class BuildingsController < ApplicationController
 
   def destroy
     @building = Building.find(params[:id])
-    @building.destroy
+    ## @building.destroy
+    @building.is_delete = 1
+    if @building.save 
+      flash[:notice] = "Building #{@building.name} has been deleted" 
+    else
+      flash[:notice] = "Can not delete Building #{@building.name} !!" 
+    end
     redirect_to buildings_path
   end
 

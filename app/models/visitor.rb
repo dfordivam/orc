@@ -1,6 +1,12 @@
 class Visitor < ActiveRecord::Base
   has_many :checkins
   belongs_to :event
+  
+  before_create :set_is_delete_to_false
+  
+  def set_is_delete_to_false
+    self.is_delete = 0
+  end
 
 #  attr_accessible :name, :age
 

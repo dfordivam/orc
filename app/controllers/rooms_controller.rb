@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = Room.find(:all)
+    @rooms = Room.find(:all, :conditions => ["is_delete = ?", 0])
   end
 
   def show 
@@ -33,7 +33,13 @@ class RoomsController < ApplicationController
 
   def destroy 
     @room = Room.find(params[:id])
-    @room.destroy
+    ## @room.destroy
+    @room.is_delete = 1
+    if @room.save 
+      flash[:notice] = "Room #{@room.room_no} has been deleted" 
+    else
+      flash[:notice] = "Error in deleting room #{@room.room_no} !!" 
+    end
     redirect_to building_path(@room.building.id)
   end
 

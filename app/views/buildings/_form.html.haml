@@ -16,9 +16,15 @@
           %td
             = f.number_field :no_of_rooms, :class => 'text_feld_area'
         %tr
-          %td{:colspan=>"2"}
-            = submit_tag 'Submit'
           %td
             = f.label :floors, 'No. of Floors '
           %td
             = f.number_field :floors, :class => 'text_feld_area'
+          %td{:colspan=>"2"}
+        %tr
+          %td{:colspan => "4",:align=>"center"}
+            - if @building.id.nil?
+              = submit_tag 'Submit'
+            - else
+              = submit_tag 'Update'
+            = link_to "Cancel",buildings_path

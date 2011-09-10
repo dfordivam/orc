@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110904071625) do
+ActiveRecord::Schema.define(:version => 20110909031860) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.integer  "floors"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_delete"
   end
 
   create_table "checkins", :force => true do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.integer  "meals_req"
     t.boolean  "is_sight_seeing_req"
     t.string   "remarks"
+    t.boolean  "is_delete"
   end
 
   create_table "events", :force => true do |t|
@@ -44,12 +46,14 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_delete"
   end
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_delete"
   end
 
   create_table "rooms", :force => true do |t|
@@ -65,6 +69,11 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.integer  "building_id"
     t.integer  "room_no"
     t.integer  "total_beds"
+    t.boolean  "is_delete"
+  end
+
+  create_table "test", :id => false, :force => true do |t|
+    t.string "Name", :limit => 20, :default => "", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -78,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.string   "persistence_token"
     t.integer  "roles_mask"
     t.string   "role"
+    t.boolean  "is_delete"
   end
 
   create_table "users_roles", :force => true do |t|
@@ -85,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_delete"
   end
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
@@ -124,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20110904071625) do
     t.string   "create_by"
     t.string   "updated_by"
     t.integer  "event_id"
+    t.boolean  "is_delete"
   end
 
 end

@@ -1,6 +1,13 @@
 class UsersRoles < ActiveRecord::Base
   belongs_to :user
   belongs_to :role
+ 
+  before_create :set_is_delete_to_false
+  
+  def set_is_delete_to_false
+    self.is_delete = 0
+  end
+
 end
 
 # == Schema Information

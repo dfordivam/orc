@@ -10,13 +10,13 @@ class CheckinsController < ApplicationController
     @checkin.visitor = @visitor
     @building = Building.new
     @room = Room.new
-    @event_list = Event.find(:all)
-    @building_list = Building.find(:all)
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
     @coll = ["BK" , "Non BK"] #_visitor_types
   end
 
   def index
-    @checkins = Checkin.find(:all)
+    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0])
   end
 
   def show 
@@ -26,8 +26,8 @@ class CheckinsController < ApplicationController
   def edit
     @checkin = Checkin.find(params[:id])
     @visitor = @checkin.visitor
-    @event_list = Event.find(:all)
-    @building_list = Building.find(:all)
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
   end
 
   def update
@@ -57,7 +57,13 @@ class CheckinsController < ApplicationController
       @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds - 1)
       @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
     end
-    @checkin.destroy
+    ## @checkin.destroy
+    @checkin.is_delete = 1
+    if @checkin.save 
+      flash[:notice] = "Check In Record has been deleted" 
+    else
+      flash[:notice] = "Error in deleting record !!" 
+    end
     redirect_to checkins_path
   end
 

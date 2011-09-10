@@ -15,9 +15,9 @@
   %td
     = label_tag :is_driver_accom_req, 'Driver Accomodation Needed'
   %td
-    = radio_button_tag :is_driver_accom_req , 0 
+    = radio_button_tag :is_driver_accom_req , 0, :value=>"true" 
     No
-    = radio_button_tag :is_driver_accom_req , 1, :value=>"true"
+    = radio_button_tag :is_driver_accom_req , 1
     Yes
   %td
     = label_tag :is_driver_in_gyan, 'Driver in Gyan'

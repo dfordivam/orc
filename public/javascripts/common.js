@@ -23,6 +23,7 @@ $(document).ready(function() {
       function(data){$("#additional_info").html(data)}
     );
   });
+  //$("#add_info").click(function(){$("#additional_info").show("slow");});
 
   $("#add_info_checkin").click(function(){$("#additional_info_checkin").show("slow");});
   $("#is_driver_along_checkin_1").click(function(){$("#additional_info2_checkin").show("slow");});

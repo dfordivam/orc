@@ -1,4 +1,4 @@
-= javascript_include_tag 'visitor'
+= javascript_include_tag 'visitor', 'common', 'checkin'
 = form_for @visitor do |visitor|
   = render "shared/error_messages", :target => @visitor
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
@@ -26,7 +26,7 @@
         %td
           = visitor.label :gender, 'Gender*'
         %td
-          = visitor.radio_button :gender , "male", :value=>"true"
+          = visitor.radio_button :gender , "male", :value=>true
           Male
           = visitor.radio_button :gender , "female"
           Female
@@ -60,14 +60,15 @@
             %u Addintional Info
             = image_tag('add-Icon.png')
       %tr
-        %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
-          %tbody{:id => 'additional_info'}
-            - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
-              = render :partial => "additional_info"
+        %td{:colspan => "4"}
+          %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+            %tbody{:id => 'additional_info'}
+              - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
+                = render :partial => "additional_info"
       %tr
-        %td{:colspan => "4"} &nbsp;
-      %tr
-        %td{:colspan => "2", :align => "right"}
-          = submit_tag 'Submit'
-        %td{:colspan => "2", :align => "left"}
-          = link_to 'Cancel', visitors_path
+        %td{:colspan => "4",:align=>"center"}
+          - if @visitor.id.nil?
+            = submit_tag 'Submit'
+          - else
+            = submit_tag 'Update'
+          = link_to "Cancel",visitors_path

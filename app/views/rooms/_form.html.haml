@@ -38,10 +38,11 @@
           %td
             = f.label :is_ac, 'Is AC?'
           %td
-            = f.radio_button :is_ac , 0 
+            = f.radio_button :is_ac , 0, :value=>"true" 
             No
             = f.radio_button :is_ac , 1
             Yes
         %tr
-          %td{:colspan=>"4"} 
-            = submit_tag 'Create'  
+          %td{:colspan => "4",:align=>"center"}
+            = submit_tag 'Submit'
+            = link_to "Cancel",buildings_path
