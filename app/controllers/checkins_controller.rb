@@ -1,5 +1,6 @@
 class CheckinsController < ApplicationController
   before_filter :login_required
+
   def new
     if (params[:visitor_id])
       @visitor = Visitor.find(params[:visitor_id])
@@ -48,7 +49,8 @@ class CheckinsController < ApplicationController
     @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
     @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
     @checkin.save
-    redirect_to checkins_path
+    redirect_to checkin_path
+    redirect_to new_checkin_path
   end
 
   def destroy

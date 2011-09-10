@@ -259,7 +259,7 @@ div.padLeft {
 }
 
 #errorExplanation {
-  width: 100%;
+  width: 70%;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 12px;

@@ -38,6 +38,7 @@ class VisitorsController < ApplicationController
 
   def create
     @visitor = Visitor.new(params[:visitor])
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     if @visitor.save
       flash[:notice] = "New visitor successfully created"
       redirect_to visitors_path

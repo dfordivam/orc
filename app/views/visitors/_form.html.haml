@@ -68,7 +68,7 @@
       %tr
         %td{:colspan => "4",:align=>"center"}
           - if @visitor.id.nil?
-            = submit_tag 'Submit'
+            = submit_tag 'Submit', :style => 'width:80px;font-weight:bold'
           - else
-            = submit_tag 'Update'
+            = submit_tag 'Update', :style => 'width:80px;font-weight:bold'
           = link_to "Cancel",visitors_path

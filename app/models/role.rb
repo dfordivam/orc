@@ -6,4 +6,5 @@ class Role < ActiveRecord::Base
   def set_is_delete_to_false
     self.is_delete = 0
   end
+  validates :rolename, :presence => true
 end

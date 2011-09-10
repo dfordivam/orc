@@ -62,9 +62,9 @@
               %tr
                 %td{:colspan => "4",:align=>"center"}
                   - if @checkin.id.nil?
-                    = submit_tag "Submit"
+                    = submit_tag "Submit", :style => 'width:80px;font-weight:bold'
                   - else
-                    = submit_tag "Update"
+                    = submit_tag "Update", :style => 'width:80px;font-weight:bold'
                   = link_to "Cancel",checkins_path
     -else
       %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
@@ -131,7 +131,7 @@
           %tr
             %td{:colspan => "4",:align=>"center"}
               - if @checkin.id.nil?
-                = submit_tag "Submit"
+                = submit_tag "Submit", :style => 'width:80px;font-weight:bold'
               - else
-                = submit_tag "Update"
+                = submit_tag "Update", :style => 'width:80px;font-weight:bold'
               = link_to "Cancel",checkins_path

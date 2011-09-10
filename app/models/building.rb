@@ -8,5 +8,5 @@ class Building < ActiveRecord::Base
   end
 
  validates :name, :presence => true
-  validates :no_of_rooms, :presence => true
+ validates :no_of_rooms, :presence => true
 end

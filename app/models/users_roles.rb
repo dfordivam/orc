@@ -7,6 +7,8 @@ class UsersRoles < ActiveRecord::Base
   def set_is_delete_to_false
     self.is_delete = 0
   end
+  validates :user_id, :presence => true
+  validates :role_id, :presence => true
 
 end
 
