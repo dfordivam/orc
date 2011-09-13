@@ -41,6 +41,9 @@ SimpleNavigation::Configuration.run do |navigation|
     else
       primary.item :edit_profile, 'Edit profile', edit_user_path(current_user), :highlights_on => /\/users/
     end
+    if current_user.username  == SUPERADMIN
+      primary.item :utilities, 'Utilities', utilities_path, :highlights_on => /\/utilities/
+    end
 #    primary.item :feeds, 'Feeds', feeds_path, :highlights_on => /\/feeds/
 #    primary.item :carousels, 'Carousels', carousels_path, :highlights_on => /\/(carousels|carousel_configs)/
 #    primary.item :blocks, 'Blocks', blocks_path, :highlights_on => /\/blocks/

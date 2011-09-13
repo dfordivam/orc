@@ -6,6 +6,7 @@ gem 'haml'
 gem 'rake', '~>0.8.7'   #Ravi
 #gem 'rake', '0.9.0'   #Ravi
 
+gem 'mime-types'
 gem 'mysql'
 gem 'annotate'
 gem 'annotate-models'

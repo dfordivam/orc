@@ -4,20 +4,43 @@
   .paginate_user
     = will_paginate
     .wrapper_vistors
-      .left_column_user
-        %b UserName
-      .central-colunm-user{:align => "center"}
-        %b Email
-      .right_column_user
-        %b Role
-      .edit_index
-      .delete_index
-      .spacer
-  - @users.each do |user|
-    .wrapper_vistors
-      .left_column_user= user.username
-      .central-colunm-user{:align => "center"}= user.email
-      .right_column_user= user.role.rolename
-      .edit_index= link_to "edit", edit_user_path(user)
-      .delete_index= link_to "delete", user_path(user), :method => :delete, :confirm => "Are you sure to delete user #{user.username} ?"
-      .spacer
+      %table{:width=>"70%"}
+        %tbody
+          %tr
+            %td{:align => "left"}
+              -#.left_column_user
+              %b &nbsp;&nbsp;&nbsp; UserName
+            %td
+              -#.central-colunm-user{:align => "left"}
+              %b &nbsp;&nbsp;&nbsp; Email
+            %td
+              .right_column_user
+                %b Role
+            %td
+              .edit_index
+            %td
+              .delete_index
+            %td
+              .spacer
+          %tr
+            - @users.each do |user|
+              .wrapper_vistors
+                %tr
+                  %td
+                    -#.left_column_user
+                    &nbsp;&nbsp;&nbsp;
+                    = user.username
+                  %td
+                    -#.central-colunm-user{:align => "center"}
+                    &nbsp;&nbsp;&nbsp;
+                    = user.email
+                  %td{:width=>"40"}
+                    .right_column_user= user.role.rolename
+                  %td{:width=>"20px",:align=>"center"}
+                    -#.edit_index
+                    = link_to "edit", edit_user_path(user)
+                  %td{:width=>"40px",:align=>"center"}
+                    -#.delete_index
+                    = link_to "delete", user_path(user), :method => :delete, :confirm => "Are you sure to delete user #{user.username} ?"
+                  %td
+                    .spacer

@@ -161,6 +161,7 @@ DEPENDENCIES
   database_cleaner
   haml
   jquery-rails
+  mime-types
   mysql
   rails (= 3.0.7)
   rake (~> 0.8.7)

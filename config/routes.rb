@@ -18,6 +18,14 @@ Orc::Application.routes.draw do
   get "events/create"
   # Ravi Added Start
   match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
+  match 'utilities/uploadexcel' => 'utilities#uploadexcel', :as => :uploadexcel
+  match 'utilities/user_list' => 'utilities#user_list', :as => :user_list
+  match 'utilities/usr_load' => 'utilities#usr_load', :as => :usr_load
+  match 'utilities/cancel_user' => 'utilities#cancel_user', :as => :cancel_user
+  match 'utilities/download_user_list' => 'utilities#download_user_list', :as => :download_user_list
+  match 'utilities/download_building_list' => 'utilities#download_building_list', :as => :download_building_list
+  match 'utilities/download_event_list' => 'utilities#download_event_list', :as => :download_event_list
+  resources :utilities
   # Ravi Added End
 
   # The priority is based upon order of creation:
