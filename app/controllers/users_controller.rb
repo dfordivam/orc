@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :login_required
 
   def index
-    @users = User.paginate(:page => params[:page], :per_page => 5)
+    @users = User.find(:all,:conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 5)
   end
 
   def new
@@ -39,13 +39,21 @@ class UsersController < ApplicationController
 
  def destroy
    @user = User.find(params[:id])
-   ## @user.destroy
-   if @user.save 
-     flash[:notice] = "User #{@user.username} has been deleted" 
+   if @user.username == SUPERADMIN
+     flash[:notice] = "CAN NOT delete SUPERADMIN !!"
    else
-     flash[:notice] = "Error in deleting user #{@user.username} !!" 
+     ## @user.destroy
+     @user.is_delete = 1
+     if @user.save 
+       temp_usersroles = UsersRoles.find(:all,:conditions => ["user_id = ?", @user.id])
+      for t_ur in temp_usersroles
+        t_ur.update_attribute(:is_delete,1)
+      end
+       flash[:notice] = "User #{@user.username} has been deleted" 
+     else
+       flash[:notice] = "Error in deleting user #{@user.username} !!" 
+     end
    end
    redirect_to users_path
  end
-
 end

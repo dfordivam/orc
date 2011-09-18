@@ -88,7 +88,7 @@ class UtilitiesController < ApplicationController
   private
 
   def check_users_for_errors(users)
-    email_list = User.find_by_sql("select distinct trim(email) email from users")
+    email_list = User.find_by_sql("select distinct trim(email) email from users where not is_delete")
     users.length.times do |us|
       if users[us][:username].nil? || users[us][:email].nil? || users[us][:role_id].nil? || users[us][:password].nil? || users[us][:role].nil?
         users[us][:isbad] = true

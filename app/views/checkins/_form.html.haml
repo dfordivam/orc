@@ -1,4 +1,4 @@
-= javascript_include_tag 'checkin', 'visitor', 'common'
+= javascript_include_tag 'checkin', 'common'
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = form_for @checkin do |f|
     -if @visitor.id.nil?
@@ -72,7 +72,7 @@
           %tr
             %td{:colspan=>"4"}
               .header_font
-                = f.label :visitor_checkin, 'Visitor Check In Here' 
+                = f.label :visitor_checkin, "Edit Checkin Details For #{@visitor.name} Here"
             %td
               = f.label :visitor, 'ID', :hidden => true
               = f.text_field :visitor_id, :hidden => true, :readonly => true, :size => 1
@@ -87,12 +87,12 @@
             %td
               = f.label :meals_req, 'Meals Required'
             %td
-              = check_box_tag :meals , 'breakfast'
-              Breakfast
-              = check_box_tag :meals , 'lunch'
-              Lunch
-              = check_box_tag :meals , 'dinner'
-              Dinner
+              = f.label :meals_req, ' Breakfast'
+              = f.check_box :meals_req
+              = f.label :meals_req, ' Lunch'
+              = f.check_box :meals_req 
+              = f.label :meals_req, ' Dinner'
+              = f.check_box :meals_req
           %tr
             %td
               = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
@@ -107,7 +107,7 @@
               = f.text_field :remarks, :class => 'text_feld_area'
           %tr
             %td
-              = f.label :no_of_days, 'No. of Days'
+              = f.label :no_of_days, 'No. of Days**'
             %td
               = f.number_field :no_of_days, :class => 'text_feld_area' 
             %td
@@ -120,14 +120,21 @@
             %td
               = select :room, :building_id, @building_list.collect {|e| [e.name, e.id] }
             %td
-              = f.label :room, 'Room'
+              = f.label :room, 'Floor/Room'
             %td
-              = select :checkin, :room_id, {:include_blank => true}  
+              %table
+                %tbody
+                  %tr
+                    %td
+                      = label :fc, 'Floor'
+                      = select :fc1,:fc11, @flr_list
+                      = label :rc, 'Room'
+                      = select :rc1,:rc11, @rm_list 
           %tr
             %td{:colspan=>"4"}
               .rooms_result
                 = f.label :is_active, 'Is Active?'
-                = f.check_box :is_active, :checked => true 
+                = f.check_box :is_active 
           %tr
             %td{:colspan => "4",:align=>"center"}
               - if @checkin.id.nil?

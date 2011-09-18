@@ -1,5 +1,16 @@
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
-  = form_for @room do |f|
+  = form_for @room, :url => {:action => 'add_rooms_to_building_view', :building_id => @building.id} do |f|
+    - if ! flash[:notice].nil?
+      %table{:width=>"100%"}
+        %tr
+          %td
+            .flashNoticeError
+              &nbsp;&nbsp;&nbsp;
+              %b= flash[:notice] 
+        %tr
+          %td
+            %br
+    = render "shared/error_messages", :target => @room
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
@@ -14,13 +25,14 @@
             = text_field_tag :building_name, @building.name, :readonly => true, :class => 'text_feld_area'
         %tr
           %td
-            = f.label :room_no, 'Room No.**'
-          %td
-            = f.number_field :room_no, :step => 1, :class => 'text_feld_area'
-          %td
             = f.label :floor, 'Floor**'
           %td
-            = f.number_field :floor, :class => 'text_feld_area'
+            -#= f.number_field :floor, :class => 'text_feld_area'
+            = f.select :floor, @floor_list
+          %td
+            = f.label :room_no, 'Room Name/No.**'
+          %td
+            = f.text_field :room_no, :class => 'text_feld_area'
         %tr
           %td
             = f.label :total_beds, 'Total Beds**'
@@ -29,7 +41,7 @@
           %td
             = f.label :occupied_beds, 'Occupied Beds'
           %td
-            = f.number_field :occupied_beds, :value => 0, :class => 'text_feld_area'
+            = f.number_field :occupied_beds, :class => 'text_feld_area'
         %tr
           %td
             = f.label :category, 'Type/Category'

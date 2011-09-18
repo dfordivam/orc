@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
     if @room.save
       redirect_to building_path(@building.id)
     else
-      redirect_to new_room_path
+      redirect_to new_room_path(@building.id)
     end
   end
 
@@ -36,6 +36,10 @@ class RoomsController < ApplicationController
     ## @room.destroy
     @room.is_delete = 1
     if @room.save 
+      temp_checkin = Checkin.find(:all,:conditions => ["room_id = ?", @room.id])
+      for t_c in temp_checkin
+        t_c.update_attribute(:is_delete,1)
+      end
       flash[:notice] = "Room #{@room.room_no} has been deleted" 
     else
       flash[:notice] = "Error in deleting room #{@room.room_no} !!" 

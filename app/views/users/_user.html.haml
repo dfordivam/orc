@@ -9,29 +9,29 @@
               = form.label :new_user_info, 'Create New User Here'
         %tr
           %td{:width => "260"} 
-            = form.label :username, "Username*"
+            = form.label :username, "Username**"
           %td{:width => "50"} 
             = form.text_field :username, :class => 'text_feld_area'
           %td{:colspan=>"2", :rowspan=>"6"}
             = image_tag('lock.jpg',:width=>"300")
         %tr
           %td{:width => "260"}  
-            = form.label :email, "Email*"
+            = form.label :email, "Email**"
           %td{:width => "50"} 
             = form.text_field :email, :class => 'text_feld_area', :value=> user.email||"@"
         %tr
           %td{:width => "260"}  
-            = form.label :password, "Password*"
+            = form.label :password, "Password**"
           %td{:width => "50"} 
             = form.password_field :password, :class => 'text_feld_area'
         %tr
           %td{:width => "260"}  
-            = form.label :password_confirmation, "Password confirmation*"
+            = form.label :password_confirmation, "Password confirmation**"
           %td{:width => "50"} 
             = form.password_field :password_confirmation, :class => 'text_feld_area'
         %tr
           %td{:width => "260"}  
-            = label_tag "User Role*: "
+            = label_tag "User Role**: "
           %td{:width => "50"} 
             - for role in @roles
               = form.radio_button :role_id, role.id

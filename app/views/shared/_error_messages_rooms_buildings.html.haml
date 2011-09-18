@@ -1,0 +1,10 @@
+- if ((!target.nil?) && (target.errors.any?)) || ((!target2.nil?) && (target2.errors.any?))
+  #errorExplanation
+    %h2= "#{pluralize(target.errors.count, 'error')} prohibited this record from being saved:"
+    %ul
+      - target.errors.full_messages.each do |msg|
+        %li= msg
+    %h2= "#{pluralize(target2.errors.count, 'error')} prohibited this record from being saved:"
+    %ul
+      - target2.errors.full_messages.each do |msg|
+        %li= msg

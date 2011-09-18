@@ -258,11 +258,20 @@ div.padLeft {
 	padding-left: 10px;
 }
 
+.flashNoticeError {
+  width: 600px;
+  border: 2px solid red;
+  background-color: #CC0000;
+  color: white;
+  margin-left: 3px;
+  padding-bottom: 1px;
+}
 #errorExplanation {
   width: 70%;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 12px;
+  margin-left: 50px;
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }

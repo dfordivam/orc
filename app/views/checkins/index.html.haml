@@ -1,7 +1,14 @@
 %div{:class=>"mid_bg_add_checkin text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"1"}
-  = render "shared/error_messages", :target => @checkins
   .div_link
-    = link_to 'Add new Checkin', new_checkin_path
+    - if ! flash[:notice].nil?
+      %table{:width=>"100%"}
+        %tr
+          %td
+            .flashNoticeError
+              &nbsp;&nbsp;&nbsp;
+              %b= flash[:notice] 
+    -# Commenting 'Add new Checkin Link... Not required anymore...
+    -#= link_to 'Add new Checkin', new_checkin_path
   .wrapper_checkin
     .left_column_checkin 
       %b Visitor Name

@@ -8,8 +8,12 @@ class BuildingsController < ApplicationController
 
   def create
     @building = Building.new(params[:building])
-    @building.save
-    redirect_to buildings_path
+    if @building.save
+      redirect_to buildings_path 
+    else
+      flash[:notice] = nil
+      render 'new'
+    end
   end
 
   def index
@@ -25,6 +29,14 @@ class BuildingsController < ApplicationController
     ## @building.destroy
     @building.is_delete = 1
     if @building.save 
+      temp_room = Room.find(:all,:conditions => ["building_id = ?", @building.id])
+      for t_r in temp_room
+        t_r.update_attribute(:is_delete,1)
+        temp_checkin = Checkin.find(:all, :conditions => ["room_id = ?", t_r.id])
+        for t_c in temp_checkin
+          t_c.update_attribute(:is_delete,1)
+        end
+      end
       flash[:notice] = "Building #{@building.name} has been deleted" 
     else
       flash[:notice] = "Can not delete Building #{@building.name} !!" 
@@ -44,4 +56,41 @@ class BuildingsController < ApplicationController
       render 'edit'
     end
   end
+
+  def add_rooms_to_building
+    @building = Building.find(params[:building_id], :order => "floors")
+    @room = Room.new(:building => @building)
+    @floor_list = [""]
+    @building.floors.times do |fl|
+      @floor_list << fl.to_s
+    end
+    @room_category = [1, 2]
+  end
+
+  def add_rooms_to_building_view
+    @building = Building.find(params[:building_id])
+    params[:room][:building] = @building
+    @room = Room.new(params[:room])
+    tot_beds = @room.total_beds||0
+    occup_beds = @room.occupied_beds||0
+    @room.empty_beds = tot_beds - occup_beds
+    @floor_list = [""]
+    @building.floors.times do |fl|
+      @floor_list << fl.to_s
+    end
+    @room_category = [1, 2]
+    if tot_beds < occup_beds
+      flash[:notice] = "#{@room.occupied_beds}Total beds can't be less than occupied beds !!"
+      render 'add_rooms_to_building'
+      return
+    end
+    if @room.save
+      flash[:notice] = "Rooms added successfully to #{@building.name}"
+      redirect_to buildings_path
+    else
+      flash[:notice] = nil
+      render 'add_rooms_to_building'
+    end
+  end
+
 end

@@ -1,8 +1,8 @@
 %td
-  = label_tag :in_gyan_years, 'In Gyan years*'
+  = label_tag :in_gyan_years, 'In Gyan years**'
 %td
   = number_field_tag "visitor[in_gyan_years]", "#{!params["visitor"].blank? ? params["visitor"]["in_gyan_years"] : !@visitor.blank? ? @visitor.in_gyan_years : nil}" , :class => 'text_feld_area'
 %td
-  = label_tag :centre_addr, 'Centre Address*'
+  = label_tag :centre_addr, 'Centre Address**'
 %td
   = text_area_tag "visitor[centre_addr]", "#{!params["visitor"].blank? ? params["visitor"]["centre_addr"] : !@visitor.blank? ? @visitor.centre_addr : nil}", :size=> "20x1"

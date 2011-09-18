@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Successfully logged in."
+      flash[:notice] = "Welcome !!"
       redirect_to new_visitor_path
     else
       render :action => 'new'

@@ -8,28 +8,27 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    if @event.start_date_time > @event.end_date_time
+    if !@event.start_date_time.nil? && !@event.end_date_time.nil? && @event.start_date_time > @event.end_date_time
       flash[:notice] = 'Start date can\'t be more than end date !!'  
-      redirect_to new_event_path
+      render 'new'
     else
       if @event.save
          flash[:notice] = 'Done !!'
          redirect_to events_path
       else
-         flash[:notice] = 'Error !!'
-         redirect_to new_event_path
+         flash[:notice] = nil
+         render 'new'
       end
     end
   end
 
   def update
-    @event = Event.new(params[:event])
-    if @event.save
-       flash[:notice] = 'Done !!'
+    @event = Event.find(params[:id])
+    if @event.update_attributes(params[:event])
+      redirect_to events_path
     else
-       flash[:notice] = 'Error !!'
+      render 'edit'
     end
-    redirect_to events_path
   end
 
   def edit
@@ -45,6 +44,14 @@ class EventsController < ApplicationController
     ## @event.destroy
     @event.is_delete = 1
     if @event.save 
+      temp_visitor = Visitor.find(:all,:conditions => ["event_id = ?", @event.id])
+      temp_checkin = Checkin.find(:all,:conditions => ["event_id = ?", @event.id])
+      for t_v in temp_visitor
+        t_v.update_attribute(:is_delete,1)
+      end
+      for t_c in temp_checkin
+        t_c.update_attribute(:is_delete,1)
+      end
       flash[:notice] = "Event #{@event.name} has been deleted" 
     else
       flash[:notice] = "Error in deleting event #{@event.name} !!" 

@@ -23,7 +23,6 @@ class VisitorsController < ApplicationController
   end
 
   def checkinfacebox
-    # flash[:notice] = Visitor.find(params[:visitor_id]).name
     @visitor = Visitor.find(params[:visitor_id], :conditions => ["is_delete = ?", 0])
     @checkin = Checkin.new
     @checkin.visitor = @visitor
@@ -31,7 +30,8 @@ class VisitorsController < ApplicationController
     @room = Room.new
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
-    @room_list = Room.find(:all, :conditions => ["is_delete = ?", 0])
+    @room_list = [""]
+    @floor_list = [""]
     @coll = ["BK" , "Non BK"] 
     render :layout => "aboutblank"
   end
@@ -39,10 +39,12 @@ class VisitorsController < ApplicationController
   def create
     @visitor = Visitor.new(params[:visitor])
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
     if @visitor.save
-      flash[:notice] = "New visitor successfully created"
+      flash[:notice] = "#{@visitor.name} visitor successfully created"
       redirect_to visitors_path
     else
+      flash[:notice] = nil
       render new_visitor_path
     end
   end
@@ -62,6 +64,10 @@ class VisitorsController < ApplicationController
     ## @visitor.destroy
     @visitor.is_delete = 1
     if @visitor.save 
+      temp_checkin = Checkin.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
+      for t_c in temp_checkin
+        t_c.update_attribute(:is_delete,1)
+      end
       flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
       redirect_to visitors_path
     else

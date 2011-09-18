@@ -1,5 +1,12 @@
 = javascript_include_tag 'visitor'
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  - if ! flash[:notice].nil?
+    %table{:width=>"100%"}
+      %tr
+        %td
+          .flashNoticeError
+            &nbsp;&nbsp;&nbsp;
+            %b= flash[:notice] 
   .paginate_visitor
     = will_paginate
     .div_link
@@ -30,7 +37,11 @@
     .col2= visitor.mobile_no
     .col3= visitor.visitor_type
     -###########################################################################################################################
-    .show_index_visitors= link_to "checkin", checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
+    - if visitor.checkin_date.nil?
+      .show_index_visitors= link_to "checkin", checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
+    - else
+      .show_index_visitors
+        %b Check-in Done
     -###### Comment the above line And Uncomment the below one If You need ColorBox Effect..
     -#.show_index_visitors= link_to "checkin",checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox"
     -###########################################################################################################################

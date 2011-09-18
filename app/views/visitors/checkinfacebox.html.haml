@@ -1,6 +1,17 @@
-= javascript_include_tag 'checkin', 'visitor', 'common'
+= javascript_include_tag 'visitor', 'common'
 %div{:class=>"mid_bg_add_visitors_facebox text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = form_for @checkin do |f|
+    - if ! flash[:notice].nil?
+      %table{:width=>"100%"}
+        %tr
+          %td
+            .flashNoticeError
+              &nbsp;&nbsp;&nbsp;
+              %b= flash[:notice] 
+        %tr
+          %td
+            %br
+    = render "shared/error_messages", :target => @building
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
@@ -21,12 +32,12 @@
           %td
             = f.label :meals_req, 'Meals Required'
           %td
-            = check_box_tag :meals , 'breakfast'
-            Breakfast
-            = check_box_tag :meals , 'lunch'
-            Lunch
-            = check_box_tag :meals , 'dinner'
-            Dinner
+            = f.label :meals_req, ' Breakfast'
+            = f.check_box :meals_req
+            = f.label :meals_req, ' Lunch'
+            = f.check_box :meals_req 
+            = f.label :meals_req, ' Dinner'
+            = f.check_box :meals_req
         %tr
           %td
             = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
@@ -54,14 +65,21 @@
           %td
             = select :room, :building_id, @building_list.collect {|e| [e.name, e.id]}
           %td
-            = f.label :room, 'Room'
+            = f.label :room, 'Floor/Room'
           %td
-            = select :checkin, :room_id, :include_blank => true 
+            %table
+              %tbody
+                %tr
+                  %td
+                    = label :f, 'Floor'
+                    = select :f1,:f11, @floor_list
+                    = label :r, 'Vacant Rooms'
+                    = select :r1,:r11, @room_list 
         %tr
           %td{:colspan=>"4"}
             .rooms_result
               = f.label :is_active, 'Is Active?'
-              = f.check_box :is_active, :checked => true 
+              = f.check_box :is_active
         %tr
           %td{:colspan => "4",:align=>"center"}
             = submit_tag 'Submit'

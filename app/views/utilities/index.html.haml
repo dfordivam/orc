@@ -3,10 +3,15 @@
     %tbody
       %tr 
         %td{:colspan => "4", :align=>"center", :style => "font_weight:bold; color:red"}
-          - if flash[:notice]
-            = flash[:notice]
+          - if ! flash[:notice].nil?
+            %table{:width=>"100%"}
+              %tr
+                %td
+                  .flashNoticeError
+                    &nbsp;&nbsp;&nbsp;
+                    %b= flash[:notice]
+            %br
             -#= render "shared/error_messages", :target => @new_user
-            %tr
       %tr{:bgcolor => "#D6D9BA"}
         %td
           %b &nbsp; &nbsp; &nbsp; 1) You Can Upload Users List

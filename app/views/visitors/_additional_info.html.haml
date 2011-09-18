@@ -18,9 +18,9 @@
   %td
     = text_field_tag "visitor[transport_mode]", "#{!params["visitor"].blank? ? params["visitor"]["transport_mode"] : !@visitor.blank? ? @visitor.transport_mode : nil}", :class => 'text_feld_area'
   %td
-    = label_tag :age, 'Age'
+    = label_tag :email, 'Email'
   %td
-    = number_field_tag "visitor[age]", "#{!params["visitor"].blank? ? params["visitor"]["age"] : !@visitor.blank? ? @visitor.age : nil}", :class => 'text_feld_area'
+    = text_field_tag "visitor[email]", "#{!params["visitor"].blank? ? params["visitor"]["email"] : !@visitor.blank? ? @visitor.email : nil}", :class => 'text_feld_area'
 %tr
   %td
     = label_tag :is_guide, 'Is Guide?'

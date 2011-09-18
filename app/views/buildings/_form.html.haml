@@ -1,5 +1,16 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = form_for @building do |f|
+    - if ! flash[:notice].nil?
+      %table{:width=>"100%"}
+        %tr
+          %td
+            .flashNoticeError
+              &nbsp;&nbsp;&nbsp;
+              %b= flash[:notice] 
+        %tr
+          %td
+            %br
+    = render "shared/error_messages", :target => @building
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
@@ -8,19 +19,20 @@
               = f.label :edit_bilding_info, 'Provide Building Information Here'
         %tr
           %td
-            = f.label :name, 'Name'
+            = f.label :name, 'Name**'
           %td
             = f.text_field :name, :class => 'text_feld_area'
           %td
-            = f.label :rooms, 'No. of Rooms'
-          %td
-            = f.number_field :no_of_rooms, :class => 'text_feld_area'
-        %tr
-          %td
-            = f.label :floors, 'No. of Floors '
+            = f.label :floors, 'Total No. of Floors** '
           %td
             = f.number_field :floors, :class => 'text_feld_area'
-          %td{:colspan=>"2"}
+        -# Wont show No. of Rooms here....
+        -#%tr
+        -#  %td
+        -#    = f.label :rooms, 'Number of Rooms**'
+        -#  %td
+        -#    = f.number_field :no_of_rooms, :class => 'text_feld_area'
+        -#  %td{:colspan=>"2"}
         %tr
           %td{:colspan => "4",:align=>"center"}
             - if @building.id.nil?

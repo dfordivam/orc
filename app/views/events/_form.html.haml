@@ -1,5 +1,13 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = form_for @event do |f|
+    - if ! flash[:notice].nil?
+      %table{:width=>"100%"}
+        %tr
+          %td
+            .flashNoticeError
+              &nbsp;&nbsp;&nbsp;
+              %b= flash[:notice] 
+    = render "shared/error_messages", :target => @event
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
@@ -8,16 +16,16 @@
               = f.label :edit_event_info, 'Provide Event Information Here'
         %tr
           %td
-            = f.label :name, 'Event Name'
+            = f.label :name, 'Event Name**'
           %td
             = f.text_field :name, :class => 'text_feld_area'
         %tr
           %td
-            = f.label :start_date_time, 'Start Date'
+            = f.label :start_date_time, 'Start Date**'
           %td
             = f.text_field :start_date_time, :class => 'text_feld_area'
           %td
-            = f.label :end_date_time, 'End Date'
+            = f.label :end_date_time, 'End Date**'
           %td
             = f.text_field :end_date_time, :class => 'text_feld_area'
         %tr
@@ -26,14 +34,14 @@
           %td
             = f.number_field :capacity, :in => [1,100000], :step => 1, :class => 'text_feld_area'
           %td  
-            = f.label :location, 'Location'
+            = f.label :location, 'Location**'
           %td
             = f.text_field :location, :class => 'text_feld_area'
         %tr
           %td{:colspan => "4",:align=>"center"}
             - if @event.id.nil?
-              = submit_tag "Submit", :style => 'width:80px;font-weight:bold'
+              = submit_tag 'Submit', :style => 'width:80px;font-weight:bold'
             - else
-              = submit_tag "Update", :style => 'width:80px;font-weight:bold'
+              = submit_tag 'Update', :style => 'width:80px;font-weight:bold'
             = link_to "Cancel",events_path
 

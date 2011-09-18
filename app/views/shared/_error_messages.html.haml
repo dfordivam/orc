@@ -1,4 +1,4 @@
-- if target.errors.any?
+- if (!target.nil?) && (target.errors.any?)
   #errorExplanation
     %h2= "#{pluralize(target.errors.count, 'error')} prohibited this record from being saved:"
     %ul

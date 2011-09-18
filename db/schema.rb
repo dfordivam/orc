@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110909031860) do
+ActiveRecord::Schema.define(:version => 20110918173303) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.integer  "floors"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "checkins", :force => true do |t|
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.integer  "meals_req"
     t.boolean  "is_sight_seeing_req"
     t.string   "remarks"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "events", :force => true do |t|
@@ -46,14 +46,14 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "rooms", :force => true do |t|
@@ -67,13 +67,9 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "building_id"
-    t.integer  "room_no"
+    t.string   "room_no",         :null => false
     t.integer  "total_beds"
-    t.boolean  "is_delete"
-  end
-
-  create_table "test", :id => false, :force => true do |t|
-    t.string "Name", :limit => 20, :default => "", :null => false
+    t.integer  "is_delete"
   end
 
   create_table "users", :force => true do |t|
@@ -87,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.string   "persistence_token"
     t.integer  "roles_mask"
     t.string   "role"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "users_roles", :force => true do |t|
@@ -95,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
@@ -104,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
   create_table "visitors", :force => true do |t|
     t.string   "name"
     t.integer  "age"
-    t.text     "address"
+    t.text     "address",                  :limit => 255
     t.string   "gender"
     t.string   "mobile_no"
     t.string   "visitor_type"
@@ -117,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.datetime "updated_at"
     t.date     "dob"
     t.integer  "in_gyan_years"
-    t.text     "centre_addr"
+    t.text     "centre_addr",              :limit => 255
     t.string   "is_guide"
     t.string   "email"
     t.string   "qualification"
@@ -135,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20110909031860) do
     t.string   "create_by"
     t.string   "updated_by"
     t.integer  "event_id"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
 end

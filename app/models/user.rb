@@ -2,9 +2,9 @@ class User < ActiveRecord::Base
   acts_as_authentic
   belongs_to :role
  
-  before_create :set_is_delete_to_false
+  before_create :set_default_values
   
-  def set_is_delete_to_false
+  def set_default_values
     self.is_delete = 0
   end
 

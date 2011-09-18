@@ -25,6 +25,8 @@ Orc::Application.routes.draw do
   match 'utilities/download_user_list' => 'utilities#download_user_list', :as => :download_user_list
   match 'utilities/download_building_list' => 'utilities#download_building_list', :as => :download_building_list
   match 'utilities/download_event_list' => 'utilities#download_event_list', :as => :download_event_list
+  match 'buildings/add_rooms_to_building/:building_id' => 'buildings#add_rooms_to_building', :as => :add_rooms_to_building
+  match 'buildings/add_rooms_to_building_view/:building_id' => 'buildings#add_rooms_to_building_view', :as => :add_rooms_to_building_view
   resources :utilities
   # Ravi Added End
 
