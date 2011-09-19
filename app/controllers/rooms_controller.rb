@@ -15,8 +15,11 @@ class RoomsController < ApplicationController
     @building = Building.find(params[:room][:building])
     params[:room][:building] = @building
     @room = Room.new(params[:room])
-    @room.empty_beds = @room.total_beds - @room.occupied_beds
+    occupied_beds = @room.occupied_beds||0
+    end
     if @room.save
+      @room.update_attribute(:empty_beds, @room.total_beds - @room.occupied_beds)
+      @room.update_attribute(:occupied_beds, occupied_beds)
       redirect_to building_path(@building.id)
     else
       redirect_to new_room_path(@building.id)
