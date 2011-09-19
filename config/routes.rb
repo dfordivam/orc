@@ -1,5 +1,34 @@
 Orc::Application.routes.draw do
+  resources :users
+  resources :user_sessions
+#  resources :user_sessions do
+#    collection do
+#      post :signup
+#      post :add_fields_2
+#      post :additional_info
+#    end
+#  end
+  match 'users/new' => 'users#new', :as => :signup
+  match 'user_sessions/logout/:id' => 'user_sessions#logout', :as => :logout
+  match 'user_sessions/new' => 'user_sessions#new', :as => :login
+  
+  get "user_sessions/new"
+  get "users/new"
+  get "users/edit"
   get "events/create"
+  # Ravi Added Start
+  match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
+  match 'utilities/uploadexcel' => 'utilities#uploadexcel', :as => :uploadexcel
+  match 'utilities/user_list' => 'utilities#user_list', :as => :user_list
+  match 'utilities/usr_load' => 'utilities#usr_load', :as => :usr_load
+  match 'utilities/cancel_user' => 'utilities#cancel_user', :as => :cancel_user
+  match 'utilities/download_user_list' => 'utilities#download_user_list', :as => :download_user_list
+  match 'utilities/download_building_list' => 'utilities#download_building_list', :as => :download_building_list
+  match 'utilities/download_event_list' => 'utilities#download_event_list', :as => :download_event_list
+  match 'buildings/add_rooms_to_building/:building_id' => 'buildings#add_rooms_to_building', :as => :add_rooms_to_building
+  match 'buildings/add_rooms_to_building_view/:building_id' => 'buildings#add_rooms_to_building_view', :as => :add_rooms_to_building_view
+  resources :utilities
+  # Ravi Added End
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -78,7 +107,8 @@ Orc::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
   #root :to => "home#index"
-  root :to => "visitors#new"
+#  root :to => "visitors#new"
+  root :to => "user_sessions#new"
 
   # See how all your routes lay out with "rake routes"
 

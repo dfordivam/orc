@@ -1,18 +1,15 @@
-# == Schema Information
-# Schema version: 20110611144930
-#
-# Table name: buildings
-#
-#  id          :integer(4)      not null, primary key
-#  name        :string(255)
-#  no_of_rooms :integer(4)
-#  floors      :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 class Building < ActiveRecord::Base
   has_many :rooms
-  validates :name, :presence => true
-  validates :no_of_rooms, :presence => true
+ 
+  before_create :set_default_values
+  
+  def set_default_values
+    self.is_delete = 0
+  end
+
+ validates :name, :presence => true
+ validates :floors, :presence => true
+ 
+ # Wont show No. of Rooms in new add building page....
+ # validates :no_of_rooms, :presence => true
 end

@@ -1,36 +1,52 @@
-= javascript_include_tag 'visitor'
+- if ! flash[:notice].nil?
+  %table{:width=>"100%"}
+    %tr
+      %td
+        .flashNoticeError
+          &nbsp;&nbsp;&nbsp;
+          %b= flash[:notice] 
+    %tr
+      %td
+        %br
+= javascript_include_tag 'visitor', 'common', 'checkin'
 = form_for @visitor do |visitor|
   = render "shared/error_messages", :target => @visitor
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
     %tbody
       %tr
         %td
-          = visitor.label :name, 'Name*'
+          .header_font
+            = visitor.label :visitor_registration, 'Visitor Registration Here'
+      %tr
+      %tr
+      %tr
+        %td
+          = visitor.label :name, 'Name**'
         %td
           = visitor.text_field :name, :class => 'text_feld_area'
         %td
-          = visitor.label :dob, 'Date of Birth*'
+          = visitor.label :dob, 'Date of Birth**'
         %td
           = visitor.text_field :dob, :readonly => true, :class => 'text_feld_area'
       %tr
         %td
-          = visitor.label :address, 'Address*'
+          = visitor.label :address, 'Address**'
         %td
           = visitor.text_area :address, :size=> "20x1"
         %td
-          = visitor.label :gender, 'Gender*'
+          = visitor.label :gender, 'Gender**'
         %td
-          = visitor.radio_button :gender , "male"
+          = visitor.radio_button :gender , "male", :value=>true
           Male
           = visitor.radio_button :gender , "female"
           Female
       %tr
         %td
-          = visitor.label :mobile_no, 'Mobile No*'
+          = visitor.label :mobile_no, 'Mobile No**'
         %td
           = visitor.text_field :mobile_no, :class => 'text_feld_area'
         %td
-          = visitor.label :visitor_type, 'Type*'
+          = visitor.label :visitor_type, 'Type**'
         %td
           = select :visitor, :visitor_type, VISITOR_TYPE, :include_blank => ""
       %tr{:id => 'add_fields'}
@@ -38,27 +54,31 @@
           = render :partial => "add_fields"
       %tr
         %td
-          = visitor.label :is_physically_challenged, 'Physically Challenged*'
+          = visitor.label :is_physically_challenged, 'Physically Challenged**'
         %td
-          = visitor.radio_button :is_physically_challenged , 'false'
+          = visitor.radio_button :is_physically_challenged , 'false', :value=>"true"
           No
           = visitor.radio_button :is_physically_challenged , 'true'
           Yes
-        %td{:colspan => "2"}
+        %td
+          = visitor.label :event, 'Event**'
+        %td
+          = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] }
       %tr
         %td{:colspan =>3, :id => 'add_info'}
           %b
             %u Addintional Info
             = image_tag('add-Icon.png')
       %tr
-        %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
-          %tbody{:id => 'additional_info'}
-            - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
-              = render :partial => "additional_info"
+        %td{:colspan => "4"}
+          %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+            %tbody{:id => 'additional_info'}
+              - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
+                = render :partial => "additional_info"
       %tr
-        %td{:colspan => "4"} &nbsp;
-      %tr
-        %td{:colspan => "2", :align => "right"}
-          = submit_tag 'Submit'
-        %td{:colspan => "2", :align => "left"}
-          = link_to 'Cancel', visitors_path
+        %td{:colspan => "4",:align=>"center"}
+          - if @visitor.id.nil?
+            = submit_tag 'Submit', :style => 'width:80px;font-weight:bold'
+          - else
+            = submit_tag 'Update', :style => 'width:80px;font-weight:bold'
+          = link_to "Cancel",visitors_path

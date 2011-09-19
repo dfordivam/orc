@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  before_filter :login_required
   def new
     @building = Building.find(params[:building_id])
     if @building
@@ -14,16 +15,19 @@ class RoomsController < ApplicationController
     @building = Building.find(params[:room][:building])
     params[:room][:building] = @building
     @room = Room.new(params[:room])
-    @room.empty_beds = @room.total_beds - @room.occupied_beds
+    occupied_beds = @room.occupied_beds||0
+    end
     if @room.save
+      @room.update_attribute(:empty_beds, @room.total_beds - @room.occupied_beds)
+      @room.update_attribute(:occupied_beds, occupied_beds)
       redirect_to building_path(@building.id)
     else
-      redirect_to new_room_path
+      redirect_to new_room_path(@building.id)
     end
   end
 
   def index
-    @rooms = Room.find(:all)
+    @rooms = Room.find(:all, :conditions => ["is_delete = ?", 0])
   end
 
   def show 
@@ -32,7 +36,17 @@ class RoomsController < ApplicationController
 
   def destroy 
     @room = Room.find(params[:id])
-    @room.destroy
+    ## @room.destroy
+    @room.is_delete = 1
+    if @room.save 
+      temp_checkin = Checkin.find(:all,:conditions => ["room_id = ?", @room.id])
+      for t_c in temp_checkin
+        t_c.update_attribute(:is_delete,1)
+      end
+      flash[:notice] = "Room #{@room.room_no} has been deleted" 
+    else
+      flash[:notice] = "Error in deleting room #{@room.room_no} !!" 
+    end
     redirect_to building_path(@room.building.id)
   end
 

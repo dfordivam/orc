@@ -1,22 +1,39 @@
-var rooms = new Array();
-<% for room in @room_list -%>
-  rooms.push(new Array(<%= room.building_id %>, '<%=h room.room_no %>', <%= room.id %>));
+var rooms_checkin_array = new Array();
+<% for room in @full_room_list_checkin -%>
+  rooms_checkin_array.push(new Array(<%= room.building_id %>, '<%=h room.room_no %>', <%= room.id %>, <%= room.floor %>));
 <% end -%>
 
-function buildingSelected() {
+function getFloorCheckin() {
   building_id = $("#room_building_id").attr("value");
-  //Clear all the select menu options
-  $("#checkin_room_id").html("");
-  // fill the select menu options
-  // HACK - here i is used as an index (as there was some problem using it directly)
-  $(rooms).each(function(i) {
-    if (rooms[i][0] == building_id) {
-      $("#checkin_room_id").append("<option value=" + rooms[i][2] + ">" + rooms[i][1] + "</option>")
+  $("#fc1_fc11").html("");
+  $(rooms_checkin_array).each(function(i) {
+    if (rooms_checkin_array[i][0] == building_id) {
+      $("#fc1_fc11").append("<option value=" + rooms_checkin_array[i][3] + ">" + rooms_checkin_array[i][3] + "</option>")
     }
   });
 }
 
+function getRoomCheckin() {
+  building_id = $("#room_building_id").attr("value");
+  floor_no = $("#fc1_fc11").attr("value");
+  $("#rc1_rc11").html("");
+  $(rooms_checkin_array).each(function(i) {
+    if (rooms_checkin_array[i][3] == floor_no && rooms_checkin_array[i][0] == building_id) {
+      $("#rc1_rc11").append("<option value=" + rooms_checkin_array[i][1] + ">" + rooms_checkin_array[i][1] + "</option>")
+    }
+  });
+}
+
+function hideAdditionalInfo() {
+$("#additional_info2_checkin").hide("slow");
+$("#additional_info_checkin").hide("slow");
+//alert("Hiding Additional Info");
+}
+
 jQuery(document).ready(function(){
-  buildingSelected();
-  $("#room_building_id").change(buildingSelected);
+  getFloorCheckin();
+  $("#room_building_id").change(getFloorCheckin);
+  $("#room_building_id").change(getRoomCheckin);
+  getRoomCheckin();
+  $("#fc1_fc11").change(getRoomCheckin);
 });

@@ -1,0 +1,46 @@
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  - form_for @user do |form|
+    = render "shared/error_messages", :target => @user
+    %table{:class => "table-structure_new_user", :cellpadding=>"10", :cellspacing=>"20", :border=>0}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = form.label :new_user_info, 'Create New User Here'
+        %tr
+          %td{:width => "260"} 
+            = form.label :username, "Username**"
+          %td{:width => "50"} 
+            = form.text_field :username, :class => 'text_feld_area'
+          %td{:colspan=>"2", :rowspan=>"6"}
+            = image_tag('lock.jpg',:width=>"300")
+        %tr
+          %td{:width => "260"}  
+            = form.label :email, "Email**"
+          %td{:width => "50"} 
+            = form.text_field :email, :class => 'text_feld_area', :value=> user.email||"@"
+        %tr
+          %td{:width => "260"}  
+            = form.label :password, "Password**"
+          %td{:width => "50"} 
+            = form.password_field :password, :class => 'text_feld_area'
+        %tr
+          %td{:width => "260"}  
+            = form.label :password_confirmation, "Password confirmation**"
+          %td{:width => "50"} 
+            = form.password_field :password_confirmation, :class => 'text_feld_area'
+        %tr
+          %td{:width => "260"}  
+            = label_tag "User Role**: "
+          %td{:width => "50"} 
+            - for role in @roles
+              = form.radio_button :role_id, role.id
+              = role.rolename.humanize
+        %tr
+          %td{:colspan => "2",:align=>"center"}
+            - if @user.id.nil?
+              = submit_tag "Submit", :style => 'width:80px;font-weight:bold'
+            - else
+              = submit_tag "Update", :style => 'width:80px;font-weight:bold'
+            = link_to "Cancel",users_path
+          %td{:colspan => "2"}

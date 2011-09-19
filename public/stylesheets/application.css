@@ -80,6 +80,13 @@ width:1000px;
 /*border:1px #CCCCCC solid;*/
 padding:3px;
 }
+
+.wrapper_vistors {
+width:1000px;
+/*border:1px #CCCCCC solid;*/
+padding:3px;
+}
+
 .left_column {
 width:179px;
 float:left;
@@ -124,7 +131,7 @@ text-align:center;
 margin:1px;
 }
 .show_index {
-width:65px;
+width:95px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
@@ -223,7 +230,7 @@ margin:1px;
 
 .div_link {padding: 15px;}
 .div_link a{color: #000 !important;  text-decoration: underline; }
-.div_link a:hover{color: #000 !important; text-decoration: underline; }
+.div_link a:hover{color: blue !important; text-decoration: underline; }
 
 .new_checkin {padding-left: 15px; line-height:50px;}
 .edit_visitor {padding-left: 15px; line-height:50px;}
@@ -235,7 +242,7 @@ width:950px;
 padding:3px;
 }
 .left_column_building {
-width:79px;
+width:120px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
@@ -280,7 +287,7 @@ margin:1px;
 
 }
 .central-colunm-event {
-width:50px;
+width:100px;
 float:left;
 /*border:1px #CCCCCC solid;*/
 margin:1px;
@@ -310,7 +317,7 @@ margin:1px;
 .edit_event {padding-left: 15px; line-height:50px;}
 
 .wrapper_checkin {
-width:1000px;
+width:1150px;
 /*border:1px #CCCCCC solid;*/
 padding:3px;
 }
@@ -351,7 +358,7 @@ text-align:center;
 margin:1px;
 }
 .col3_checkin {
-width:70px;
+width:150px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
@@ -372,28 +379,76 @@ text-align:center;
 margin:1px;
 }
 .col6_checkin {
-width:50px;
+width:90px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
 margin:1px;
 }
 .col7_checkin {
-width:50px;
+width:70px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
 margin:1px;
 }
 
-.show_index_checkin .edit_index_checkin .inactivate_checkin .delete_index_checkin {
-width:50px;
+.show_index_checkin {
+width:70px;
 float:left;
 text-align:center;
 /*border:1px #CCCCCC solid;*/
 margin:1px;
 }
 
+.edit_index_checkin {
+width:40px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+.inactivate_checkin {
+width:80px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+.delete_index_checkin {
+width:	70px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+
+.show_index_visitors {
+width:70px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+.edit_index_visitors {
+width:40px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
+
+.delete_index_visitors {
+width:	70px;
+float:left;
+text-align:center;
+/*border:1px #CCCCCC solid;*/
+margin:1px;
+}
 /* Tabular Form*/
 .wrapper-box {
 width:1000px;
@@ -424,3 +479,7 @@ float:right;
 text-align:center;
 margin:1px;
 }
+
+.left_column_user {width:150px;float:left;text-align:center;margin:1px;}
+.central-colunm-user {width:287px;float:left;margin:1px;}
+.right_column_user {width:285;float:left;text-align:center;margin:1px;}

@@ -30,12 +30,20 @@ SimpleNavigation::Configuration.run do |navigation|
     # name - will be displayed in the rendered navigation. This can also be a call to your I18n-framework.
     # url - the address that the generated item links to. You can also use url_helpers (named routes, restful routes helper, url_for etc.)
     # options - can be used to specify attributes that will be included in the rendered navigation item (e.g. id, class etc.)
-    #
-    primary.item :registration, 'Registration', root_path
+    
+    primary.item :registration, 'Registration', new_visitor_path
     primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
-    primary.item :buildings, 'Buildings', buildings_path, :highlights_on => /\/buildings/
-    primary.item :events, 'Events', events_path, :highlights_on => /\/events/
+    primary.item :buildings, 'Buildings', buildings_path, :highlights_on => /\/buildings/ if can? :update, @user
+    primary.item :events, 'Events', events_path, :highlights_on => /\/events/ if can? :update, @user
     primary.item :checkins, 'Checkins', checkins_path, :highlights_on => /\/checkins/
+    if current_user.username  == SUPERADMIN
+      primary.item :users, 'Users', users_path, :highlights_on => /\/users/
+    else
+      primary.item :edit_profile, 'Edit profile', edit_user_path(current_user), :highlights_on => /\/users/
+    end
+    if current_user.username  == SUPERADMIN
+      primary.item :utilities, 'Utilities', utilities_path, :highlights_on => /\/utilities/
+    end
 #    primary.item :feeds, 'Feeds', feeds_path, :highlights_on => /\/feeds/
 #    primary.item :carousels, 'Carousels', carousels_path, :highlights_on => /\/(carousels|carousel_configs)/
 #    primary.item :blocks, 'Blocks', blocks_path, :highlights_on => /\/blocks/

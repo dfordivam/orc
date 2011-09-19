@@ -1,30 +1,54 @@
--#.div_link
-  -#= link_to "Add new Visitor Information", new_visitor_path
-.paginate_visitor
-  = will_paginate
-  .wrapper
-    .left_column Name
-    .central-colunm{:align => "center"} Age
-    .right_column Gender
-    .col Address
-    .col2 Mobile
-    .col3 Visitor Type
-    .show_index
-    .edit_index
-    .delete_index
-    .spacer
-  - @visitors.each do |visitor|
-    .wrapper
-      .left_column= visitor.name
-      .central-colunm{:align => "center"}= visitor.age
-      .right_column= gender(visitor.gender)
-      .col= visitor.address
-      .col2= visitor.mobile_no
-      .col3= visitor.visitor_type
-      -#.show_index= link_to "show", visitor_path(visitor.id)
-      .show_index= link_to "checkin", new_checkin_path(:visitor_id => visitor.id)
-      .edit_index_index= link_to "edit", edit_visitor_path(visitor.id)
-      .delete_index= link_to "delete", visitor_path(visitor.id), :method => :delete
+= javascript_include_tag 'visitor'
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  - if ! flash[:notice].nil?
+    %table{:width=>"100%"}
+      %tr
+        %td
+          .flashNoticeError
+            &nbsp;&nbsp;&nbsp;
+            %b= flash[:notice] 
+  .paginate_visitor
+    = will_paginate
+    .div_link
+      = link_to "Add New Visitor", new_visitor_path
+    .wrapper_vistors
+      .left_column 
+        %b Name
+      .central-colunm{:align => "center"} 
+        %b Age
+      .right_column 
+        %b Gender
+      .col 
+        %b Address
+      .col2 
+        %b Mobile
+      .col3 
+        %b Visitor Type
+      .show_index_visitors
+      .edit_index_visitors
+      .delete_index_visitors
       .spacer
-  = will_paginate
+  - @visitors.each do |visitor|
+    .wrapper_vistors
+    .left_column= visitor.name
+    .central-colunm{:align => "center"}= visitor.age
+    .right_column= gender(visitor.gender)
+    .col= visitor.address
+    .col2= visitor.mobile_no
+    .col3= visitor.visitor_type
+    -###########################################################################################################################
+    - if visitor.checkin_date.nil?
+      .show_index_visitors= link_to "checkin", checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
+    - else
+      .show_index_visitors
+        %b Check-in Done
+    -###### Comment the above line And Uncomment the below one If You need ColorBox Effect..
+    -#.show_index_visitors= link_to "checkin",checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox"
+    -###########################################################################################################################
+    .edit_index_visitors= link_to "edit", edit_visitor_path(visitor.id)
+    .delete_index_visitors
+      - if can? :update, @user
+        = link_to "delete", visitor_path(visitor.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+    .spacer
+    = will_paginate
 

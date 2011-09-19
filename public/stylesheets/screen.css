@@ -258,11 +258,20 @@ div.padLeft {
 	padding-left: 10px;
 }
 
+.flashNoticeError {
+  width: 600px;
+  border: 2px solid red;
+  background-color: #CC0000;
+  color: white;
+  margin-left: 3px;
+  padding-bottom: 1px;
+}
 #errorExplanation {
-  width: 100%;
+  width: 70%;
   border: 2px solid red;
   padding: 7px;
   padding-bottom: 12px;
+  margin-left: 50px;
   margin-bottom: 20px;
   background-color: #f0f0f0;
 }
@@ -980,8 +989,21 @@ input[type=hidden] {
 .text_add_6{font-size:16px; font-family:Arial, Helvetica, sans-serif; color:#3A3A3A;}
 .padd25bt{padding-bottom:25px;}
 .padd20tp-1{padding-top:20px;}
-.mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 900px;}
+.mid_bg_add{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 950px;}
+.mid_bg_add_checkin{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1150px;}
+.mid_bg_add_visitors{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 150px;width: 1000px;}
+.mid_bg_add_visitors_facebox{border:#AFB0B0 10px solid; margin-left: 1px;width: 1100px;}
+.mid_bg_add_users{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin-left: 250px;width: 700px;}
 .table-structure {width:100%;}
+.table-structure_new_user {width:100%;}
+.header_font{font-weight:bold;font-size:25px;font-family:Arial, Helvetica, sans-serif;color:black;}
 #add_info {cursor: pointer}
 /* .field_with_errors { display: inline; }*/
 #add_fields2{padding: 0px; margin: 0px;}
+.login{background:url(../images/contnt_mid_img.png) left top repeat-x; border:#AFB0B0 1px solid; margin:100px; margin-left:350px;width: 530px; padding: 25px;}
+.signin{font-weight:bold; border:#AFB0B0 5px solid; background-color: #AFB0B0;}
+.username-title{padding-top:10px;}
+.logout{float:right;padding-top:110px;padding-right: 25px;}
+.currentuser{float:left;padding-top:110px;}
+.tmp a{background-color: red;color:yellow;border:black 1px solid}
+.tmp a:hover{background-color:yellow;color:red;border:black 1px solid}

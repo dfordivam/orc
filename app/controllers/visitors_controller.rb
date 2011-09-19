@@ -1,27 +1,50 @@
+require 'mime/types'
+require 'spreadsheet'
+require 'action_mailer'
 class VisitorsController < ApplicationController
+  before_filter :login_required
 
   def index
-    @visitors = Visitor.find(:all).paginate(:page => params[:page], :per_page => 5)
+    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
-    @visitor = Visitor.find(params[:id])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
   end
 
   def new
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.new
   end
 
   def edit
-    @visitor = Visitor.find(params[:id])
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+  end
+
+  def checkinfacebox
+    @visitor = Visitor.find(params[:visitor_id], :conditions => ["is_delete = ?", 0])
+    @checkin = Checkin.new
+    @checkin.visitor = @visitor
+    @building = Building.new
+    @room = Room.new
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
+    @room_list = [""]
+    @floor_list = [""]
+    @coll = ["BK" , "Non BK"] 
+    render :layout => "aboutblank"
   end
 
   def create
     @visitor = Visitor.new(params[:visitor])
+    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
     if @visitor.save
-      flash[:notice] = "New visitor successfully created"
+      flash[:notice] = "#{@visitor.name} visitor successfully created"
       redirect_to visitors_path
     else
+      flash[:notice] = nil
       render new_visitor_path
     end
   end
@@ -38,8 +61,19 @@ class VisitorsController < ApplicationController
 
   def destroy
     @visitor = Visitor.find(params[:id])
-    @visitor.destroy
-    redirect_to visitors_path
+    ## @visitor.destroy
+    @visitor.is_delete = 1
+    if @visitor.save 
+      temp_checkin = Checkin.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
+      for t_c in temp_checkin
+        t_c.update_attribute(:is_delete,1)
+      end
+      flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
+      redirect_to visitors_path
+    else
+      flash[:notice] = "Can not delete Visitor #{@visitor.name} !!" 
+      redirect_to visitors_path
+    end
   end
 
   # Adding form fields

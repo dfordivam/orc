@@ -1,22 +1,28 @@
-.div_link
-  = link_to "Add new Event", new_event_path
-.wrapper_event
-  .left_column_event Event Name
-  .central-colunm-event{:align => "center"} Start Date
-  .right_column_event End Date
-  .col_event Capacity
-  .col2_event Location
-  .edit_index
-  .delete_index
-  .spacer
-
-- @events.each do |event|
-  .wrapper
-    .left_column_event= event.name
-    .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%Y")
-    .right_column_event= event.end_date_time.strftime("%d-%m-%Y")
-    .col_event= event.capacity
-    .col2_event= event.location
-    .edit_index= link_to "edit", edit_event_path(event.id)
-    .delete_index= link_to "delete", event_path(event.id), :method => :delete
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  .div_link
+    = link_to "Add new Event", new_event_path
+  .wrapper_event
+    .left_column_event  
+      %b Event Name
+    .central-colunm-event{:align => "center"} 
+      %b Start Date
+    .right_column_event 
+      %b End Date
+    .col_event 
+      %b Capacity
+    .col2_event 
+      %b Location
+    .edit_index
+    .delete_index
     .spacer
+
+  - @events.each do |event|
+    .wrapper
+      .left_column_event= event.name
+      .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%Y")
+      .right_column_event= event.end_date_time.strftime("%d-%m-%Y")
+      .col_event= event.capacity
+      .col2_event= event.location
+      .edit_index= link_to "edit", edit_event_path(event.id)
+      .delete_index= link_to "delete", event_path(event.id), :method => :delete, :confirm=>"Are you sure to delete event #{event.name} ?"
+      .spacer

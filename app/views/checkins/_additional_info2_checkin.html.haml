@@ -1,0 +1,33 @@
+%tr
+  %td{:colspan=>"4"}
+    %b
+      %u Driver Details
+%tr  
+  %td
+    = label_tag :driver_name, 'Driver Name'
+  %td
+    = text_field_tag :driver_name, "", :class => 'text_feld_area'
+  %td
+    = label_tag :driver_contact_no, 'Driver Contact No.'
+  %td
+    = text_field_tag :driver_contact_no, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :is_driver_accom_req, 'Driver Accomodation Needed'
+  %td
+    = radio_button_tag :is_driver_accom_req , 0, :value=>"true" 
+    No
+    = radio_button_tag :is_driver_accom_req , 1
+    Yes
+  %td
+    = label_tag :is_driver_in_gyan, 'Driver in Gyan'
+  %td
+    = radio_button_tag :is_driver_in_gyan , 0 
+    No
+    = radio_button_tag :is_driver_in_gyan , 1, :value=>"true"
+    Yes
+%tr
+  %td
+    = label_tag :type_of_food, 'Type of Food'
+  %td
+    = text_field_tag :type_of_food, "", :class => 'text_feld_area'
