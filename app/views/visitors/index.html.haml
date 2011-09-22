@@ -40,8 +40,8 @@
     - if visitor.checkin_date.nil?
       .show_index_visitors= link_to "checkin", checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
     - else
-      .show_index_visitors
-        %b Check-in Done
+      .show_index_visitors{:style => "color:green", :title => "Chenkin Already Done For '#{visitor.name}'"}
+        %b checkin
     -###### Comment the above line And Uncomment the below one If You need ColorBox Effect..
     -#.show_index_visitors= link_to "checkin",checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox"
     -###########################################################################################################################
