@@ -39,7 +39,7 @@
           %b &nbsp;&nbsp;&nbsp; Comments
       %tr 
         - for user in @users do
-          %tr
+          %tr{:class => cycle('list_line_odd','list_line_even')}
             %td
               &nbsp;&nbsp;&nbsp;
               = user[:username]
@@ -53,10 +53,10 @@
               &nbsp;&nbsp;&nbsp;
               = user[:role]
             - if user[:isbad]
-              %td{:style=>"color:red;font-weight:bold"}
+              %td{:style=>"color:white;font-weight:bold;background-color:red"}
                 &nbsp;&nbsp;&nbsp;
                 = user[:comment]
             - else
-              %td{:style=>"color:green;font-weight:bold"}
+              %td{:style=>"color:white;font-weight:bold;background-color:green"}
                 &nbsp;&nbsp;&nbsp;
                 = user[:comment]

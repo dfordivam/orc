@@ -9,7 +9,7 @@ class Room < ActiveRecord::Base
     self.is_extensible = 0
     self.beds_extensible = 0
     #self.empty_beds = 0
-    #self.occupied_beds = 0
+    self.occupied_beds = 0
   end
   validates :building_id, :presence => true
   validates :room_no, :presence => true

@@ -2,7 +2,7 @@
 jQuery(document).ready(function($) {
 	    $('a[rel*=facebox]').facebox({
         loadingImage : '/images/loading.gif',
-        closeImage   : '/images/closelabel.png'
+        closeImage   : '/images/closelabel.png',
       })
     })
 // Ravi End
