@@ -71,7 +71,7 @@ class VisitorsController < ApplicationController
       flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
       redirect_to visitors_path
     else
-      flash[:notice] = "Can not delete Visitor #{@visitor.name} !!" 
+      flash[:notice] = "#ERROR#Can not delete Visitor #{@visitor.name} !!" 
       redirect_to visitors_path
     end
   end

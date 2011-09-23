@@ -9,14 +9,15 @@
     #header
       #user_nav{:style =>"float:right;"}
         - if current_user
-          %span.currentuser= "#{current_user.username.humanize} |   "
-          = link_to image_tag("logout2.png", :class => "logout"), logout_path(current_user)
+          %span.currentuser= " Hi #{current_user.username.humanize} ! "
+          &nbsp;&nbsp;&nbsp;
+          = link_to image_tag("logout2.png", :class => "logout",:height => "21", :mouseover => "logout2fade.png"), logout_path(current_user)
         - else
           = link_to "Register", new_user_path
           = link_to image_tag("login_img.png", :class => "padd20tp"), login_path
       %a{:href => root_path}
         %img.paddlt5.paddtp10{:border => "0", :src => "/images/copny_name_img.png"}/
-      #navigation
-        = render_navigation
+    #navigation
+      = render_navigation
     #contentBody
       = yield

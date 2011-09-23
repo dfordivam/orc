@@ -1,36 +1,40 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   -#= render "shared/error_messages", :target => @building
   .div_link
-    - if ! flash[:notice].nil?
-      %table{:width=>"100%"}
-        %tr
-          %td
-            .flashNoticeError
-              &nbsp;&nbsp;&nbsp;
-              %b= flash[:notice] 
-    = link_to "Add new Building Information", new_building_path
+    = render "shared/flash_messages"
+    = link_to "Add new Building", new_building_path
   .wrapper_building
-    .left_column_building 
-      %b Name
-    .central-colunm-building{:align => "center"} 
-      %b No. of Vacant Rooms
-    .right_column_building 
-      %b Total No. of Rooms
-    .col_building 
-      %b Total No. of Floors
-    .show_index
-    .edit_index
-    .delete_index
-    .spacer
-  - @buildings.each do |building|
-    .wrapper_building
-      .left_column_building= building.name
-      .central-colunm-building{:align => "center"}= building.rooms.count
-      .right_column_building= building.rooms.count
-      .col_building= building.floors
-      -#.show_index= link_to "Add Room", new_room_path(:building_id => building.id)
-      .show_index= link_to "Add Room", add_rooms_to_building_path(:building_id => building.id)
-      -#.show_index= link_to  "show", building_path(building.id)
-      .edit_index= link_to "edit", edit_building_path(building.id)
-      .delete_index= link_to "delete", building_path(building.id), :confirm => "Are you sure to delete #{building.name} ?",:method => :delete
-      .spacer
+    .row_hover
+      %table{:width=>"920px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Vacant Rooms
+            %td
+              %b No. of Rooms
+            %td
+              %b No. of Floors
+            %td{:colspan => 4}
+          - @buildings.each do |building|
+            %tr
+              %td
+                &nbsp;
+                = building.name
+              %td
+                = building.rooms.count
+              %td
+                = building.rooms.count
+              %td
+                = building.floors
+              %td{:align => "center"}
+                = image_tag('view.png',:title => "View Record")
+              %td{:align => "center"}
+                = link_to image_tag('plus.gif',:width => 16, :title => "Add Rooms to '#{building.name}'"), add_rooms_to_building_path(:building_id => building.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png',:title => "Edit '#{building.name}'"), edit_building_path(building.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png',:title => "Delete '#{building.name}'"), building_path(building.id), :confirm => "Are you sure to delete #{building.name} ?",:method => :delete

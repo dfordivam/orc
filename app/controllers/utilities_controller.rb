@@ -49,7 +49,7 @@ class UtilitiesController < ApplicationController
           if new_building.save
             temp_build_id = new_building[:id]
           else
-            flash[:notice] = "Fatal Error While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
+            flash[:notice] = "#ERROR#Fatal Error While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
           end
         end
         new_old_building = Building.find(:first, :conditions => ["id = ? and is_delete = 0",temp_build_id])
@@ -72,7 +72,7 @@ class UtilitiesController < ApplicationController
           new_old_building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
         else
-          flash[:notice] = "Fatal Error While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
+          flash[:notice] = "#ERROR#Fatal Error While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
         end
       end
     end
@@ -101,10 +101,10 @@ class UtilitiesController < ApplicationController
           user_roles.user_id = @new_user.id
           user_roles.role_id = @new_user.role_id
           if ! user_roles.save
-            flash[:notice] = "Fatal Error in USERS_ROLES!! Contact Admin !! Reference: #{unique_file_name}"
+            flash[:notice] = "#ERROR#Fatal Error in USERS_ROLES!! Contact Admin !! Reference: #{unique_file_name}"
           end
         else
-          flash[:notice] = "Fatal Error in USERS!! Contact Admin !! Reference: #{unique_file_name}"
+          flash[:notice] = "#ERROR#Fatal Error in USERS!! Contact Admin !! Reference: #{unique_file_name}"
         end
       end
     end  
@@ -131,7 +131,7 @@ class UtilitiesController < ApplicationController
       handleUploadEventList(file)
       return
     else
-      flash[:notice] = " Please choose the file first and then upload !!"
+      flash[:notice] = "#ERROR# Please choose the file first and then upload !!"
       render 'index'
     end
     return
@@ -196,7 +196,7 @@ class UtilitiesController < ApplicationController
       end
       check_users_for_errors(@users)
     else
-      flash[:notice] = "Missing Header Record . Kindly refer the template!!"
+      flash[:notice] = "#ERROR#Missing Header Record . Kindly refer the template!!"
     end
     return @users
   end
@@ -231,7 +231,7 @@ class UtilitiesController < ApplicationController
       end
       check_buildings_for_errors(@buildings_rooms)
     else
-      flash[:notice] = "Missing Header Record . Kindly refer the template!!"
+      flash[:notice] = "#ERROR#Missing Header Record . Kindly refer the template!!"
     end
     return @buildings_rooms
   end
@@ -248,11 +248,11 @@ class UtilitiesController < ApplicationController
           render 'index'
         end
       else
-        flash[:notice] = 'File type error. Please upload MS-Excel File !!'
+        flash[:notice] = '#ERROR#File type error. Please upload MS-Excel File !!'
         render 'index'
       end
     else
-      flash[:notice] = file.original_filename||" Please choose the file first and then upload !!"
+      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
       render 'index'
     end
   end
@@ -269,17 +269,17 @@ class UtilitiesController < ApplicationController
           render 'index'
         end
       else
-        flash[:notice] = 'File type error. Please upload MS-Excel File !!'
+        flash[:notice] = '#ERROR#File type error. Please upload MS-Excel File !!'
         render 'index'
       end
     else
-      flash[:notice] = file.original_filename||" Please choose the file first and then upload !!"
+      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
       render 'index'
     end
   end
 
   def handleUploadEventList(file)
-    flash[:notice] = "Yet to develop this utility... Only #1 & #2 utilities are done right now"
+    flash[:notice] = "#ERROR#Yet to develop this utility... Only #1 & #2 utilities are done right now"
     render 'index'
   end
 

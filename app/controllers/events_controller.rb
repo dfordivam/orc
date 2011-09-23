@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     if !@event.start_date_time.nil? && !@event.end_date_time.nil? && @event.start_date_time > @event.end_date_time
-      flash[:notice] = 'Start date can\'t be more than end date !!'  
+      flash[:notice] = '#ERROR#Start date can\'t be more than end date !!'  
       render 'new'
     else
       if @event.save
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
       end
       flash[:notice] = "Event #{@event.name} has been deleted" 
     else
-      flash[:notice] = "Error in deleting event #{@event.name} !!" 
+      flash[:notice] = "#ERROR#Error in deleting event #{@event.name} !!" 
     end
     redirect_to events_path
   end    

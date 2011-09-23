@@ -1,20 +1,11 @@
-- if ! flash[:notice].nil?
-  %table{:width=>"100%"}
-    %tr
-      %td
-        .flashNoticeError
-          &nbsp;&nbsp;&nbsp;
-          %b= flash[:notice] 
-    %tr
-      %td
-        %br
 = javascript_include_tag 'visitor', 'common', 'checkin'
 = form_for @visitor do |visitor|
+  = render "shared/flash_messages"
   = render "shared/error_messages", :target => @visitor
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
     %tbody
       %tr
-        %td
+        %td{:colspan => "4"}
           .header_font
             = visitor.label :visitor_registration, 'Visitor Registration Here'
       %tr

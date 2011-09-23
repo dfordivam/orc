@@ -2,27 +2,39 @@
   .div_link
     = link_to "Add new Event", new_event_path
   .wrapper_event
-    .left_column_event  
-      %b Event Name
-    .central-colunm-event{:align => "center"} 
-      %b Start Date
-    .right_column_event 
-      %b End Date
-    .col_event 
-      %b Capacity
-    .col2_event 
-      %b Location
-    .edit_index
-    .delete_index
-    .spacer
-
-  - @events.each do |event|
-    .wrapper
-      .left_column_event= event.name
-      .central-colunm-event{:align => "center"}= event.start_date_time.strftime("%d-%m-%Y")
-      .right_column_event= event.end_date_time.strftime("%d-%m-%Y")
-      .col_event= event.capacity
-      .col2_event= event.location
-      .edit_index= link_to "edit", edit_event_path(event.id)
-      .delete_index= link_to "delete", event_path(event.id), :method => :delete, :confirm=>"Are you sure to delete event #{event.name} ?"
-      .spacer
+    .row_hover
+      %table{:width=>"920px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Event Name
+            %td
+              %b Start Date
+            %td
+              %b End Date
+            %td
+              %b Capacity
+            %td
+              %b Location
+            %td{:colspan => 3}
+          - @events.each do |event|
+            %tr
+              %td
+                &nbsp;
+                = event.name
+              %td
+                = event.start_date_time.strftime("%d-%m-%Y")
+              %td
+                = event.end_date_time.strftime("%d-%m-%Y")
+              %td
+                = event.capacity
+              %td
+                = event.location
+              %td{:align => "center"}
+                = image_tag('view.png',:title => "View Record")
+              %td{:align => "center"}
+                = link_to image_tag('edit.png',:title => "Edit '#{event.name}'"), edit_event_path(event.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png',:title => "Delete '#{event.name}'"), event_path(event.id), :method => :delete, :confirm=>"Are you sure to delete event #{event.name} ?"
