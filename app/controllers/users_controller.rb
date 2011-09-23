@@ -40,7 +40,7 @@ class UsersController < ApplicationController
  def destroy
    @user = User.find(params[:id])
    if @user.username == SUPERADMIN
-     flash[:notice] = "CAN NOT delete SUPERADMIN !!"
+     flash[:notice] = "#ERROR#CAN NOT delete SUPERADMIN !!"
    else
      ## @user.destroy
      @user.is_delete = 1
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       end
        flash[:notice] = "User #{@user.username} has been deleted" 
      else
-       flash[:notice] = "Error in deleting user #{@user.username} !!" 
+       flash[:notice] = "#ERROR#Error in deleting user #{@user.username} !!" 
      end
    end
    redirect_to users_path

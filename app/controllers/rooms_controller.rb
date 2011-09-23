@@ -45,7 +45,7 @@ class RoomsController < ApplicationController
       end
       flash[:notice] = "Room #{@room.room_no} has been deleted" 
     else
-      flash[:notice] = "Error in deleting room #{@room.room_no} !!" 
+      flash[:notice] = "#ERROR#Error in deleting room #{@room.room_no} !!" 
     end
     redirect_to building_path(@room.building.id)
   end

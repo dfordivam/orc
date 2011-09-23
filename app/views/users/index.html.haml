@@ -1,54 +1,33 @@
 %div{:class=>"mid_bg_add_users text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
-  - if ! flash[:notice].nil?
-    %table{:width=>"100%"}
-      %tr
-        %td
-          .flashNoticeError
-            &nbsp;&nbsp;&nbsp;
-            %b= flash[:notice] 
-  %br
+  = render "shared/flash_messages"
   .div_link
     = link_to "Add new User", new_user_path
   .paginate_user
     = will_paginate
     .wrapper_vistors
-      %table{:width=>"70%"}
+    .row_hover
+      %table{:width=>"680px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
         %tbody
-          %tr
-            %td{:align => "left"}
-              -#.left_column_user
-              %b &nbsp;&nbsp;&nbsp; UserName
+          %tr{:style => "background-color: #3A82F1"}
             %td
-              -#.central-colunm-user{:align => "left"}
-              %b &nbsp;&nbsp;&nbsp; Email
+              &nbsp;
+              %b UserName
             %td
-              .right_column_user
-                %b Role
+              %b Email
             %td
-              .edit_index
-            %td
-              .delete_index
-            %td
-              .spacer
-          %tr
-            - @users.each do |user|
-              .wrapper_vistors
-                %tr
-                  %td
-                    -#.left_column_user
-                    &nbsp;&nbsp;&nbsp;
-                    = user.username
-                  %td
-                    -#.central-colunm-user{:align => "center"}
-                    &nbsp;&nbsp;&nbsp;
-                    = user.email
-                  %td{:width=>"40"}
-                    .right_column_user= user.role.rolename
-                  %td{:width=>"20px",:align=>"center"}
-                    -#.edit_index
-                    = link_to "edit", edit_user_path(user)
-                  %td{:width=>"40px",:align=>"center"}
-                    -#.delete_index
-                    = link_to "delete", user_path(user), :method => :delete, :confirm => "Are you sure to delete user #{user.username} ?"
-                  %td
-                    .spacer
+              %b Role
+            %td{:colspan => 2}
+          - @users.each do |user|
+            %tr
+              %td
+                &nbsp;
+                = user.username
+              %td
+                = user.email
+              %td
+                = user.role.rolename
+              %td{:align => "center"}
+                = link_to image_tag('edit.png',:title => "Edit '#{user.username}'"), edit_user_path(user)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png',:title => "Delete '#{user.username}'"), user_path(user), :method => :delete, :confirm => "Are you sure to delete user #{user.username} ?"

@@ -1,15 +1,6 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = form_for @building do |f|
-    - if ! flash[:notice].nil?
-      %table{:width=>"100%"}
-        %tr
-          %td
-            .flashNoticeError
-              &nbsp;&nbsp;&nbsp;
-              %b= flash[:notice] 
-        %tr
-          %td
-            %br
+    = render "shared/flash_messages"
     = render "shared/error_messages", :target => @building
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
