@@ -4,11 +4,13 @@ var rooms_array = new Array();
 <% end -%>
 
 function getFloor() {
+  var temp_build_id_array = new Array();
   building_id = $("#room_building_id").attr("value");
   $("#f1_f11").html("");
   $(rooms_array).each(function(i) {
-    if (rooms_array[i][0] == building_id) {
+    if (rooms_array[i][0] == building_id && temp_build_id_array[rooms_array[i][3]] != 'T') {
       $("#f1_f11").append("<option value=" + rooms_array[i][3] + ">" + rooms_array[i][3] + "</option>")
+      temp_build_id_array[rooms_array[i][3]] = 'T'
     }
   });
 }

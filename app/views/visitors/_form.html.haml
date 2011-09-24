@@ -67,9 +67,10 @@
               - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
                 = render :partial => "additional_info"
       %tr
-        %td{:colspan => "4",:align=>"center"}
+        %td{:colspan => "2",:align=>"right"}
           - if @visitor.id.nil?
-            = submit_tag 'Submit', :style => 'width:80px;font-weight:bold'
+            = submit_tag 'Submit'
           - else
-            = submit_tag 'Update', :style => 'width:80px;font-weight:bold'
-          = link_to "Cancel",visitors_path
+            = submit_tag 'Update'
+        %td{:colspan => "2",:align=>"left"}
+          = link_to button_to("Cancel"),visitors_path

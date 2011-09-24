@@ -4,11 +4,13 @@ var rooms_checkin_array = new Array();
 <% end -%>
 
 function getFloorCheckin() {
+  var temp_build_id_array = new Array();
   building_id = $("#room_building_id").attr("value");
   $("#fc1_fc11").html("");
   $(rooms_checkin_array).each(function(i) {
-    if (rooms_checkin_array[i][0] == building_id) {
+    if (rooms_checkin_array[i][0] == building_id && temp_build_id_array[rooms_checkin_array[i][3]] != 'T') {
       $("#fc1_fc11").append("<option value=" + rooms_checkin_array[i][3] + ">" + rooms_checkin_array[i][3] + "</option>")
+      temp_build_id_array[rooms_checkin_array[i][3]] = 'T'
     }
   });
 }

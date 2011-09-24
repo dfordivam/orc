@@ -4,7 +4,7 @@
   .paginate_visitor
     = will_paginate
     .div_link
-      = link_to "Add New Visitor", new_visitor_path
+      = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
     .wrapper_vistors
       .row_hover
         %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}

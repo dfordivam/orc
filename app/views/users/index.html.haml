@@ -1,7 +1,7 @@
 %div{:class=>"mid_bg_add_users text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   = render "shared/flash_messages"
   .div_link
-    = link_to "Add new User", new_user_path
+    = link_to image_tag('newuser.png',:title=>'Click to add new user',:mouseover => 'newuserover.png', :height=>40), new_user_path
   .paginate_user
     = will_paginate
     .wrapper_vistors

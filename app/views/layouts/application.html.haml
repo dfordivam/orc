@@ -11,7 +11,7 @@
         - if current_user
           %span.currentuser= " Hi #{current_user.username.humanize} ! "
           &nbsp;&nbsp;&nbsp;
-          = link_to image_tag("logout2.png", :class => "logout",:height => "21", :mouseover => "logout2fade.png"), logout_path(current_user)
+          = link_to image_tag("logout.png", :class => "logout", :mouseover => "logoutover.png"), logout_path(current_user)
         - else
           = link_to "Register", new_user_path
           = link_to image_tag("login_img.png", :class => "padd20tp"), login_path
