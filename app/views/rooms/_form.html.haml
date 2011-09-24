@@ -43,6 +43,7 @@
             = f.radio_button :is_ac , 1
             Yes
         %tr
-          %td{:colspan => "4",:align=>"center"}
-            = submit_tag 'Submit', :style => 'width:80px;font-weight:bold'
-            = link_to "Cancel",buildings_path
+          %td{:colspan => "2",:align=>"right"}
+            = submit_tag 'Submit'
+          %td{:colspan => "2",:align=>"left"}
+            = link_to button_to("Cancel"),buildings_path

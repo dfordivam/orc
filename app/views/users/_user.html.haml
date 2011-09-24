@@ -37,10 +37,11 @@
               = form.radio_button :role_id, role.id
               = role.rolename.humanize
         %tr
-          %td{:colspan => "2",:align=>"center"}
+          %td{:colspan => "1",:align=>"right"}
             - if @user.id.nil?
-              = submit_tag "Submit", :style => 'width:80px;font-weight:bold'
+              = submit_tag "Submit"
             - else
-              = submit_tag "Update", :style => 'width:80px;font-weight:bold'
-            = link_to "Cancel",users_path
+              = submit_tag "Update"
+          %td{:colspan => "1",:align=>"left"}
+            = link_to button_to("Cancel"),users_path
           %td{:colspan => "2"}
