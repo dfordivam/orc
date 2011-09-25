@@ -31,4 +31,4 @@
             - else
               = submit_tag 'Update'
           %td{:colspan => "2",:align=>"left"}
-            = link_to button_to("Cancel"),buildings_path
+            = link_to button_to("Cancel"),buildings_path, :method => "get"

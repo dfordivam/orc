@@ -27,7 +27,7 @@
         %td
           = visitor.label :gender, 'Gender**'
         %td
-          = visitor.radio_button :gender , "male", :value=>true
+          = visitor.radio_button :gender , "male"
           Male
           = visitor.radio_button :gender , "female"
           Female
@@ -73,4 +73,4 @@
           - else
             = submit_tag 'Update'
         %td{:colspan => "2",:align=>"left"}
-          = link_to button_to("Cancel"),visitors_path
+          = link_to button_to("Cancel"),visitors_path, :method => "get"

@@ -1,3 +1,52 @@
-= link_to "Add Room", new_room_path(:building_id => @building.id)
-= debug @building
-= render 'rooms'
+%div{:class=>"show_page text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:style => "margin-left:15px", :cellpadding=>0, :cellspacing=>0, :width=>"820px"}
+    %tbody
+      %tr
+        %td{:colspan => 8,:height => "40px"}
+          .header_font
+            = @building.name
+        %td{:align => "right"}
+          = link_to button_to(" Go Back "),buildings_path, :method => "get", :title => "Go back to list"
+      %tr
+        %td{:colspan => 9}
+          %hr
+      %tr{:style => "background-color:#808963"}
+        %td
+          %b &nbsp; Floor
+        %td
+          %b Room No
+        %td
+          %b Total Beds
+        %td
+          %b Empty Beds
+        %td
+          %b Occup. Beds
+        %td
+          %b Is Ext.
+        %td
+          %b Beds Ext.
+        %td
+          %b Is AC
+        %td
+          %b Category
+      - for room in @room do
+        %tr{:class => cycle('list_line_odd_show_page','list_line_even_show_page')}
+          %td
+            &nbsp;
+            = room.floor
+          %td
+            = room.room_no
+          %td
+            = room.total_beds
+          %td
+            = room.empty_beds
+          %td
+            = room.occupied_beds
+          %td
+            = room.is_extensible
+          %td
+            = room.beds_extensible
+          %td
+            = room.is_ac
+          %td
+            = room.category

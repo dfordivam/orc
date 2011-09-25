@@ -25,7 +25,7 @@
                 %b Visitor Type
               %td{:colspan => 5}
             - @visitors.each do |visitor|
-              %tr
+              %tr.datarow
                 %td
                   &nbsp;
                   = visitor.name
@@ -40,7 +40,7 @@
                 %td
                   = visitor.visitor_type
                 %td{:align => "center"}
-                  = image_tag('view.png',:title => "View Record")
+                  = link_to image_tag('view.png',:title => "View Record"), visitor_path(visitor.id)
                 %td{:align => "center"}
                   -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
                   - if visitor.checkin_date.nil?

@@ -15,6 +15,13 @@ class VisitorsController < ApplicationController
   def new
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.new
+    @visitor[:gender] = "male"
+    @visitor[:is_physically_challenged] = 'false'
+    @visitor[:is_guide] = 'false'
+    @visitor[:is_driver_along] = 'false'
+    @visitor[:is_driver_accom_req] = 'false'
+    @visitor[:is_driver_in_gyan] = 'false'
+    @visitor[:is_special_care_req] = 'false'
   end
 
   def edit
