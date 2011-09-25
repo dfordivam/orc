@@ -19,7 +19,7 @@
               %b No. of Floors
             %td{:colspan => 4}
           - @buildings.each do |building|
-            %tr
+            %tr.datarow
               %td
                 &nbsp;
                 = building.name
@@ -30,7 +30,10 @@
               %td
                 = building.floors
               %td{:align => "center"}
-                = image_tag('view.png',:title => "View Record")
+                - if building.rooms.count > 0
+                  = link_to image_tag('view.png',:title => "View Record"), building_path(building.id)
+                - else
+                  = image_tag('view_disable.png',:title => "No room exists!! Kindly add rooms first")
               %td{:align => "center"}
                 = link_to image_tag('plus.gif',:width => 16, :title => "Add Rooms to '#{building.name}'"), add_rooms_to_building_path(:building_id => building.id)
               %td{:align => "center"}

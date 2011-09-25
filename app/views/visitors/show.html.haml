@@ -1,2 +1,122 @@
-= link_to "Add checkin", new_checkin_path(:visitor_id => @visitor.id)
--#= debug @visitor
+%div{:class=>"show_page text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure_show_page", :cellpadding=>"10", :cellspacing=>"10", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => 3,:height => "40px"}
+          .header_font
+            = @visitor.name.capitalize
+        %td{:align => "right"}
+          = link_to button_to(" Go Back "),visitors_path, :method => "get", :title => "Go back to list"
+      %tr
+        %td{:colspan => 4}
+          %hr
+      %tr
+        %td
+          %b= label :name, 'Name'
+        %td
+          = text_field_tag 'name', @visitor.name.upcase, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :dob, 'Date of Birth'
+        %td
+          = text_field_tag 'dob', @visitor.dob.strftime("%d-%b-%Y  [ %A ]"), :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :age, 'Age'
+        %td
+          = text_field_tag 'age', @visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
+        %td
+          %b= label :event, 'Event'
+        %td
+          = text_field_tag 'event', @visitor.event.name, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :address, 'Address'
+        %td
+          = text_area_tag 'address', @visitor.address, :size=> "30x1", :disabled => true, :style => "font-size:12px;"
+        %td
+          %b= label :gender, 'Gender'
+        %td
+          = text_field_tag 'dob', @visitor.gender == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
+      %tr
+        %td
+          %b= label :mobile_no, 'Mobile No'
+        %td
+          = text_field_tag 'mobile_no', @visitor.mobile_no, :class => 'text_feld_area_show_page', :disabled => true
+        %td
+          %b= label :visitor_type, 'Visitor Type'
+        %td
+          = text_field_tag 'visitor', @visitor.visitor_type.upcase, :class => 'text_feld_area_small', :disabled => true
+      - if @visitor.visitor_type.upcase == "BK"
+        %tr
+          %td
+            %b= label :in_gyan, 'In Gyan'
+          %td
+            = text_field_tag 'in_gyan', "#{@visitor.in_gyan_years} Years", :class => 'text_feld_area_small', :disabled => true
+          %td
+            %b= label :center_addr, 'Center Address'
+          %td
+            = text_area_tag 'center_addr', @visitor.centre_addr, :size=> "30x1", :disabled => true, :style => "font-size:12px;"
+      %tr
+        %td
+          %b= label :designation, 'Designation'
+        %td
+          = text_field_tag 'designation', (@visitor.designation.nil? || @visitor.designation=='')? "N/A" : @visitor.designation.upcase, :class => 'text_feld_area_show_page', :disabled => true
+        %td
+          %b= label :organisation, 'Organisation'
+        %td
+          = text_field_tag 'organisation', (@visitor.organisation.nil? || @visitor.organisation=='') ? "N/A" : @visitor.organisation.upcase, :class => 'text_feld_area_show_page', :disabled => true
+      %tr
+        %td
+          %b= label :email, 'E-mail'
+        %td
+          = text_field_tag 'email', (@visitor.email.nil? || @visitor.email=='') ? "N/A" : @visitor.email.downcase, :class => 'text_feld_area_show_page', :disabled => true
+        %td
+          %b= label :qualification, 'Qualification'
+        %td
+          = text_field_tag 'qualification', (@visitor.qualification.nil? || @visitor.qualification=='') ? "N/A" : @visitor.qualification.upcase, :class => 'text_feld_area_show_page', :disabled => true
+      %tr
+        %td
+          %b= label :isguide, 'Is-Guide'
+        %td
+          = text_field_tag 'isguide', (@visitor.is_guide.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+        %td
+          %b= label :isdriveralong, 'Is driver along'
+        %td
+          = text_field_tag 'isdriveralong', (@visitor.is_driver_along.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+      - if @visitor.is_driver_along.to_s=="true"
+        %tr
+          %td
+            %b= label :driver_name, 'Driver name'
+          %td
+            = text_field_tag 'driver_name', (@visitor.driver_name.nil? || @visitor.driver_name=='')? "N/A" : @visitor.driver_name.upcase, :class => 'text_feld_area_show_page', :disabled => true
+          %td
+            %b= label :driver_contact_no, 'Driver contact'
+          %td
+            = text_field_tag 'driver_contact_no', @visitor.driver_contact_no.nil? ? "N/A" : @visitor.driver_contact_no, :class => 'text_feld_area_show_page', :disabled => true
+        %tr
+          %td
+            %b= label :driver_accom, 'Need driver accom'
+          %td
+            = text_field_tag 'driver_accom', (@visitor.is_driver_accom_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+          %td
+            %b= label :driver_ingyan, 'Driver in gyan'
+          %td
+            = text_field_tag 'driver_ingyan', (@visitor.is_driver_in_gyan.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+      %tr
+        %td
+          %b= label :phyc_chal, 'Physically challenged'
+        %td
+          = text_field_tag 'phyc_chal', (@visitor.is_physically_challenged.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+        %td
+          %b= label :special_care, 'Need special care'
+        %td
+          = text_field_tag 'special_care', (@visitor.is_special_care_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+      %tr
+        %td
+          %b= label :medicine, 'Medicine req'
+        %td
+          = text_field_tag 'medicine', (@visitor.medicine_requirement.nil? || @visitor.medicine_requirement=='') ? "N/A" : @visitor.medicine_requirement.upcase, :class => 'text_feld_area_show_page', :disabled => true
+        %td
+          %b= label :remarks, 'Remarks'
+        %td
+          = text_field_tag 'remarks', (@visitor.remarks.nil? || @visitor.remarks=='') ? "N/A" : @visitor.remarks.upcase, :class => 'text_feld_area_show_page', :disabled => true

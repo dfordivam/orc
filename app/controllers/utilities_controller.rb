@@ -36,7 +36,8 @@ class UtilitiesController < ApplicationController
   def building_load
     flash[:notice] = nil
     unique_file_name = params[:id]
-    directory = "#{RAILS_ROOT}/public/uploads/building_list"
+    ##directory = "#{RAILS_ROOT}/public/uploads/building_list"
+    directory = "#{RAILS_ROOT}/tmp"
     full_file_name = File.join(directory,unique_file_name)
     buildings_rooms = extract_buildings_from_excel(full_file_name)
     successful_loaded_rooms = 0
@@ -83,7 +84,8 @@ class UtilitiesController < ApplicationController
   def usr_load
     flash[:notice] = nil
     unique_file_name = params[:id]
-    directory = "#{RAILS_ROOT}/public/uploads/user_list"
+    ##directory = "#{RAILS_ROOT}/public/uploads/user_list"
+    directory = "#{RAILS_ROOT}/tmp"
     full_file_name = File.join(directory,unique_file_name)
     users = extract_users_from_excel(full_file_name)
     @successful_loaded_users = 0
@@ -188,7 +190,7 @@ class UtilitiesController < ApplicationController
     first_row = @sheet1.row(0)
     if first_row == list_header
       @sheet1.each 1 do |row|
-        if ! row.nil? then
+        if (! row.nil?) && (! row[0].nil?) then
           record_counter += 1
           roleID = row[3] == "admin" ? 1 : (row[3] == "moderator" ? 2 : 3)
           @users.insert(-1,{:username=>row[0],:email=>row[1],:role_id=>roleID,:password=>row[2],:role=>row[3],:isbad=>false,:comment=>"All Valid Fields"})
@@ -240,7 +242,8 @@ class UtilitiesController < ApplicationController
     if ! file.nil?
       if (file.content_type && file.content_type.chomp == "application/vnd.ms-excel")
         @unique_file_name = save_file(file,"user_list")
-        @full_file_name = "#{RAILS_ROOT}/public/uploads/user_list/#{ @unique_file_name}"
+        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/user_list/#{ @unique_file_name}"
+        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
         @users = extract_users_from_excel(@full_file_name)
         if flash[:notice].nil?
           render 'user_list'
@@ -261,7 +264,8 @@ class UtilitiesController < ApplicationController
     if ! file.nil?
       if (file.content_type && file.content_type.chomp == "application/vnd.ms-excel")
         @unique_file_name = save_file(file,"building_list")
-        @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
+        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
+        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
         @buildings_rooms = extract_buildings_from_excel(@full_file_name)
         if flash[:notice].nil?
           render 'building_list'
@@ -284,7 +288,8 @@ class UtilitiesController < ApplicationController
   end
 
   def save_file(file,folder)
-    directory = "#{RAILS_ROOT}/public/uploads/#{folder}"
+    ##directory = "#{RAILS_ROOT}/public/uploads/#{folder}"
+    directory = "#{RAILS_ROOT}/tmp"
     unique_file_name = "#{Time.now.to_s.gsub(/[: +]/,'_')}_#{file.original_filename}"
     path = File.join(directory,unique_file_name)
     File.open(path, "wb") { |f| f.write(file.read) }
