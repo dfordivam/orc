@@ -67,8 +67,8 @@ class UtilitiesController < ApplicationController
           temp_room.update_attribute(:beds_extensible,buildings_rooms[br][:beds_extensible]||0)
           temp_room.update_attribute(:occupied_beds,buildings_rooms[br][:occupied_beds]||0)
           temp_room.update_attribute(:empty_beds,"#{buildings_rooms[br][:occupied_beds].nil? ? buildings_rooms[br][:total_beds] : buildings_rooms[br][:total_beds].to_i - buildings_rooms[br][:occupied_beds].to_i}")
-          no_of_rooms_in_building = Room.find_by_sql("select count(room_no) ct from rooms where is_delete = 0 and building_id = #{temp_build_id}")
-          no_of_floors_in_building = Room.find_by_sql("select max(floor) flr from rooms where is_delete = 0 and building_id= #{temp_build_id}")
+          no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = 0 and building_id = #{temp_build_id}")
+          no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = 0 and building_id= #{temp_build_id}")
           new_old_building.update_attribute(:no_of_rooms,no_of_rooms_in_building[0][:ct])
           new_old_building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
@@ -142,7 +142,7 @@ class UtilitiesController < ApplicationController
   private
 
   def check_users_for_errors(users)
-    email_list = User.find_by_sql("select distinct trim(email) email from users where is_delete = 0")
+    email_list = User.find_by_sql("select distinct trim(email) as email from users where is_delete = 0")
     users.length.times do |us|
       if users[us][:username].nil? || users[us][:email].nil? || users[us][:role_id].nil? || users[us][:password].nil? || users[us][:role].nil?
         users[us][:isbad] = true
