@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
   before_filter :login_required
 
   def index
-    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 5)
+    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 3)
   end
 
   def show

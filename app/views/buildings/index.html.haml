@@ -3,6 +3,8 @@
   .div_link
     = render "shared/flash_messages"
     = link_to image_tag('newbuilding.png',:title=>'Click to add new building',:mouseover => 'newbuildingover.png', :height=>40), new_building_path
+  .paginate_ss
+    = will_paginate
   .wrapper_building
     .row_hover
       %table{:width=>"920px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
@@ -41,3 +43,5 @@
               %td{:align => "center"}
                 - if can? :update, @user
                   = link_to image_tag('delete.png',:title => "Delete '#{building.name}'"), building_path(building.id), :confirm => "Are you sure to delete #{building.name} ?",:method => :delete
+  .paginate_ss
+    = will_paginate

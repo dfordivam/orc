@@ -3,6 +3,8 @@
     = render "shared/flash_messages"
     -# Commenting 'Add new Checkin Link... Not required anymore...
     -#= link_to 'Add new Checkin', new_checkin_path
+  .paginate_ss
+    = will_paginate
   .wrapper_checkin
     .row_hover_checkin
       %table{:width=>"1130px",:style => "margin-left:5px",:cellpadding=>"0", :cellspacing=>"0"}
@@ -63,3 +65,5 @@
               %td{:align => "center"}
                 - if can? :update, @user
                   = link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?" 
+  .paginate_ss
+    = will_paginate
