@@ -17,7 +17,7 @@ class CheckinsController < ApplicationController
   end
 
   def index
-    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0])
+    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 3)
   end
 
   def show 

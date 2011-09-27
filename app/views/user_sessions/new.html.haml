@@ -1,7 +1,7 @@
-%fieldset{:class=>"newlogin"}
+%div{:class => "newlogin"}
   - form_for @user_session do |form|
     = render "shared/error_messages", :target => @user_session
-    %table
+    %table{:style => "background:url(../images/login_lock_strip.png) right top repeat-x"}
       %tbody
         %tr
           %td
@@ -14,13 +14,13 @@
                     %b
                       = form.label :username, "Username"
                   %td
-                    = form.text_field :username, :class => 'text_feld_area'
+                    = form.text_field :username, :class => 'text_feld_area_login_page'
                 %tr
                   %td
                     %b
                       = form.label :password, "Password"
                   %td
-                    = form.password_field :password, :class => 'text_feld_area'
+                    = form.password_field :password, :class => 'text_feld_area_login_page'
                 %tr
                   %td{:colspan => "2", :align=>"center"}
                     = form.submit "Log In", :style => 'width:80px;font-weight:bold'            
