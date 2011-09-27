@@ -26,7 +26,7 @@ $(document).ready(function() {
 		  function(data){$("#additional_info").html(data)}
 		);
 		$("#additional_info").show("slow");
-		$("#add_info").attr("src","/images/minus.png");
+		$("#add_info").attr("src","/images/Minus.png");
 	}
 	else {
 		$("#additional_info").hide("slow");
