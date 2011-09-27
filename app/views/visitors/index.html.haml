@@ -5,53 +5,54 @@
     = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
   .paginate_ss
     = will_paginate
-    .wrapper_vistors
-      .row_hover
-        %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
-          %tbody
-            %tr{:style => "background-color: #3A82F1"}
+  .wrapper_vistors
+    .row_hover
+      %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Age
+            %td
+              %b Gender
+            %td
+              %b Address
+            %td
+              %b Mobile
+            %td
+              %b Visitor Type
+            %td{:colspan => 5}
+          - @visitors.each do |visitor|
+            %tr.datarow
               %td
                 &nbsp;
-                %b Name
+                = visitor.name
               %td
-                %b Age
+                = visitor.age
               %td
-                %b Gender
+                = gender(visitor.gender)
               %td
-                %b Address
+                = visitor.address
               %td
-                %b Mobile
+                = visitor.mobile_no
               %td
-                %b Visitor Type
-              %td{:colspan => 5}
-            - @visitors.each do |visitor|
-              %tr.datarow
-                %td
-                  &nbsp;
-                  = visitor.name
-                %td
-                  = visitor.age
-                %td
-                  = gender(visitor.gender)
-                %td
-                  = visitor.address
-                %td
-                  = visitor.mobile_no
-                %td
-                  = visitor.visitor_type
-                %td{:align => "center"}
-                  = link_to image_tag('view.png',:title => "View Record"), visitor_path(visitor.id)
-                %td{:align => "center"}
-                  -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
-                  - if visitor.checkin_date.nil?
-                    = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox" 
-                  - else
-                    = image_tag('checkindone.jpg',:title => "Chenkin Already Done For '#{visitor.name}'")
-                  -###########################################################################################################################
-                %td{:align => "center"}
-                  = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_visitor_path(visitor.id)
-                %td{:align => "center"}
-                  - if can? :update, @user
-                    = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), visitor_path(visitor.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
-    = will_paginate
+                = visitor.visitor_type
+              %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), visitor_path(visitor.id)
+              %td{:align => "center"}
+                -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
+                - if visitor.checkin_date.nil?
+                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox" 
+                - else
+                  = image_tag('checkindone.jpg',:title => "Chenkin Already Done For '#{visitor.name}'")
+                -###########################################################################################################################
+              %td{:align => "center"}
+                = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_visitor_path(visitor.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), visitor_path(visitor.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+    .paginate_ss
+      = will_paginate
 

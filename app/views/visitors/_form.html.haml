@@ -1,4 +1,4 @@
-= javascript_include_tag 'visitor', 'common', 'checkin'
+= javascript_include_tag 'visitor', 'checkin'
 = form_for @visitor do |visitor|
   = render "shared/flash_messages"
   = render "shared/error_messages", :target => @visitor
@@ -56,10 +56,10 @@
         %td
           = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] }
       %tr
-        %td{:colspan =>3, :id => 'add_info'}
+        %td{:colspan =>3}
           %b
             %u Addintional Info
-            = image_tag('add-Icon.png')
+            = image_tag('add-Icon.png', :id => 'add_info')
       %tr
         %td{:colspan => "4"}
           %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
