@@ -19,11 +19,19 @@ $(document).ready(function() {
   });
 
   $("#add_info").live('click', function(){
-    $("#add_fields2").html('');
-	$.post("/visitors/additional_info",
-      function(data){$("#additional_info").html(data)}
-    );
-    $("#additional_info").show("slow");
+    if($("#add_info").attr("src").indexOf("add-Icon") > -1) 
+		{
+		$("#add_fields2").html('');
+		$.post("/visitors/additional_info",
+		  function(data){$("#additional_info").html(data)}
+		);
+		$("#additional_info").show("slow");
+		$("#add_info").attr("src","/images/minus.png");
+	}
+	else {
+		$("#additional_info").hide("slow");
+		$("#add_info").attr("src","/images/add-Icon.png");
+	}
   });
 
   $("#add_info_checkin").click(function(){$("#additional_info_checkin").show("slow");});
