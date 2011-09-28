@@ -17,7 +17,7 @@ class CheckinsController < ApplicationController
   end
 
   def index
-    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 3)
+    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 15)
   end
 
   def show 
@@ -71,6 +71,7 @@ class CheckinsController < ApplicationController
     @checkin.checkin_date = Date.today
     @checkin.checkin_time = Time.now.strftime("%H:%M:%S")
     @checkin.visitor_id = params[:checkin][:visitor_id]
+    @checkin.event_id = params[:checkin][:event_id]
     @checkin.room_id = temp_room[:id]
     if params[:visitor]
       @visitor = Visitor.create(params[:visitor])
@@ -83,6 +84,8 @@ class CheckinsController < ApplicationController
     end
     if @checkin.save
       @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
+      @checkin.update_attribute(:is_accom_req, true)
+      @checkin.update_attribute(:is_active, true)
       @checkin.visitor.update_attribute(:checkin_time, @checkin.checkin_time)
       temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
       temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)

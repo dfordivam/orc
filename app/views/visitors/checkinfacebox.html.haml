@@ -13,44 +13,6 @@
             = f.hidden_field :visitor_id, :readonly => true, :size => 1
         %tr
           %td
-            = f.label :is_accom_req, 'Accomodation Required'
-          %td
-            = f.radio_button :is_accom_req , 0, :value=>"true" 
-            No
-            = f.radio_button :is_accom_req , 1
-            Yes
-          %td
-            = f.label :meals_req, 'Meals Required'
-          %td
-            = f.label :meals_req, ' Breakfast'
-            = f.check_box :meals_req
-            = f.label :meals_req, ' Lunch'
-            = f.check_box :meals_req 
-            = f.label :meals_req, ' Dinner'
-            = f.check_box :meals_req
-        %tr
-          %td
-            = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
-          %td
-            = f.radio_button :is_sight_seeing_req , 0, :value=>"true" 
-            No
-            = f.radio_button :is_sight_seeing_req , 1
-            Yes
-          %td
-            = f.label :remarks, 'Checkin Remarks'
-          %td
-            = f.text_field :remarks, :class => 'text_feld_area'
-        %tr
-          %td
-            = f.label :no_of_days, 'No. of Days'
-          %td
-            = f.number_field :no_of_days, :class => 'text_feld_area' 
-          %td
-            = f.label :event, 'Event'
-          %td
-            = text_field_tag 'eid', @visitor.event.name, :disabled => true, :size => 24, :style => "background-color:#8698AC"
-        %tr
-          %td
             = f.label :building, 'Building'
           %td
             = select :room, :building_id, @building_list.collect {|e| [e.name, e.id]}
@@ -66,10 +28,38 @@
                     = label :r, 'Room'
                     = select :r1,:r11, @room_list 
         %tr
-          %td{:colspan=>"4"}
-            .rooms_result
-              = f.label :is_active, 'Is Active?'
-              = f.check_box :is_active
+          %td
+            = f.label :event, 'Event'
+          %td
+            = text_field_tag 'eid', @checkin.event.name, :disabled => true, :size => 24, :style => "background-color:#8698AC"
+            = f.hidden_field :event_id, :readonly => true, :size => 1
+          %td
+            = f.label :no_of_days, 'No. of Days'
+          %td
+            = f.number_field :no_of_days, :class => 'text_feld_area' 
+        %tr
+          %td
+            = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
+          %td
+            = f.radio_button :is_sight_seeing_req , 0, :value=>"true" 
+            No
+            = f.radio_button :is_sight_seeing_req , 1
+            Yes
+          %td
+            = f.label :meals_req, 'Meals Required'
+          %td
+            = f.label :meals_req, ' Breakfast'
+            = f.check_box :meals_req
+            = f.label :meals_req, ' Lunch'
+            = f.check_box :meals_req 
+            = f.label :meals_req, ' Dinner'
+            = f.check_box :meals_req
+        %tr
+          %td
+            = f.label :remarks, 'Checkin Remarks'
+          %td
+            = f.text_field :remarks, :class => 'text_feld_area'
+          %td{:colspan => 4}
         %tr
           %td{:colspan => "2",:align=>"right"}
             = submit_tag 'Submit'

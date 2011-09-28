@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :login_required
 
   def index
-    @users = User.find(:all,:conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 3)
+    @users = User.find(:all,:conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 15)
   end
 
   def new

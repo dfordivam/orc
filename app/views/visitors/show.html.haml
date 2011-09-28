@@ -21,7 +21,7 @@
           = text_field_tag 'dob', @visitor.dob.strftime("%d-%b-%Y  [ %A ]"), :disabled => true, :class => 'text_feld_area_show_page'
       %tr
         %td
-          %b= label :age, 'Age'
+          %b= label :age, 'Age (Yrs)'
         %td
           = text_field_tag 'age', @visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
         %td
@@ -32,7 +32,7 @@
         %td
           %b= label :address, 'Address'
         %td
-          = text_area_tag 'address', @visitor.address, :size=> "30x1", :disabled => true, :style => "font-size:12px;"
+          = text_area_tag 'address', @visitor.address, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
         %td
           %b= label :gender, 'Gender'
         %td
@@ -55,7 +55,7 @@
           %td
             %b= label :center_addr, 'Center Address'
           %td
-            = text_area_tag 'center_addr', @visitor.centre_addr, :size=> "30x1", :disabled => true, :style => "font-size:12px;"
+            = text_area_tag 'center_addr', @visitor.centre_addr, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
       %tr
         %td
           %b= label :designation, 'Designation'

@@ -59,7 +59,7 @@
               %td
                 = checkin.is_active
               %td{:align => "center"}
-                = image_tag('view.png',:title => "View Record", :width => 15)
+                = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
               %td{:align => "center"}
                 = link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
               %td{:align => "center"}
