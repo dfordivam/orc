@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
   before_filter :login_required
 
   def index
-    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 2)
+    @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 15)
   end
 
   def show
@@ -35,8 +35,9 @@ class VisitorsController < ApplicationController
     @checkin.visitor = @visitor
     @building = Building.new
     @room = Room.new
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
-    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
+    ## @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    @checkin.event = @visitor.event
+    @building_list = Building.find(:all, :conditions => ["is_delete = ? and no_of_rooms > 0", 0])
     @room_list = [""]
     @floor_list = [""]
     @coll = ["BK" , "Non BK"] 

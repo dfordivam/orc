@@ -22,7 +22,7 @@
   %td
     - checked_is_guide_false = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'false') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'false') ? @visitor.is_guide : nil
     - checked_is_guide_true = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'true') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'true') ? @visitor.is_guide : nil
-    = radio_button_tag "visitor[is_guide]" , 'false', checked_is_guide_false, :value=>"true"
+    = radio_button_tag "visitor[is_guide]" , 'false', checked_is_guide_false, :value=>true
     No
     = radio_button_tag "visitor[is_guide]", 'true', checked_is_guide_true
     Yes
