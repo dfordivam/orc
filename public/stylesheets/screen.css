@@ -1047,7 +1047,7 @@ table tr.list_line_even_show_page {background-color: #9999FF;}
 #add_info {cursor: pointer}
 #add_fields2{padding: 0px; margin: 0px;}
 .login{background:url(../images/login_lock_strip.png) left top repeat-x; border:#AFB0B0 1px solid; margin:100px; margin-left:350px;width: 530px; padding: 25px;}
-.newlogin{border:#0CD9DC 1px solid;border-radius:1px;margin-top:90px; margin-left:350px;width: 565px; height:300px;padding: 0px;}
+.newlogin{background:url(../images/login_lock_strip.png) left top repeat-x; border:#0CD9DC 3px solid;border-radius:1px;margin-top:90px; margin-left:350px;width: 565px; height:300px;padding: 0px;}
 .logout{float:right;margin-top:115px;margin-right: 25px;}
 .signin{font-weight:bold; border:#AFB0B0 5px solid; background-color: #AFB0B0;}
 .username-title{padding-top:10px;}

@@ -41,7 +41,7 @@
         %td
           = select :visitor, :visitor_type, VISITOR_TYPE, :include_blank => ""
       %tr{:id => 'add_fields'}
-        - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk') || @controller.action_name == 'edit'
+        - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
           = render :partial => "add_fields"
       %tr
         %td

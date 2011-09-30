@@ -75,19 +75,20 @@
           = text_field_tag 'checkin_time', @checkin.checkin_time.strftime("%H:%M:%S"), :class => 'text_feld_area_small', :disabled => true
       %tr
         %td
+          %b= label :no_of_days, 'Days To Stay'
+        %td
+          = text_field_tag 'no_of_days', @checkin.no_of_days, :class => 'text_feld_area_smaller', :disabled => true
+        %td
           %b= label :meals, 'Meals Req'
         %td
           = text_field_tag 'meals', @checkin.meals_req == 0 ? 'NO' : 'YES', :class => 'text_feld_area_smaller', :disabled => true
+      %tr
         %td
           %b= label :sight_seeing, 'Sight Seeing Req'
         %td
           = text_field_tag 'sight_seeing', @checkin.is_sight_seeing_req == true ? 'YES' : 'NO', :class => 'text_feld_area_smaller', :disabled => true
-      %tr
         %td
           %b= label :remarks, 'Remarks'
         %td
           = text_area_tag 'remarks', @checkin.remarks, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
-        %td{:colspan => 2}
-
-
 
