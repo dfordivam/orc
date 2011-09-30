@@ -50,7 +50,7 @@ class UtilitiesController < ApplicationController
           if new_building.save
             temp_build_id = new_building[:id]
           else
-            flash[:notice] = "#ERROR#Fatal Error While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
+            flash[:notice] = "#ERROR#Fatal Error (#{new_building.errors.full_messages[0]||''}) While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
           end
         end
         new_old_building = Building.find(:first, :conditions => ["id = ? and is_delete = 0",temp_build_id])
@@ -73,7 +73,7 @@ class UtilitiesController < ApplicationController
           new_old_building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
         else
-          flash[:notice] = "#ERROR#Fatal Error While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
+          flash[:notice] = "#ERROR#Fatal Error (#{temp_room.errors.full_messages[0]||''}) While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
         end
       end
     end
@@ -103,10 +103,10 @@ class UtilitiesController < ApplicationController
           user_roles.user_id = @new_user.id
           user_roles.role_id = @new_user.role_id
           if ! user_roles.save
-            flash[:notice] = "#ERROR#Fatal Error in USERS_ROLES!! Contact Admin !! Reference: #{unique_file_name}"
+            flash[:notice] = "#ERROR#Fatal Error (#{user_roles.errors.full_messages[0]||''}) in USERS_ROLES!! Contact Admin !! Reference: #{unique_file_name}"
           end
         else
-          flash[:notice] = "#ERROR#Fatal Error in USERS!! Contact Admin !! Reference: #{unique_file_name}"
+          flash[:notice] = "#ERROR#Fatal Error (#{@new_user.errors.full_messages[0]||''}) in USERS!! Contact Admin !! Reference: #{unique_file_name}"
         end
       end
     end  
@@ -251,7 +251,7 @@ class UtilitiesController < ApplicationController
           render 'index'
         end
       else
-        flash[:notice] = '#ERROR#File type error. Please upload MS-Excel File !!'
+        flash[:notice] = "#ERROR#File type (#{file.content_type.chomp}) error. Please upload MS-Excel File !!"
         render 'index'
       end
     else
@@ -273,7 +273,7 @@ class UtilitiesController < ApplicationController
           render 'index'
         end
       else
-        flash[:notice] = '#ERROR#File type error. Please upload MS-Excel File !!'
+        flash[:notice] = '#ERROR#File type (#{file.content_type.chomp})error. Please upload MS-Excel File !!'
         render 'index'
       end
     else

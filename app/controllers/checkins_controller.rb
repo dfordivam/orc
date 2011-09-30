@@ -51,6 +51,8 @@ class CheckinsController < ApplicationController
       if @checkin.save
         @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
         @checkin.visitor.update_attribute(:checkin_time, @checkin.checkin_time)
+        @checkin.update_attribute(:is_accom_req, true)
+        @checkin.update_attribute(:is_active, Date.today <= (@checkin.checkin_date + @checkin.no_of_days) && (Date.today >= @checkin.checkin_date))
         temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
         temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
         flash[:notice] = "Edit successful !!" 
@@ -84,9 +86,9 @@ class CheckinsController < ApplicationController
     end
     if @checkin.save
       @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
-      @checkin.update_attribute(:is_accom_req, true)
-      @checkin.update_attribute(:is_active, true)
       @checkin.visitor.update_attribute(:checkin_time, @checkin.checkin_time)
+      @checkin.update_attribute(:is_accom_req, true)
+      @checkin.update_attribute(:is_active, Date.today <= (@checkin.checkin_date + @checkin.no_of_days) && (Date.today >= @checkin.checkin_date))
       temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
       temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
       flash[:notice] = "Check in successful !!"

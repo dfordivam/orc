@@ -49,7 +49,7 @@ class VisitorsController < ApplicationController
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
     if @visitor.save
-      flash[:notice] = "#{@visitor.name} visitor successfully created"
+      flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
       redirect_to visitors_path
     else
       flash[:notice] = nil

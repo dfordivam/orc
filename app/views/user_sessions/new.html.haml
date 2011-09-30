@@ -1,7 +1,7 @@
 %div{:class => "newlogin"}
   - form_for @user_session do |form|
     = render "shared/error_messages", :target => @user_session
-    %table{:style => "background:url(../images/login_lock_strip.png) right top repeat-x"}
+    %table
       %tbody
         %tr
           %td

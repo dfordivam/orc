@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   end
 
   validates :username, :presence => true, :length => { :minimum => 5} , :uniqueness => true
-  validates :email, :presence => true
+  validates :email, :presence => true, :uniqueness => true, :length => { :within => 5..50 }, :format => { :with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i }
   validates :crypted_password, :presence => true
   validates :password_salt, :presence => true
   validates :role_id, :presence => true
