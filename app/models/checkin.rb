@@ -15,5 +15,5 @@ class Checkin < ActiveRecord::Base
   validates :visitor_id, :presence => true
   validates :event_id, :presence => true
   validates :room_id, :presence => true
-  validates :no_of_days, :presence => true
+  validates :no_of_days, :presence => true, :inclusion => (0..100), :numericality => true
 end

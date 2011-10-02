@@ -41,7 +41,7 @@ SimpleNavigation::Configuration.run do |navigation|
     else
       primary.item :edit_profile, 'Edit profile', edit_user_path(current_user), :highlights_on => /\/users/
     end
-    if current_user.username  == SUPERADMIN
+    if current_user.role.rolename == ADMIN
       primary.item :utilities, 'Utilities', utilities_path, :highlights_on => /\/utilities/
     end
 #    primary.item :feeds, 'Feeds', feeds_path, :highlights_on => /\/feeds/

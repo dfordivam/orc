@@ -7,7 +7,7 @@
           %br
       %tr{:bgcolor => "#D6D9BA"}
         %td
-          %b &nbsp; &nbsp; &nbsp; 1) You Can Upload Users List
+          %b &nbsp; &nbsp; &nbsp; 1) Upload Users List:
         %td
           = form_tag uploadexcel_path, :id=> "upload_user_list",:method => 'post', :multipart => "true" do
             %table
@@ -22,7 +22,7 @@
           = button_to " Download Template ", download_user_list_path
       %tr{:bgcolor => "#808963"}
         %td
-          %b &nbsp; &nbsp; &nbsp; 2) You Can Upload Buildings Info
+          %b &nbsp; &nbsp; &nbsp; 2) Upload Buildings Info:
         %td
           = form_tag uploadexcel_path, :id => "upload_building_list",:method => 'post', :multipart=>true do
             %table
@@ -37,7 +37,7 @@
           = button_to " Download Template ", download_building_list_path
       %tr{:bgcolor => "#D6D9BA"}
         %td
-          %b &nbsp; &nbsp; &nbsp; 3) You Can Upload Events List
+          %b &nbsp; &nbsp; &nbsp; 3) Upload Events List:
         %td
           = form_tag uploadexcel_path, :id=> "upload_event_list",:method => 'post', :multipart=>true do
             %table

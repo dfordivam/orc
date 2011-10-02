@@ -8,8 +8,8 @@ class Building < ActiveRecord::Base
   end
 
  validates :name, :presence => true
- validates :floors, :presence => true
- 
+ validates :floors, :presence => true, :inclusion => (1..30), :numericality => true
+
  # Wont show No. of Rooms in new add building page....
  # validates :no_of_rooms, :presence => true
 end
