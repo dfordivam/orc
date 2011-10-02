@@ -69,8 +69,10 @@
       %tr
         %td{:colspan => "2",:align=>"right"}
           - if @visitor.id.nil?
-            = submit_tag 'Submit'
+            = submit_tag 'Save and Exit', :name => "save", :title => "Save and go back to visitor\'s main page"
+            &nbsp;
+            = submit_tag 'Save and Continue', :name => "cont", :title => "Save and continue to register another visitor"
           - else
             = submit_tag 'Update'
         %td{:colspan => "2",:align=>"left"}
-          = link_to button_to("Cancel"),visitors_path, :method => "get"
+          = link_to button_to("Cancel"),visitors_path, :method => "get", :title => "Cancel registering the visitor"
