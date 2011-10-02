@@ -18,6 +18,7 @@ Orc::Application.routes.draw do
   get "events/create"
   # Ravi Added Start
   match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
+  match 'visitors/save_and_continue' => 'visitors#save_and_continue', :as => :save_and_continue
   match 'utilities/uploadexcel' => 'utilities#uploadexcel', :as => :uploadexcel
   match 'utilities/user_list' => 'utilities#user_list', :as => :user_list
   match 'utilities/building_list' => 'utilities#building_list', :as => :building_list

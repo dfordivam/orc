@@ -50,7 +50,11 @@ class VisitorsController < ApplicationController
     @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
     if @visitor.save
       flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
-      redirect_to visitors_path
+      if params[:save]
+        redirect_to visitors_path
+      else
+        redirect_to new_visitor_path
+      end
     else
       flash[:notice] = nil
       render new_visitor_path
