@@ -1,17 +1,22 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   - form_for @user do |form|
+    - is_superadmin = @user.username.nil? ? true : @user.username.upcase == "SUPERADMIN"
     = render "shared/error_messages", :target => @user
     %table{:class => "table-structure_new_user", :cellpadding=>"10", :cellspacing=>"20", :border=>0}
       %tbody
         %tr
           %td{:colspan=>"4"}
             .header_font
-              = form.label :new_user_info, 'Create New User Here'
+              - if @controller.action_name == 'edit'
+                - _heading = 'Edit user info'
+              - if @controller.action_name == 'new'
+                - _heading = 'Create New User Here'
+              = form.label :new_user_info, _heading
         %tr
           %td{:width => "260"} 
             = form.label :username, "Username**"
           %td{:width => "50"} 
-            = form.text_field :username, :class => 'text_feld_area'
+            = form.text_field :username, :class => 'text_feld_area', :disabled => ! is_superadmin
           %td{:colspan=>"2", :rowspan=>"6"}
             = image_tag('lock.jpg',:width=>"300")
         %tr
@@ -34,7 +39,7 @@
             = label_tag "User Role**: "
           %td{:width => "50"} 
             - for role in @roles
-              = form.radio_button :role_id, role.id
+              = form.radio_button :role_id, role.id, :disabled => ! is_superadmin
               = role.rolename.humanize
         %tr
           %td{:colspan => "1",:align=>"right"}

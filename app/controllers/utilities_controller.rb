@@ -144,6 +144,7 @@ class UtilitiesController < ApplicationController
   def check_users_for_errors(users)
     email_list = User.find_by_sql("select distinct trim(email) as email from users where is_delete = 0")
     users.length.times do |us|
+      existing_user = User.find(:first,:conditions => ["username = ?", users[us][:username]])
       if users[us][:username].nil? || users[us][:email].nil? || users[us][:role_id].nil? || users[us][:password].nil? || users[us][:role].nil?
         users[us][:isbad] = true
         users[us][:comment] = "No Fields Should Be Blank !!"
@@ -151,6 +152,14 @@ class UtilitiesController < ApplicationController
       if ! email_list.detect{|em| em.email == users[us][:email]}.nil?
         users[us][:isbad] = true
         users[us][:comment] = "Email already exists !!"
+      end
+      if users[us][:username].length < 5
+        users[us][:isbad] = true
+        users[us][:comment] = "Name length must by > 5 !!"
+      end
+      if ! existing_user.nil?
+        users[us][:isbad] = true
+        users[us][:comment] = "Username already taken !!"
       end
     end 
   end
@@ -240,7 +249,7 @@ class UtilitiesController < ApplicationController
 
   def handleUploadUserList(file)
     if ! file.nil?
-      if (file.content_type && file.content_type.chomp == "application/vnd.ms-excel")
+      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
         @unique_file_name = save_file(file,"user_list")
         ## @full_file_name = "#{RAILS_ROOT}/public/uploads/user_list/#{ @unique_file_name}"
         @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
@@ -262,7 +271,7 @@ class UtilitiesController < ApplicationController
 
   def handleUploadBuildingList(file)
     if ! file.nil?
-      if (file.content_type && file.content_type.chomp == "application/vnd.ms-excel")
+      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
         @unique_file_name = save_file(file,"building_list")
         ## @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
         @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
