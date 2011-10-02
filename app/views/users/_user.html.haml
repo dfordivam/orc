@@ -1,6 +1,6 @@
 %div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
   - form_for @user do |form|
-    - is_superadmin = @user.username.nil? ? true : @user.username.upcase == "SUPERADMIN"
+    - is_superadmin = @current_user.username.upcase == "SUPERADMIN"
     = render "shared/error_messages", :target => @user
     %table{:class => "table-structure_new_user", :cellpadding=>"10", :cellspacing=>"20", :border=>0}
       %tbody
