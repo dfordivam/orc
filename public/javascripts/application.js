@@ -3,11 +3,6 @@
 //
 jQuery(document).ready(function(){
       
-	  $("#event_start_date_time, #event_end_date_time").datepicker({
-            dateFormat: 'dd MM yy', changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true
-      });
-
-
     jQuery(function($){
 	  // when the #search field changes
       $("#room_building_id").change(function(){

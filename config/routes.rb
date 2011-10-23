@@ -72,6 +72,7 @@ Orc::Application.routes.draw do
 
   get 'javascripts/checkin' => 'javascripts#checkin'
   get 'javascripts/visitor' => 'javascripts#visitor'
+  get 'javascripts/event' => 'javascripts#event'
 
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):

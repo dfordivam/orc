@@ -1053,7 +1053,7 @@ table tr.list_line_even_show_page {background-color: #9999FF;}
 .username-title{padding-top:10px;}
 .marginlttp{position:absolute;left:300px;top: 50px;padding-bottom:100px;}
 .hrule{background:url(../images/ui-bg_glass_75_e6e6e6_1x400.png) left top repeat-x;padding-top:150px;border:grey 2px solid; border-radius: 15px;}
-.currentuser{font-weight:bold;background-color:green;color:white;position:absolute;right:150px;top:150px}
+.currentuser{font-weight:bold;color:black;position:absolute;right:150px;top:150px}
 .logoutbutton{position:absolute;right:70px;top:150px}*/
 .rule{position:absolute;top:160px;left:1px}
 .tmp a{background-color: red;color:yellow;border:black 1px solid}

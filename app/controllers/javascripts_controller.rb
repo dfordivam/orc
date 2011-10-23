@@ -6,4 +6,6 @@ class JavascriptsController < ApplicationController
   def visitor
     @full_room_list = Room.find(:all, :conditions => ["is_delete = 0 and empty_beds > 0"] ,:order => "floor, room_no")
   end
+  def event
+  end
 end
