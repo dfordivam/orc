@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"
+    t.integer  "is_delete"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "is_delete"
   end
 
   create_table "rooms", :force => true do |t|
