@@ -36,8 +36,6 @@ GEM
       activemodel (= 3.0.7)
       activesupport (= 3.0.7)
     activesupport (3.0.7)
-    annotate (2.4.0)
-    annotate-models (1.0.4)
     arel (2.0.10)
     builder (2.1.2)
     cancan (1.1.1)
@@ -84,8 +82,6 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mysql (2.8.1)
-    mysql (2.8.1-x86-mingw32)
     nokogiri (1.5.0)
     nokogiri (1.5.0-x86-mingw32)
     polyglot (0.3.2)
@@ -152,8 +148,6 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  annotate
-  annotate-models
   authlogic!
   cancan
   capybara
@@ -162,8 +156,7 @@ DEPENDENCIES
   haml
   jquery-rails
   mime-types
-  mysql
-  rails (= 3.0.7)
+  rails
   rake (~> 0.8.7)
   rspec
   rspec-rails
