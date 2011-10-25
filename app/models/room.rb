@@ -13,6 +13,6 @@ class Room < ActiveRecord::Base
   end
   validates :building_id, :presence => true
   validates :room_no, :presence => true
-  validates :floor, :presence => true, :inclusion => (1..30), :numericality => true
+  validates :floor, :presence => true, :inclusion => (0..30), :numericality => true
   validates :total_beds, :presence => true, :inclusion => (0..200), :numericality => true
 end
