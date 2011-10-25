@@ -26,4 +26,11 @@ class Visitor < ActiveRecord::Base
   validates :centre_addr, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}
   validates :is_physically_challenged, :presence => true
   validates :event_id, :presence => true
+
+# The following code (define_index) is needed by thinking-sphinx gem to index this class
+  define_index do 
+    indexes "LOWER(name)", :as => :name, :sortable => true
+    indexes :address
+    indexes :centre_addr
+  end
 end

@@ -7,11 +7,16 @@ gem 'rake', '~>0.8.7'   #Ravi
 #gem 'rake', '0.9.0'   #Ravi
 
 gem 'mime-types'
-#gem 'mysql'
+gem 'mysql'
 gem 'will_paginate'
 #gem 'authlogic'
 gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
 gem 'cancan'
+
+# For Search Functionality
+# Require Sphinx to be installed on system
+# sudo apt-get install sphinxsearch
+gem 'thinking-sphinx', '2.0.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

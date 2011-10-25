@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
   create_table "visitors", :force => true do |t|
     t.string   "name"
     t.integer  "age"
-    t.text     "address",                  :limit => 255
+    t.text     "address"
     t.string   "gender"
     t.string   "mobile_no"
     t.string   "visitor_type"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.datetime "updated_at"
     t.date     "dob"
     t.integer  "in_gyan_years"
-    t.text     "centre_addr",              :limit => 255
+    t.text     "centre_addr"
     t.string   "is_guide"
     t.string   "email"
     t.string   "qualification"
