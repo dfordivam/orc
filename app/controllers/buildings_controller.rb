@@ -8,6 +8,7 @@ class BuildingsController < ApplicationController
 
   def create
     @building = Building.new(params[:building])
+    @building.no_of_rooms = 0
     if @building.save
       redirect_to buildings_path 
     else
@@ -86,6 +87,7 @@ class BuildingsController < ApplicationController
       return
     end
     if @room.save
+      @building.update_attribute(:no_of_rooms , @building.no_of_rooms + 1)
       flash[:notice] = "Rooms added successfully to #{@building.name}"
       redirect_to buildings_path
     else
