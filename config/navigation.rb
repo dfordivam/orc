@@ -30,9 +30,14 @@ SimpleNavigation::Configuration.run do |navigation|
     # name - will be displayed in the rendered navigation. This can also be a call to your I18n-framework.
     # url - the address that the generated item links to. You can also use url_helpers (named routes, restful routes helper, url_for etc.)
     # options - can be used to specify attributes that will be included in the rendered navigation item (e.g. id, class etc.)
-    
-    primary.item :registration, 'Registration', new_visitor_path
-    primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
+    if @controller.controller_name == "visitors" && @controller.action_name == "new"
+      primary.item :registration, 'Registration', new_visitor_path, :highlights_on => /\/visitors/
+      primary.item :visitors, 'Visitors', visitors_path
+    else
+      primary.item :registration, 'Registration', new_visitor_path
+      primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
+    end
+#    primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
     primary.item :buildings, 'Buildings', buildings_path, :highlights_on => /\/buildings/ if can? :update, @user
     primary.item :events, 'Events', events_path, :highlights_on => /\/events/ if can? :update, @user
     primary.item :checkins, 'Checkins', checkins_path, :highlights_on => /\/checkins/
