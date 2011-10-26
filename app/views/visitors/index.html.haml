@@ -1,6 +1,10 @@
 = javascript_include_tag 'visitor'
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
-  = render "shared/flash_messages"
+  .div_link{ :align => "right" }
+    - form_tag ('/search/visitors') do
+      = search_field_tag('search_value', @search_value)
+      = submit_tag ('Search')
+    = render "shared/flash_messages"
   .div_link
     = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
   .paginate_ss
@@ -28,7 +32,7 @@
             %tr.datarow
               %td
                 &nbsp;
-                = visitor.name
+                = link_to visitor.name, checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox"
               %td
                 = visitor.age
               %td
@@ -44,7 +48,7 @@
               %td{:align => "center"}
                 -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
                 - if visitor.checkin_date.nil?
-                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox" 
+                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
                 - else
                   = image_tag('checkindone.jpg',:title => "Chenkin Already Done For '#{visitor.name}'")
                 -###########################################################################################################################

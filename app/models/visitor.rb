@@ -32,5 +32,7 @@ class Visitor < ActiveRecord::Base
     indexes "LOWER(name)", :as => :name, :sortable => true
     indexes :address
     indexes :centre_addr
+    set_property :enable_star => 1
+    set_property :min_prefix_len => 2
   end
 end
