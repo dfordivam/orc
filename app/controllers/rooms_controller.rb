@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
     params[:room][:building] = @building
     @room = Room.new(params[:room])
     occupied_beds = @room.occupied_beds||0
-    end
+    
     if @room.save
       @room.update_attribute(:empty_beds, @room.total_beds - @room.occupied_beds)
       @room.update_attribute(:occupied_beds, occupied_beds)
