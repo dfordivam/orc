@@ -44,7 +44,7 @@
               %td{:align => "center"}
                 -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
                 - if visitor.checkin_date.nil?
-                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"colorbox" 
+                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
                 - else
                   = image_tag('checkindone.jpg',:title => "Chenkin Already Done For '#{visitor.name}'")
                 -###########################################################################################################################
