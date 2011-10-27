@@ -107,6 +107,9 @@ class CheckinsController < ApplicationController
     end
     ## @checkin.destroy
     @checkin.is_delete = 1
+    @visitor = @checkin.visitor
+    @visitor.update_attribute(:checkin_date, NIL)
+
     if @checkin.save 
       flash[:notice] = "Check In Record has been deleted" 
     else
