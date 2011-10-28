@@ -2,6 +2,7 @@
   %table{:style => "margin-left:15px", :cellpadding=>0, :cellspacing=>0, :width=>"820px"}
     %tbody
       %tr
+        = render "shared/flash_messages"
         %td{:colspan => 8,:height => "40px"}
           .header_font
             = @building.name
@@ -50,3 +51,9 @@
             = room.is_ac
           %td
             = room.category
+          %td{:align => "center"}
+            = link_to image_tag('edit.png',:title => "Edit '#{room.room_no}'"), edit_room_path(room.id)
+          %td{:align => "center"}
+            - if can? :update, @user
+              = link_to image_tag('delete.png',:title => "Delete '#{room.room_no}'"), room_path(room.id), :confirm => "Are you sure to delete #{room.room_no} ?",:method => :delete
+

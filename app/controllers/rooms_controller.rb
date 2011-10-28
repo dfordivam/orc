@@ -39,6 +39,10 @@ class RoomsController < ApplicationController
     ## @room.destroy
     @room.is_delete = 1
     if @room.save 
+      @building = Building.find(@room.building)
+      #@building = @room.building
+      @building.update_attribute(:no_of_rooms , @building.no_of_rooms - 1)
+
       temp_checkin = Checkin.find(:all,:conditions => ["room_id = ?", @room.id])
       for t_c in temp_checkin
         t_c.update_attribute(:is_delete,1)
@@ -52,12 +56,16 @@ class RoomsController < ApplicationController
 
   def edit 
     @room = Room.find(params[:id])
+    @building = @room.building
+    @room_category = [1, 2]
   end
 
   def update
     @room = Room.find(params[:id])
+    @building = Building.find(params[:room][:building])
+    params[:room][:building] = @building
     if @room.update_attributes(params[:room])
-      redirect_to rooms_path
+      redirect_to building_path(@building.id)
     else
       render 'edit'
     end
