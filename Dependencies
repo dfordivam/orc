@@ -1,5 +1,7 @@
 sudo apt-get install sphinxsearch
 sudo apt-get install mysql-client mysql-server lib-mysqlclient16-dev mysql-common
+rake ts:index
+rake ts:start
 
 # Nokogiri Specific
 # ruby developer packages
