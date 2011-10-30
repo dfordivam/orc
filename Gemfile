@@ -22,7 +22,7 @@ gem 'thinking-sphinx', '2.0.5'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem "jquery-rails"
-gem 'sqlite3'
+#gem 'sqlite3'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -169,7 +169,6 @@ DEPENDENCIES
   rspec-rails
   simple-navigation (= 3.5.0)
   spreadsheet (~> 0.6.5.7)
-  sqlite3
   sqlite3-ruby
   thinking-sphinx (= 2.0.5)
   will_paginate
