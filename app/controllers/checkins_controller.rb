@@ -35,18 +35,27 @@ class CheckinsController < ApplicationController
 
   def update
     temp_room = Room.find(:first, :conditions => ["is_delete = 0 and building_id = ? and floor = ? and room_no = ?",params[:room][:building_id],params[:fc1][:fc11],params[:rc1][:rc11]])
+
+    if (temp_room.nil? == false) 
+      if ! (temp_room.occupied_beds < temp_room.total_beds)
+        flash[:notice] = "#ERROR#This room is full now !! Please select some other room. "
+        redirect_to checkinfacebox_visitor_path(:visitor_id => params[:checkin][:visitor_id])
+        return
+      end
+    else 
+      flash[:notice] = "#ERROR#Wrong room specified, please try again.  "
+      redirect_to checkinfacebox_visitor_path(:visitor_id => params[:checkin][:visitor_id])
+      return
+    end
+
     @checkin = Checkin.find(params[:id])
+    room_old = @checkin.room
     @visitor = @checkin.visitor
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
     @rm_list = [""]
     @flr_list = [""]
-    @checkin.room_id = temp_room.id
-    if ! (temp_room.occupied_beds < temp_room.total_beds)
-      flash[:notice] = "#ERROR#This room is full now !! Please select some other room. "
-      render 'edit'
-      return
-    end
+    @checkin.room = temp_room
     if @checkin.update_attributes(params[:checkin])
       if @checkin.save
         @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
@@ -55,6 +64,8 @@ class CheckinsController < ApplicationController
         @checkin.update_attribute(:is_active, Date.today <= (@checkin.checkin_date + @checkin.no_of_days) && (Date.today >= @checkin.checkin_date))
         temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
         temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
+        room_old.update_attribute(:occupied_beds , temp_room.occupied_beds - 1)
+        room_old.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
         flash[:notice] = "Edit successful !!" 
         redirect_to checkins_path
       else
@@ -68,21 +79,29 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    temp_room = Room.find(:first, :conditions => ["is_delete = 0 and building_id = ? and floor = ? and room_no = ?",params[:room][:building_id],params[:f1][:f11],params[:r1][:r11]])
+    temp_room = Room.where("is_delete = 0 AND building_id = ? AND floor = ? AND room_no = ?", params[:room][:building_id],params[:f1][:f11],params[:r1][:r11]).first
+
+    if (temp_room.nil? == false) 
+      if ! (temp_room.occupied_beds < temp_room.total_beds)
+        flash[:notice] = "#ERROR#This room is full now !! Please select some other room. "
+        redirect_to checkinfacebox_visitor_path(:visitor_id => params[:checkin][:visitor_id])
+        return
+      end
+    else 
+      flash[:notice] = "#ERROR#Wrong room specified, please try again.  "
+      redirect_to checkinfacebox_visitor_path(:visitor_id => params[:checkin][:visitor_id])
+      return
+    end
+
     @checkin = Checkin.new(params[:checkin])
     @checkin.checkin_date = Date.today
     @checkin.checkin_time = Time.now.strftime("%H:%M:%S")
     @checkin.visitor_id = params[:checkin][:visitor_id]
     @checkin.event_id = params[:checkin][:event_id]
-    @checkin.room_id = temp_room[:id]
+    @checkin.room = temp_room
     if params[:visitor]
       @visitor = Visitor.create(params[:visitor])
       @checkin.visitor = @visitor
-    end
-    if ! (temp_room.occupied_beds < temp_room.total_beds)
-      flash[:notice] = "#ERROR#This room is full now !! Please select some other room. "
-      redirect_to checkinfacebox_visitor_path(:visitor_id => params[:checkin][:visitor_id])
-      return
     end
     if @checkin.save
       @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
