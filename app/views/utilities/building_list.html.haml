@@ -13,7 +13,7 @@
         %td
           %b &nbsp;&nbsp;&nbsp; 
           = form_tag building_load_path(:id => @unique_file_name), :method => 'post', :multipart => "true" do
-            = submit_tag " Continue To Upload.. "
+            = submit_tag " Continue To Upload.. ", :disable_with => ' Continue To Upload.. '
         %td{:style => "vertical-align:bottom"}
           = button_to " Cancel Upload ", cancel_building_path, :confirm => "Are you sure to abort loading Building data ??"
         %td{:colspan => "8"}
