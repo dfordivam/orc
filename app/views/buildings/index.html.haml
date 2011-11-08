@@ -26,9 +26,9 @@
                 &nbsp;
                 = building.name
               %td
-                = building.rooms.count
+                = building.rooms.where("is_delete = ? AND empty_beds > 0", 0).count
               %td
-                = building.rooms.count
+                = building.rooms.where("is_delete = ?", 0).count
               %td
                 = building.floors
               %td{:align => "center"}

@@ -57,7 +57,7 @@ class UtilitiesController < ApplicationController
         temp_room = Room.new()
         temp_room[:floor] = buildings_rooms[br][:floor]
         temp_room[:category] = buildings_rooms[br][:category]
-        temp_room[:building_id] = temp_build_id
+        temp_room.building = new_old_building
         temp_room[:room_no] = buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i
         temp_room[:total_beds] = buildings_rooms[br][:total_beds]
         temp_room[:is_delete] = 0 
