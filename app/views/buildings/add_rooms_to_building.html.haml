@@ -47,6 +47,6 @@
             Yes
         %tr
           %td{:colspan => "2",:align=>"right"}
-            = submit_tag 'Submit'
+            = submit_tag 'Submit', :disable_with => 'Submit'
           %td{:colspan => "2",:align=>"left"}
             = link_to button_to("Cancel"),buildings_path, :method => "get"

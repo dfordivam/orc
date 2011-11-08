@@ -44,9 +44,9 @@
         %tr
           %td{:colspan => "1",:align=>"right"}
             - if @user.id.nil?
-              = submit_tag "Submit"
+              = submit_tag "Submit", :disable_with => 'Submit'
             - else
-              = submit_tag "Update"
+              = submit_tag "Update", :disable_with => 'Update'
           %td{:colspan => "1",:align=>"left"}
             = link_to button_to("Cancel"),users_path, :method => "get"
           %td{:colspan => "2"}

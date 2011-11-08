@@ -35,9 +35,9 @@
         %tr
           %td{:colspan => "2",:align=>"right"}
             - if @event.id.nil?
-              = submit_tag 'Submit'
+              = submit_tag 'Submit', :disable_with => 'Submit'
             - else
-              = submit_tag 'Update'
+              = submit_tag 'Update', :disable_with => 'Update'
           %td{:colspan => "2",:align=>"left"}
             = link_to button_to("Cancel"),events_path, :method => "get"
 
