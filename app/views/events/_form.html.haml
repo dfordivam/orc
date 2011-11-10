@@ -6,21 +6,21 @@
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
-          %td{:colspan=>"4"}
+          %td{:colspan=>"4",:align=>"center"}
             .header_font
-              = f.label :edit_event_info, 'Provide Event Information Here'
+              = f.label :edit_event_info, ' Event Registration Form'
         %tr
           %td
-            = f.label :name, 'Event Name**'
+            = f.label :name, 'Event Name*'
           %td
             = f.text_field :name, :class => 'text_feld_area'
         %tr
           %td
-            = f.label :start_date_time, 'Start Date**'
+            = f.label :start_date_time, 'Start Date*'
           %td
             = f.text_field :start_date_time, :class => 'text_feld_area'
           %td
-            = f.label :end_date_time, 'End Date**'
+            = f.label :end_date_time, 'End Date*'
           %td
             = f.text_field :end_date_time, :class => 'text_feld_area'
         %tr
@@ -29,7 +29,7 @@
           %td
             = f.number_field :capacity, :in => [1,100000], :step => 1, :class => 'text_feld_area'
           %td  
-            = f.label :location, 'Location**'
+            = f.label :location, 'Location*'
           %td
             = f.text_field :location, :class => 'text_feld_area'
         %tr
