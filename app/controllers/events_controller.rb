@@ -62,4 +62,9 @@ class EventsController < ApplicationController
   def index
     @events = Event.find(:all, :conditions => ["is_delete = ?", 0], :order => "name, start_date_time, location").paginate(:page => params[:page], :per_page => 15)
   end
+
+  def participants
+    @participants = Visitor.where(:event_id => params[:id], :is_delete => 0).paginate(:page => params[:page], :per_page => 15)
+#    @participants = [1,2]
+  end
 end
