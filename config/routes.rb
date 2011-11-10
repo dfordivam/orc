@@ -41,6 +41,8 @@ Orc::Application.routes.draw do
   resources :utilities
   # Ravi Added End
 
+  match 'events/:id/participants' => 'events#participants' , :as => :event_participants
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
