@@ -5,16 +5,16 @@
     %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
       %tbody
         %tr
-          %td{:colspan=>"4"}
+          %td{:colspan=>"4",:align=>"center"}
             .header_font
-              = f.label :edit_bilding_info, 'Provide Building Information Here'
-        %tr
+              = f.label :edit_bilding_info, 'Building Entry Form'
+        %tr	
           %td
-            = f.label :name, 'Name**'
+            = f.label :name, 'Name*'
           %td
             = f.text_field :name, :class => 'text_feld_area'
           %td
-            = f.label :floors, 'Total No. of Floors** '
+            = f.label :floors, 'Total No. of Floors* '
           %td
             = f.number_field :floors, :class => 'text_feld_area'
         -# Wont show No. of Rooms here....
