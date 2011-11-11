@@ -1,0 +1,9 @@
+.bundle
+db/*.sqlite3
+db/sphinx/
+log/
+tmp/
+config/database.yml
+config/sphinx.yml
+config/*.sphinx.conf
+*.sw?
