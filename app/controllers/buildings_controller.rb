@@ -36,12 +36,14 @@ class BuildingsController < ApplicationController
         t_r.update_attribute(:is_delete,1)
         temp_checkin = Checkin.find(:all, :conditions => ["room_id = ? and is_delete = 0", t_r.id])
         for t_c in temp_checkin
-          t_c.update_attribute(:is_delete,1)
+          t_c.update_attribute(:is_delete, 1)
+          visitor = t_c.visitor
+          visitor.update_attribute(:checkin_date, NIL)
         end
       end
       flash[:notice] = "Building #{@building.name} has been deleted" 
     else
-      flash[:notice] = "#ERROR#Can not delete Building #{@building.name} !!" 
+      flash[:notice] = "#ERROR#Can not delete Building #{@building.name} " 
     end
     redirect_to buildings_path
   end
@@ -82,7 +84,7 @@ class BuildingsController < ApplicationController
     end
     @room_category = [1, 2]
     if tot_beds < occup_beds
-      flash[:notice] = "#ERROR# #{@room.occupied_beds}Total beds can't be less than occupied beds !!"
+      flash[:notice] = "#ERROR# #{@room.occupied_beds}Total beds can't be less than occupied beds "
       render 'add_rooms_to_building'
       return
     end

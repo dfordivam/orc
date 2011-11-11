@@ -6,5 +6,4 @@ tmp/
 config/database.yml
 config/sphinx.yml
 config/*.sphinx.conf
-.gitignore
 *.sw?

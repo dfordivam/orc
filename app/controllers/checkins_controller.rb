@@ -66,14 +66,14 @@ class CheckinsController < ApplicationController
         temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
         room_old.update_attribute(:occupied_beds , temp_room.occupied_beds - 1)
         room_old.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
-        flash[:notice] = "Edit successful !!" 
+        flash[:notice] = "Edit successful " 
         redirect_to checkins_path
       else
-        flash[:notice] = "#ERROR#Edit Failed !! Please Provide All Valid Info !!"
+        flash[:notice] = "#ERROR#Edit Failed !! Please Provide All Valid Info "
         render 'edit'
       end
     else
-      flash[:notice] = "#ERROR#Edit Failed !! Please Provide All Valid Info !!"
+      flash[:notice] = "#ERROR#Edit Failed !! Please Provide All Valid Info "
       render 'edit'
     end
   end
@@ -110,10 +110,10 @@ class CheckinsController < ApplicationController
       @checkin.update_attribute(:is_active, Date.today <= (@checkin.checkin_date + @checkin.no_of_days) && (Date.today >= @checkin.checkin_date))
       temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
       temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
-      flash[:notice] = "Check in successful !!"
+      flash[:notice] = "Check in successful "
       redirect_to visitors_path
     else
-      flash[:notice] = "#ERROR#Check in fail !! Please try again !!"
+      flash[:notice] = "#ERROR#Check in fail !! Please try again "
       redirect_to visitors_path
     end
   end
@@ -132,7 +132,7 @@ class CheckinsController < ApplicationController
     if @checkin.save 
       flash[:notice] = "Check In Record has been deleted" 
     else
-      flash[:notice] = "#ERROR#Error in deleting record !!" 
+      flash[:notice] = "#ERROR#Error in deleting record " 
     end
     redirect_to checkins_path
   end

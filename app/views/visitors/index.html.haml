@@ -3,7 +3,7 @@
   .div_link{ :align => "right" }
     - form_tag ('/search/visitors') do
       = search_field_tag('search_value', @search_value)
-      = submit_tag ('Search')
+      = submit_tag ('Search Visitors')
     = render "shared/flash_messages"
   .div_link
     = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
@@ -50,7 +50,7 @@
                 - if visitor.checkin_date.nil?
                   = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
                 - else
-                  = image_tag('checkindone.jpg',:title => "Chenkin Already Done For '#{visitor.name}'")
+                  = image_tag('checkindone.jpg',:title => "Checkin Already Done For '#{visitor.name}'")
                 -###########################################################################################################################
               %td{:align => "center"}
                 = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_visitor_path(visitor.id)

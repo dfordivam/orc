@@ -22,7 +22,7 @@
           = button_to " Download Template ", download_user_list_path
       %tr{:bgcolor => "#808963"}
         %td
-          %b &nbsp; &nbsp; &nbsp; 2) Upload Buildings Info:
+          %b &nbsp; &nbsp; &nbsp; 2) Upload Buildings Information:
         %td
           = form_tag uploadexcel_path, :id => "upload_building_list",:method => 'post', :multipart=>true do
             %table
@@ -32,7 +32,7 @@
                     = file_field 'upload_building_list_file',:building_list_file, :style=>"color:#FF0055;font_weight:bold"
                   %td
                   %td
-                    = submit_tag " View & Upload "
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
         %td{:align=>"center"}
           = button_to " Download Template ", download_building_list_path
       %tr{:bgcolor => "#D6D9BA"}
@@ -47,6 +47,6 @@
                     = file_field 'upload_event_list_file',:event_list_file, :style=>"color:#FF0055;font_weight:bold"
                   %td
                   %td
-                    = submit_tag " View & Upload "
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
         %td{:align=>"center"}
           = button_to " Download Template " ,download_event_list_path

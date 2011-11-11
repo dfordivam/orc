@@ -5,38 +5,38 @@
     %table{:class => "table-structure_new_user", :cellpadding=>"10", :cellspacing=>"20", :border=>0}
       %tbody
         %tr
-          %td{:colspan=>"4"}
+          %td{:colspan=>"4",:align=>"center"}
             .header_font
               - if @controller.action_name == 'edit'
                 - _heading = 'Edit user info'
               - if @controller.action_name == 'new'
-                - _heading = 'Create New User Here'
+                - _heading = 'User Registration Form'
               = form.label :new_user_info, _heading
         %tr
           %td{:width => "260"} 
-            = form.label :username, "Username**"
+            = form.label :username, "Username*"
           %td{:width => "50"} 
             = form.text_field :username, :class => 'text_feld_area', :disabled => ! is_superadmin
           %td{:colspan=>"2", :rowspan=>"6"}
             = image_tag('lock.jpg',:width=>"300")
         %tr
           %td{:width => "260"}  
-            = form.label :email, "Email**"
+            = form.label :email, "Email*"
           %td{:width => "50"} 
             = form.text_field :email, :class => 'text_feld_area', :value=> user.email||"@"
         %tr
           %td{:width => "260"}  
-            = form.label :password, "Password**"
+            = form.label :password, "Password*"
           %td{:width => "50"} 
             = form.password_field :password, :class => 'text_feld_area'
         %tr
           %td{:width => "260"}  
-            = form.label :password_confirmation, "Password confirmation**"
+            = form.label :password_confirmation, "Password confirmation*"
           %td{:width => "50"} 
             = form.password_field :password_confirmation, :class => 'text_feld_area'
         %tr
           %td{:width => "260"}  
-            = label_tag "User Role**: "
+            = label_tag "User Role*: "
           %td{:width => "50"} 
             - for role in @roles
               = form.radio_button :role_id, role.id, :disabled => ! is_superadmin
@@ -44,9 +44,9 @@
         %tr
           %td{:colspan => "1",:align=>"right"}
             - if @user.id.nil?
-              = submit_tag "Submit"
+              = submit_tag "Submit", :disable_with => 'Submit'
             - else
-              = submit_tag "Update"
+              = submit_tag "Update", :disable_with => 'Update'
           %td{:colspan => "1",:align=>"left"}
             = link_to button_to("Cancel"),users_path, :method => "get"
           %td{:colspan => "2"}
