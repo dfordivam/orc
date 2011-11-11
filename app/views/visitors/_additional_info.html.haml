@@ -18,7 +18,7 @@
     = text_field_tag "visitor[email]", "#{!params["visitor"].blank? ? params["visitor"]["email"] : !@visitor.blank? ? @visitor.email : nil}", :class => 'text_feld_area'
 %tr
   %td
-    = label_tag :is_guide, 'Is Guide?'
+    = label_tag :is_guide, 'Is Guide Along'
   %td
     - checked_is_guide_false = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'false') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'false') ? @visitor.is_guide : nil
     - checked_is_guide_true = (!params["visitor"].blank? && params["visitor"]["is_guide"] == 'true') ? 'checked' : (!@visitor.blank? && @visitor.is_guide == 'true') ? @visitor.is_guide : nil
