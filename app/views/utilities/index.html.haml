@@ -50,3 +50,18 @@
                     = submit_tag " View & Upload ", :disable_with => ' View & Upload '
         %td{:align=>"center"}
           = button_to " Download Template " ,download_event_list_path
+      %tr{:bgcolor => "#D6D9BA"}
+        %td
+          %b &nbsp; &nbsp; &nbsp; 4) Upload Visitors List:
+        %td
+          = form_tag uploadexcel_path, :id=> "upload_visitor_list",:method => 'post', :multipart=>true do
+            %table
+              %tbody
+                %tr
+                  %td
+                    = file_field 'upload_visitor_list_file',:visitor_list_file, :style=>"color:#FF0055;font_weight:bold"
+                  %td
+                  %td
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
+        %td{:align=>"center"}
+          = button_to " Download Template " ,download_visitor_list_path

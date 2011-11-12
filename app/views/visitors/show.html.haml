@@ -36,7 +36,7 @@
         %td
           %b= label :gender, 'Gender'
         %td
-          = text_field_tag 'dob', @visitor.gender == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
+          = text_field_tag 'dob', @visitor.gender.downcase == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
       %tr
         %td
           %b= label :mobile_no, 'Mobile No'
