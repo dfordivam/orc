@@ -28,18 +28,22 @@ Orc::Application.routes.draw do
   match 'utilities/building_list' => 'utilities#building_list', :as => :building_list
   match 'utilities/event_list' => 'utilities#event_list', :as => :event_list
   match 'utilities/usr_load' => 'utilities#usr_load', :as => :usr_load
+  match 'utilities/visitor_load' => 'utilities#visitor_load', :as => :visitor_load
   match 'utilities/cancel_user' => 'utilities#cancel_user', :as => :cancel_user
   match 'utilities/building_load' => 'utilities#building_load', :as => :building_load
   match 'utilities/cancel_building' => 'utilities#cancel_building', :as => :cancel_building
   match 'utilities/event_load' => 'utilities#event_load', :as => :event_load
   match 'utilities/cancel_event' => 'utilities#cancel_event', :as => :cancel_event
   match 'utilities/download_user_list' => 'utilities#download_user_list', :as => :download_user_list
+  match 'utilities/download_visitor_list' => 'utilities#download_visitor_list', :as => :download_visitor_list
   match 'utilities/download_building_list' => 'utilities#download_building_list', :as => :download_building_list
   match 'utilities/download_event_list' => 'utilities#download_event_list', :as => :download_event_list
   match 'buildings/add_rooms_to_building/:building_id' => 'buildings#add_rooms_to_building', :as => :add_rooms_to_building
   match 'buildings/add_rooms_to_building_view/:building_id' => 'buildings#add_rooms_to_building_view', :as => :add_rooms_to_building_view
   resources :utilities
   # Ravi Added End
+
+  match 'events/:id/participants' => 'events#participants' , :as => :event_participants
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

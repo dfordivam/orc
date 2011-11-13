@@ -24,7 +24,7 @@
             %tr.datarow
               %td
                 &nbsp;
-                = building.name
+                = link_to building.name, building_path(building.id)
               %td
                 = building.rooms.where("is_delete = ? AND empty_beds > 0", 0).count
               %td

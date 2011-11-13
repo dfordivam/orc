@@ -1,13 +1,13 @@
 class UtilitiesController < ApplicationController
   require 'mime/types'
   require 'spreadsheet'
-  
+
   def index
   end
-  
+
   def user_list
   end
-  
+
   def cancel_building
     flash[:notice] = nil
     render 'index'
@@ -29,6 +29,11 @@ class UtilitiesController < ApplicationController
   end
 
   def download_event_list
+    handleDownloadEventList
+    return
+  end
+
+  def download_visitor_list
     handleDownloadEventList
     return
   end
@@ -80,7 +85,35 @@ class UtilitiesController < ApplicationController
     flash[:notice] = flash[:notice]||"#{ successful_loaded_rooms==0 ? 'No ' : successful_loaded_rooms} Records Loaded Successfully !!"
     render 'index'
   end
-  
+
+  def visitor_load
+    flash[:notice] = nil
+    unique_file_name = params[:id]
+    ##directory = "#{RAILS_ROOT}/public/uploads/user_list"
+    directory = "#{RAILS_ROOT}/tmp"
+    full_file_name = File.join( directory, unique_file_name)
+    visitors = extract_visitors_from_excel(full_file_name)
+
+    @successful_loaded = 0
+    visitors.each do |visitor|
+      if ! visitor[:isbad]
+        event_name = visitor[:event]
+        event = Event.where(:name => event_name).first
+        visitor[:event] = event
+        visitor.delete(:isbad)
+        visitor.delete(:comment)
+        @new_visitor = Visitor.new(visitor)
+        if @new_visitor.save
+          @successful_loaded += 1
+        else
+          flash[:notice] = "#ERROR#Fatal Error (#{@new_visitor.errors.full_messages[0]||''}) in Visitors. Please Contact Admin. Reference: #{unique_file_name}"
+        end
+      end
+    end  
+    flash[:notice] = flash[:notice]||"#{ @successful_loaded ==0 ? 'No ' : @successful_loaded} Records Loaded Successfully !!"
+    render 'index'
+  end
+
   def usr_load
     flash[:notice] = nil
     unique_file_name = params[:id]
@@ -124,6 +157,10 @@ class UtilitiesController < ApplicationController
       file = params[:upload_user_list_file][:user_list_file]
       handleUploadUserList(file)
       return
+    elsif (! params[:upload_visitor_list_file].nil?) && (! params[:upload_visitor_list_file][:visitor_list_file].nil?)
+      file = params[:upload_visitor_list_file][:visitor_list_file]
+      handleUploadVisitorList(file)
+      return
     elsif (! params[:upload_building_list_file].nil?) && (! params[:upload_building_list_file][:building_list_file].nil?)
       file = params[:upload_building_list_file][:building_list_file]
       handleUploadBuildingList(file)
@@ -162,6 +199,24 @@ class UtilitiesController < ApplicationController
         users[us][:comment] = "Username already taken !!"
       end
     end 
+  end
+
+  def check_visitors_for_errors(visitors)
+    visitors.each do |visitor|
+      if visitor[:name].nil? || visitor[:gender].nil? || visitor[:dob].nil? || visitor[:address].nil? || visitor[:mobile_no].nil? || visitor[:event].nil? || visitor[:visitor_type].nil?
+        visitor[:isbad] = true
+        visitor[:comment] = "Give All Mandatory Fields"
+      end 
+
+      if (visitor[:visitor_type]) && (visitor[:visitor_type] == 'bk')
+        if (visitor[:in_gyan_years] && visitor[:in_gyan_years].to_i && visitor[:centre_addr])
+        else
+          visitor[:isbad] = true
+          visitor[:comment] = "Give 'In Gyan years' and 'Centre Address' "
+        end
+
+      end
+    end
   end
 
   def check_buildings_for_errors(buildings_rooms)
@@ -211,7 +266,43 @@ class UtilitiesController < ApplicationController
     end
     return @users
   end
-  
+
+  def extract_visitors_from_excel(full_file_name)
+    flash[:notice] = nil
+    list_header = ["Name", "Gender", "Age", "Address", "Mobile", "Event", "BK?", "In Gyan (Years)", "Centre"]
+    record_counter = 0
+    @visitors = []
+    book = Spreadsheet.open full_file_name
+    @sheet1 = book.worksheet 0
+    first_row = @sheet1.row(0)
+    if first_row == list_header
+      @sheet1.each 1 do |row|
+        if (! row.nil?) && (! row[0].nil?) then
+          record_counter += 1
+          @visitors.insert(-1, {
+            :name => row[0],
+            :gender => row[1].capitalize,
+            :dob => get_dob_from_age(row[2].to_i),
+            :age => row[2],
+            :address => row[3],
+            :mobile_no => row[4].to_i,
+            :event => row[5],
+            :visitor_type => (row[6] == 'yes')? 'bk' : 'non_bk',
+            :in_gyan_years => row[7],
+            :centre_addr => row[8],
+            :is_physically_challenged => 'false',
+            :isbad => false,
+            :comment => "All Valid Fields"
+          })
+        end
+      end
+      check_visitors_for_errors(@visitors)
+    else
+      flash[:notice] = "#ERROR#Missing Header Record . Kindly refer the template!!"
+    end
+    return @visitors
+  end
+
   def extract_buildings_from_excel(full_file_name)
     flash[:notice] = nil
     list_header = ["BuildingName","Floor","RoomNumberORName","IsAC","IsExtensible","BedsExtensible","TotalBeds","OccupiedBeds","Category"]
@@ -226,17 +317,17 @@ class UtilitiesController < ApplicationController
           record_counter += 1
           @buildings_rooms.insert(-1,
                                   {:building_name => row[0],
-                                  :floor => row[1],
-                                  :room_name => row[2],
-                                  :is_ac => row[3],
-                                  :is_extensible => row[4],
-                                  :beds_extensible => row[5],
-                                  :total_beds => row[6],
-                                  :occupied_beds => row[7],
-                                  :category => row[8],
-                                  :isbad => false,
-                                  :comment => "All Valid Fields"
-                                  }
+                                    :floor => row[1],
+                                    :room_name => row[2],
+                                    :is_ac => row[3],
+                                    :is_extensible => row[4],
+                                    :beds_extensible => row[5],
+                                    :total_beds => row[6],
+                                    :occupied_beds => row[7],
+                                    :category => row[8],
+                                    :isbad => false,
+                                    :comment => "All Valid Fields"
+          }
                                  )
         end
       end
@@ -261,6 +352,28 @@ class UtilitiesController < ApplicationController
         end
       else
         flash[:notice] = "#ERROR#File type (#{file.content_type.chomp}) error. Please upload MS-Excel File !!"
+        render 'index'
+      end
+    else
+      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
+      render 'index'
+    end
+  end
+
+  def handleUploadVisitorList(file)
+    if ! file.nil?
+      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
+        @unique_file_name = save_file(file,"visitor_list")
+        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
+        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
+        @visitors = extract_visitors_from_excel(@full_file_name)
+        if flash[:notice].nil?
+          render 'visitor_list'
+        else
+          render 'index'
+        end
+      else
+        flash[:notice] = '#ERROR#File type (#{file.content_type.chomp})error. Please upload MS-Excel File !!'
         render 'index'
       end
     else
@@ -322,5 +435,15 @@ class UtilitiesController < ApplicationController
     file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
     send_file file_path, :type => 'application/vnd.ms-excel'
   end
+
+  def get_dob_from_age age
+    dob_year = Time.now.strftime("%Y").to_i - age
+    dob_mon = Time.now.strftime("%b")
+    dob_time = dob_mon + " " + dob_year.to_s
+    dob = Time.parse(dob_time)
+    #return dob.strftime("%d%m%y")
+    return dob.strftime("%Y-%m-%d")
+  end
+
 
 end
