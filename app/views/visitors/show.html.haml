@@ -18,7 +18,7 @@
         %td
           %b= label :dob, 'Date of Birth'
         %td
-          = text_field_tag 'dob', @visitor.dob.strftime("%d-%b-%Y  [ %A ]"), :disabled => true, :class => 'text_feld_area_show_page'
+          = text_field_tag 'dob', @visitor.dob.strftime("%d-%b-%Y"), :disabled => true, :class => 'text_feld_area_show_page'
       %tr
         %td
           %b= label :age, 'Age (Yrs)'
