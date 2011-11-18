@@ -32,6 +32,7 @@ class VisitorsController < ApplicationController
   def edit
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @visitor.dob= @visitor.dob.strftime("%d %B %Y")
   end
 
   def checkinfacebox
@@ -88,7 +89,7 @@ class VisitorsController < ApplicationController
       flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
       redirect_to visitors_path
     else
-      flash[:notice] = "#ERROR#Can not delete Visitor #{@visitor.name} !!" 
+      flash[:notice] = "#ERROR#Can not delete Visitor #{@visitor.name} " 
       redirect_to visitors_path
     end
   end

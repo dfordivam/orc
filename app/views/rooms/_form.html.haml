@@ -14,11 +14,11 @@
             = text_field_tag :building_name, @building.name, :readonly => true, :class => 'text_feld_area'
         %tr
           %td
-            = f.label :room_no, 'Room No.**'
+            = f.label :room_no, 'Room No.*'
           %td
             = f.number_field :room_no, :step => 1, :class => 'text_feld_area'
           %td
-            = f.label :floor, 'Floor**'
+            = f.label :floor, 'Floor*'
           %td
             = f.number_field :floor, :class => 'text_feld_area'
         %tr
