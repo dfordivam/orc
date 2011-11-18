@@ -33,8 +33,8 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
-    @event.start_date_time=@event.start_date_time.strftime("%d-%b-%Y")
-    @event.end_date_time=@event.end_date_time.strftime("%d-%b-%Y")
+    @event.start_date_time=@event.start_date_time.strftime("%d %B %Y")
+    @event.end_date_time=@event.end_date_time.strftime("%d %B %Y")
   end
 
   def show
