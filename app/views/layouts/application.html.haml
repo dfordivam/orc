@@ -7,8 +7,7 @@
     = csrf_meta_tag
   %body
     - if current_user
-      %a{:href => "#"}
-        %img.marginlttp{:border => "0", :src => "/images/copny_name_img.png"}/
+      %img.marginlttp{:border => "0", :src => "/images/copny_name_img.png"}/
       %span.currentuser= " #{current_user.username.humanize} Logged In "
       &nbsp;&nbsp;&nbsp;
       = link_to image_tag("logout.png", :class => "logoutbutton", :mouseover => "logoutover.png"), logout_path(current_user)

@@ -32,7 +32,7 @@ class VisitorsController < ApplicationController
   def edit
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
-    @visitor.dob= @visitor.dob.strftime("%d-%b-%Y")
+    @visitor.dob= @visitor.dob.strftime("%d %B %Y")
   end
 
   def checkinfacebox
