@@ -18,6 +18,11 @@ class UtilitiesController < ApplicationController
     render 'index'
   end
 
+  def cancel_event
+    flash[:notice] = nil
+    render 'index'
+  end
+
   def download_user_list
     handleDownloadUserList
     return
@@ -34,7 +39,7 @@ class UtilitiesController < ApplicationController
   end
 
   def download_visitor_list
-    handleDownloadEventList
+    handleDownloadVisitorList
     return
   end
 
@@ -89,7 +94,7 @@ class UtilitiesController < ApplicationController
   def visitor_load
     flash[:notice] = nil
     unique_file_name = params[:id]
-    ##directory = "#{RAILS_ROOT}/public/uploads/user_list"
+    ##directory = "#{RAILS_ROOT}/public/uploads/visitor_list"
     directory = "#{RAILS_ROOT}/tmp"
     full_file_name = File.join( directory, unique_file_name)
     visitors = extract_visitors_from_excel(full_file_name)
@@ -147,6 +152,34 @@ class UtilitiesController < ApplicationController
     render 'index'
   end
 
+  def event_load
+    flash[:notice] = nil
+    unique_file_name = params[:id]
+    ##directory = "#{RAILS_ROOT}/public/uploads/event_list"
+    directory = "#{RAILS_ROOT}/tmp"
+    full_file_name = File.join(directory,unique_file_name)
+    events = extract_events_from_excel(full_file_name)
+    @successful_loaded_events = 0
+   events.length.times do |event|
+      if ! events[event][:isbad]
+        @new_event = Event.new()
+        @new_event.name = events[event][:event_name]
+        @new_event.start_date_time = events[event][:event_start_date]
+        @new_event.end_date_time = events[event][:event_end_date]
+        @new_event.location = events[event][:location]
+        @new_event.capacity = events[event][:capacity].to_i
+        @new_event.is_delete = 0
+        if @new_event.save
+          @successful_loaded_events += 1
+        else
+          flash[:notice] = "#ERROR#Fatal Error (#{@new_event.errors.full_messages[0]||''}) in Events. Please Contact Admin. Reference: #{unique_file_name}"
+        end
+      end
+    end
+    flash[:notice] = flash[:notice]||"#{ @successful_loaded_events ==0 ? 'No ' : @successful_loaded_events} Records Loaded Successfully !!"
+    render 'index'
+  end
+
   def uploadexcel
     # file_name_user_list = params[:upload_user_list_file][:user_list_file]||"No File !!"
     # file_name_building_list = params[:upload_building_list_file][:building_list_file]||"No File !!"
@@ -201,6 +234,18 @@ class UtilitiesController < ApplicationController
     end 
   end
 
+
+  def check_events_for_errors(events)
+    events.each do |event|
+      if event[:event_name].nil? || event[:event_start_date].nil? || event[:event_end_date].nil? || event[:capacity].nil? || event[:location].nil? 
+        event[:isbad] = true
+        event[:comment] = "Give All Mandatory Fields"
+      end 
+    end
+  end
+
+
+
   def check_visitors_for_errors(visitors)
     visitors.each do |visitor|
       if visitor[:name].nil? || visitor[:gender].nil? || visitor[:dob].nil? || visitor[:address].nil? || visitor[:mobile_no].nil? || visitor[:event].nil? || visitor[:visitor_type].nil?
@@ -214,7 +259,6 @@ class UtilitiesController < ApplicationController
           visitor[:isbad] = true
           visitor[:comment] = "Give 'In Gyan years' and 'Centre Address' "
         end
-
       end
     end
   end
@@ -303,6 +347,36 @@ class UtilitiesController < ApplicationController
     return @visitors
   end
 
+def extract_events_from_excel(full_file_name)
+    flash[:notice] = nil
+    list_header = ["EventName", "EventStartDate", "EventEndDate", "Capacity", "Location"]
+    record_counter = 0
+    @events = []
+    book = Spreadsheet.open full_file_name
+    @sheet1 = book.worksheet 0
+    first_row = @sheet1.row(0)
+    if first_row == list_header
+      @sheet1.each 1 do |row|
+        if (! row.nil?) && (! row[0].nil?) then
+          record_counter += 1
+          @events.insert(-1, {
+            :event_name => row[0],
+            :event_start_date => row[1],
+            :event_end_date => row[2],
+            :capacity => row[3],
+            :location => row[4],
+            :comment => "All Valid Fields",
+            :isbad => false
+          })
+        end
+      end
+      check_events_for_errors(@events)
+    else
+      flash[:notice] = "#ERROR#Missing Header Record . Kindly refer the template!!"
+    end
+    return @events
+  end
+
   def extract_buildings_from_excel(full_file_name)
     flash[:notice] = nil
     list_header = ["BuildingName","Floor","RoomNumberORName","IsAC","IsExtensible","BedsExtensible","TotalBeds","OccupiedBeds","Category"]
@@ -364,7 +438,7 @@ class UtilitiesController < ApplicationController
     if ! file.nil?
       if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
         @unique_file_name = save_file(file,"visitor_list")
-        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
+        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/visitor_list/#{ @unique_file_name}"
         @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
         @visitors = extract_visitors_from_excel(@full_file_name)
         if flash[:notice].nil?
@@ -405,8 +479,25 @@ class UtilitiesController < ApplicationController
   end
 
   def handleUploadEventList(file)
-    flash[:notice] = "#ERROR#Yet to develop this utility... Only #1 & #2 utilities are done right now"
-    render 'index'
+   if ! file.nil?
+      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
+        @unique_file_name = save_file(file,"event_list")
+        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/event_list/#{ @unique_file_name}"
+        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
+        @events = extract_events_from_excel(@full_file_name)
+        if flash[:notice].nil?
+          render 'event_list'
+        else
+          render 'index'
+        end
+      else
+        flash[:notice] = '#ERROR#File type (#{file.content_type.chomp})error. Please upload MS-Excel File !!'
+        render 'index'
+      end
+    else
+      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
+      render 'index'
+    end 
   end
 
   def save_file(file,folder)
@@ -420,6 +511,12 @@ class UtilitiesController < ApplicationController
 
   def handleDownloadUserList
     file = "UsersList_Template.xls"
+    file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
+    send_file file_path, :type => 'application/vnd.ms-excel'
+  end
+
+  def handleDownloadVisitorList
+    file = "VisitorList_Template.xls"
     file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
     send_file file_path, :type => 'application/vnd.ms-excel'
   end

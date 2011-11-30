@@ -27,6 +27,7 @@ class VisitorsController < ApplicationController
     @visitor[:is_driver_accom_req] = 'false'
     @visitor[:is_driver_in_gyan] = 'false'
     @visitor[:is_special_care_req] = 'false'
+    @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
   end
 
   def edit
@@ -46,7 +47,7 @@ class VisitorsController < ApplicationController
     @building_list = Building.find(:all, :conditions => ["is_delete = ? and no_of_rooms > 0", 0])
     @room_list = [""]
     @floor_list = [""]
-    @coll = ["BK" , "Non BK"] 
+    @coll = ["BK" ,"Non BK" ,"Teacher" ,"Service" ] 
     render :layout => "aboutblank"
   end
 
@@ -93,6 +94,7 @@ class VisitorsController < ApplicationController
       redirect_to visitors_path
     end
   end
+
 
   # Adding form fields
   def add_fields_1
