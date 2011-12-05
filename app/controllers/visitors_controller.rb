@@ -46,14 +46,18 @@ class VisitorsController < ApplicationController
     @building_list = Building.find(:all, :conditions => ["is_delete = ? and no_of_rooms > 0", 0])
     @room_list = [""]
     @floor_list = [""]
-    @coll = ["BK" , "Non BK"] 
+    @coll = ["BK" ,"Non BK" ,"Teacher" ,"Service" ] 
     render :layout => "aboutblank"
   end
 
   def create
     @visitor = Visitor.new(params[:visitor])
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    if @visitor.dob ==nil
+    @visitor.dob = get_dob_from_age(@visitor.age)
+    else
     @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
+    end
     if @visitor.save
       flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
       if params[:save]
@@ -92,6 +96,15 @@ class VisitorsController < ApplicationController
       flash[:notice] = "#ERROR#Can not delete Visitor #{@visitor.name} " 
       redirect_to visitors_path
     end
+  end
+
+  def get_dob_from_age age
+    dob_year = Time.now.strftime("%Y").to_i - age
+    dob_mon = Time.now.strftime("%b")
+    dob_time = dob_mon + " " + dob_year.to_s
+    dob = Time.parse(dob_time)
+    #return dob.strftime("%d%m%y")
+    return dob.strftime("%Y-%m-%d")
   end
 
   # Adding form fields
