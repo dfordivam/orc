@@ -27,7 +27,6 @@ class VisitorsController < ApplicationController
     @visitor[:is_driver_accom_req] = 'false'
     @visitor[:is_driver_in_gyan] = 'false'
     @visitor[:is_special_care_req] = 'false'
-    @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
   end
 
   def edit
@@ -54,7 +53,11 @@ class VisitorsController < ApplicationController
   def create
     @visitor = Visitor.new(params[:visitor])
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+    if @visitor.dob ==nil
+    @visitor.dob = get_dob_from_age(@visitor.age)
+    else
     @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
+    end
     if @visitor.save
       flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
       if params[:save]
@@ -95,6 +98,14 @@ class VisitorsController < ApplicationController
     end
   end
 
+  def get_dob_from_age age
+    dob_year = Time.now.strftime("%Y").to_i - age
+    dob_mon = Time.now.strftime("%b")
+    dob_time = dob_mon + " " + dob_year.to_s
+    dob = Time.parse(dob_time)
+    #return dob.strftime("%d%m%y")
+    return dob.strftime("%Y-%m-%d")
+  end
 
   # Adding form fields
   def add_fields_1
