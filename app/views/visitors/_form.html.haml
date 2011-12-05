@@ -18,7 +18,12 @@
         %td
           = visitor.label :dob, 'Date of Birth*'
         %td
-          = visitor.text_field :dob, :readonly => true, :class => 'text_field_area'
+          = visitor.text_field :dob, :readonly => true, :class => 'text_field_area' 
+      %tr
+        %td
+          = visitor.label :age, 'Age (Yrs)*'
+        %td
+          = visitor.text_field :age, :class => 'text_feld_area'
       %tr
         %td
           = visitor.label :address, 'Address*'
@@ -33,13 +38,13 @@
           Female
       %tr
         %td
-          = visitor.label :mobile_no, 'Mobile No*'
+          = visitor.label :mobile_no, 'Contact No*'
         %td
           = visitor.text_field :mobile_no, :class => 'text_feld_area'
         %td
-          = visitor.label :visitor_type, 'You Are*'
+          = visitor.label :visitor_type, 'Visitor Type*'
         %td
-          = select :visitor, :visitor_type, VISITOR_TYPE, :include_blank => ""
+          = select :visitor, :visitor_type, VISITOR_TYPE , :include_blank => ""
       %tr{:id => 'add_fields'}
         - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
           = render :partial => "add_fields"

@@ -34,7 +34,7 @@
             = text_field_tag 'eid', @checkin.event.name, :disabled => true, :size => 24, :style => "background-color:#8698AC"
             = f.hidden_field :event_id, :readonly => true, :size => 1
           %td
-            = f.label :no_of_days, 'No. of Days**'
+            = f.label :no_of_days, 'No. of Days*'
           %td
             = f.number_field :no_of_days, :class => 'text_feld_area' 
         %tr

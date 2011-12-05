@@ -1,0 +1,61 @@
+= render "shared/flash_messages"
+%br
+%div{:class=>"mid_bg_add_utilities_b padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure", :cellpadding=>"0", :cellspacing=>"0", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => "6", :align => "center", :style => "font-size: 13px;background-color:#064B70;color:#FFFFFF"}
+          %u
+            %b Kindly note down the file name for future reference: 
+          &nbsp;&nbsp;&nbsp;
+          = @unique_file_name
+      %tr 
+        %td
+          %b &nbsp;&nbsp;&nbsp; 
+          = form_tag event_load_path(:id => @unique_file_name), :method => 'post', :multipart => "true" do
+            = submit_tag " Continue To Upload.. ", :disable_with => ' Continue To Upload.. '
+        %td{:style => "vertical-align:bottom"}
+          = button_to " Cancel Upload ", cancel_event_path, :confirm => "Are you sure to abort loading Event information ??"
+        %td{:colspan => "4"}
+      %tr 
+        %td{:colspan => "6"}
+          %br
+      %tr{:style => "background-color:#3A82F1"} 
+        %td
+          %b &nbsp;&nbsp;&nbsp; Event Name
+        %td
+          %b &nbsp;&nbsp;&nbsp; Start Date
+        %td
+          %b &nbsp;&nbsp;&nbsp; End Date
+        %td
+          %b &nbsp;&nbsp;&nbsp; Location
+        %td
+          %b &nbsp;&nbsp;&nbsp; Capacity
+        %td
+          %b &nbsp;&nbsp;&nbsp; Comment
+      %tr 
+        - for e in @events do
+          %tr{:class => cycle('list_line_odd','list_line_even')}
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = e[:event_name]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = e[:event_start_date]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = e[:event_end_date]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = e[:location]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = e[:capacity].to_i
+            - if e[:isbad]
+              %td{:style=>"color:white;font-weight:bold;background-color:red"}
+                &nbsp;&nbsp;&nbsp;
+                = e[:comment]
+            - else
+              %td{:style=>"color:white;font-weight:bold;background-color:green"}
+                &nbsp;&nbsp;&nbsp;
+                = e[:comment]
