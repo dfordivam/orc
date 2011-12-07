@@ -1,5 +1,6 @@
 %div{:class => "newlogin"}
   - form_for @user_session do |form|
+    = render "shared/flash_messages"
     = render "shared/error_messages", :target => @user_session
     %table
       %tbody

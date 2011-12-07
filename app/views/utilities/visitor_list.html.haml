@@ -1,0 +1,79 @@
+= render "shared/flash_messages"
+%br
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  %table{:class => "table-structure", :cellpadding=>"0", :cellspacing=>"0", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => "5", :align => "center", :style => "font-size: 13px;background-color:#064B70;color:#FFFFFF"}
+          %u
+            %b Kindly note down the file name for future reference: 
+          &nbsp;&nbsp;&nbsp;
+          = @unique_file_name
+      %tr 
+        %td
+          %b &nbsp;&nbsp;&nbsp; 
+          = form_tag visitor_load_path(:id => @unique_file_name), :method => 'post', :multipart => "true" do
+            = submit_tag " Continue To Upload.. ", :disable_with => ' Continue To Upload.. '
+        %td{:style => "vertical-align:bottom"}
+          = button_to " Cancel Upload ", cancel_user_path, :confirm => "Are you sure to abort loading Visitors data ??"
+        %td{:colspan => "3"}
+      %tr 
+        %td{:colspan => "5"}
+          %br
+      %tr{:style => "background-color:#3A82F1"} 
+        %td
+          %b &nbsp;&nbsp;&nbsp; Name
+        %td
+          %b &nbsp;&nbsp;&nbsp; Age
+        %td
+          %b &nbsp;&nbsp;&nbsp; Gender
+        %td
+          %b &nbsp;&nbsp;&nbsp; Address
+        %td
+          %b &nbsp;&nbsp;&nbsp; Mobile
+        %td
+          %b &nbsp;&nbsp;&nbsp; Event
+        %td
+          %b &nbsp;&nbsp;&nbsp; Visitor_type
+        %td
+          %b &nbsp;&nbsp;&nbsp; In Gyan (Years)
+        %td
+          %b &nbsp;&nbsp;&nbsp; Centre Address
+      %tr 
+        - for user in @visitors do
+          %tr{:class => cycle('list_line_odd','list_line_even')}
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:name]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:age]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:gender]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:address]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:mobile_no]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:event]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:visitor_type]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:in_gyan_years]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = user[:centre_addr]
+            - if user[:isbad]
+              %td{:style=>"color:white;font-weight:bold;background-color:red"}
+                &nbsp;&nbsp;&nbsp;
+                = user[:comment]
+            - else
+              %td{:style=>"color:white;font-weight:bold;background-color:green"}
+                &nbsp;&nbsp;&nbsp;
+                = user[:comment]

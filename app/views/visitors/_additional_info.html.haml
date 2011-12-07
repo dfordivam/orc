@@ -9,6 +9,11 @@
     = text_field_tag "visitor[organisation]", "#{!params["visitor"].blank? ? params["visitor"]["organisation"] : !@visitor.blank? ? @visitor.organisation : nil}", :class => 'text_feld_area'
 %tr
   %td
+    =label_tag :qualification, 'Qualification'
+  %td
+    = text_field_tag "visitor[qualification]", "#{!params["visitor"].blank? ? params["visitor"]["qualification"] : !@visitor.blank? ? @visitor.qualification : nil}", :class => 'text_feld_area'
+%tr
+  %td
     = label_tag :transport_mode, 'Mode of Transport'
   %td
     = text_field_tag "visitor[transport_mode]", "#{!params["visitor"].blank? ? params["visitor"]["transport_mode"] : !@visitor.blank? ? @visitor.transport_mode : nil}", :class => 'text_feld_area'

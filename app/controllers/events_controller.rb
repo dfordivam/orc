@@ -33,6 +33,8 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    @event.start_date_time=@event.start_date_time.strftime("%d %B %Y")
+    @event.end_date_time=@event.end_date_time.strftime("%d %B %Y")
   end
 
   def show
@@ -61,5 +63,10 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.find(:all, :conditions => ["is_delete = ?", 0], :order => "name, start_date_time, location").paginate(:page => params[:page], :per_page => 15)
+  end
+
+  def participants
+    @participants = Visitor.where(:event_id => params[:id], :is_delete => 0).paginate(:page => params[:page], :per_page => 15)
+#    @participants = [1,2]
   end
 end

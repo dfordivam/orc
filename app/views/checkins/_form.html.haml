@@ -97,7 +97,7 @@
             %td
               = select :checkin, :event_id, @event_list.collect { |e| [e.name, e.id] }
             %td
-              = f.label :no_of_days, 'No. of Days**'
+              = f.label :no_of_days, 'No. of Days*'
             %td
               = f.number_field :no_of_days, :class => 'text_feld_area' 
           %tr

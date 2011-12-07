@@ -7,13 +7,16 @@ class UserSessionsController < ApplicationController
 
   def create
     @user_session = UserSession.new(params[:user_session])
-    if @user_session.save
+     
+      if @user_session.save
       flash[:notice] = "Welcome  #{current_user.username.humanize}"
       redirect_to new_visitor_path
-    else
-      render :action => 'new'
-    end
+      else
+      flash[:notice] = "#ERROR#Incorrect Login Details. Please Enter Valid Username and Password"
+      redirect_to new_user_session_path
+      end 
   end
+
 
   def logout
     @user_session = UserSession.find
