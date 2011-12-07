@@ -9,7 +9,6 @@ class CreateVisitors < ActiveRecord::Migration
       t.string :visitor_type
       t.string :designation
       t.string :organisation
-      t.string :qualification
       t.string :transport_mode
       t.time :checkin_time
       t.date :checkin_date
