@@ -54,9 +54,9 @@ class VisitorsController < ApplicationController
     @visitor = Visitor.new(params[:visitor])
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     if @visitor.dob ==nil
-    @visitor.dob = get_dob_from_age(@visitor.age)
+      @visitor.dob = get_dob_from_age(@visitor.age)
     else
-    @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
+      @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
     end
     if @visitor.save
       flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
