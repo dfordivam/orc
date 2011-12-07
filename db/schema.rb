@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110918173303) do
+ActiveRecord::Schema.define(:version => 20111207110609) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -27,15 +27,14 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.integer  "no_of_days"
     t.integer  "visitor_id"
     t.integer  "event_id"
-    t.integer  "room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active"
-    t.boolean  "is_accom_req"
-    t.integer  "meals_req"
-    t.boolean  "is_sight_seeing_req"
     t.string   "remarks"
     t.integer  "is_delete"
+    t.integer  "registration_id"
+    t.date     "checkout_date"
+    t.time     "checkout_time"
   end
 
   create_table "events", :force => true do |t|
@@ -47,6 +46,18 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "is_delete"
+  end
+
+  create_table "registrations", :force => true do |t|
+    t.integer  "visitor_id"
+    t.integer  "event_id"
+    t.integer  "accompanying_males"
+    t.integer  "accompanying_females"
+    t.string   "remarks"
+    t.boolean  "is_delete"
+    t.boolean  "is_accom_req"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -70,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.string   "room_no",         :null => false
     t.integer  "total_beds"
     t.integer  "is_delete"
+    t.integer  "checkin_id"
   end
 
   create_table "users", :force => true do |t|
@@ -107,8 +119,6 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.string   "designation"
     t.string   "organisation"
     t.string   "transport_mode"
-    t.time     "checkin_time"
-    t.date     "checkin_date"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "dob"
@@ -130,7 +140,6 @@ ActiveRecord::Schema.define(:version => 20110918173303) do
     t.string   "is_physically_challenged"
     t.string   "create_by"
     t.string   "updated_by"
-    t.integer  "event_id"
     t.integer  "is_delete"
   end
 
