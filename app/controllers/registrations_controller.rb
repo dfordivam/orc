@@ -16,9 +16,9 @@ class RegistrationsController < ApplicationController
   def create
     @registration = Registration.new(params[:registration])
     if @registration.save
-      redirect_to => registrations_path
+      redirect_to registrations_path
     else
-      render => new_registration_path
+      render new_registration_path
     end
   end
 
