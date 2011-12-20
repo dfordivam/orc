@@ -10,7 +10,18 @@ class RegistrationsController < ApplicationController
   end
 
   def new
-    @registration = Registration.new
+    visitor_id = params[:visitor_id]
+    @event_list = Event.where(:is_delete => false)
+    if (visitor_id.nil?)
+      visitor = Visitor.find(1)
+      @registration = Registration.new
+      @registration.visitor = visitor
+
+    else
+      visitor = Visitor.find(visitor_id)
+      @registration = Registration.new
+      @registration.visitor = visitor
+    end
   end
 
   def create
