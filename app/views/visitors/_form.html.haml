@@ -56,10 +56,6 @@
           No
           = visitor.radio_button :is_physically_challenged , 'true', :value=>"true"
           Yes
-        %td
-          = visitor.label :event, 'Event*'
-        %td
-          = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] }
       %tr
         %td{:colspan =>3}
           %b
