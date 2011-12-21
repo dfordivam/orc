@@ -16,7 +16,7 @@
         %td
           = visitor.text_field :name, :class => 'text_feld_area'
         %td
-          = visitor.label :dob, 'Date of Birth*'
+          = visitor.label :dob, 'Date of Birth'
         %td
           = visitor.text_field :dob, :readonly => true, :class => 'text_field_area' 
       %tr
@@ -38,7 +38,7 @@
           Female
       %tr
         %td
-          = visitor.label :mobile_no, 'Contact No*'
+          = visitor.label :mobile_no, 'Contact No'
         %td
           = visitor.text_field :mobile_no, :class => 'text_feld_area'
         %td
@@ -59,7 +59,7 @@
         %td
           = visitor.label :event, 'Event*'
         %td
-          = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] }
+          = select :visitor, :event_id, @event_list.collect { |e| [e.name, e.id] } , :include_blank => ""
       %tr
         %td{:colspan =>3}
           %b
