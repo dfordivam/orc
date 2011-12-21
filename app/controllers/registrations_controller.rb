@@ -10,15 +10,30 @@ class RegistrationsController < ApplicationController
   end
 
   def new
-    @registration = Registration.new
+    visitor_id = params[:visitor_id]
+    @event_list = Event.where(:is_delete => false)
+    if (visitor_id.nil?)
+      visitor = Visitor.find(1)
+      @registration = Registration.new
+      @registration.visitor = visitor
+
+    else
+      visitor = Visitor.find(visitor_id)
+      @registration = Registration.new
+      @registration.visitor = visitor
+    end
   end
 
   def create
     @registration = Registration.new(params[:registration])
+    visitor_id = params[:registration][:visitor_id]
+    visitor = Visitor.find(visitor_id)
+    @registration.visitor = visitor 
+    @registration.is_delete = false
     if @registration.save
-      redirect_to => registrations_path
+      redirect_to registrations_path
     else
-      render => new_registration_path
+      render new_registration_path
     end
   end
 

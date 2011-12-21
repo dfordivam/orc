@@ -68,6 +68,7 @@ Orc::Application.routes.draw do
     end
   end
   resources :events
+  resources :registrations
   resources :buildings
   resources :rooms
   resources :checkins do
