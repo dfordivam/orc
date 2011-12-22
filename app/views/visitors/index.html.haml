@@ -32,7 +32,7 @@
             %tr.datarow
               %td
                 &nbsp;
-                = link_to visitor.name, checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox"
+                = link_to visitor.name, new_registration_path(:visitor_id => visitor.id)
               %td
                 = visitor.age
               %td
@@ -45,13 +45,6 @@
                 = visitor.visitor_type
               %td{:align => "center"}
                 = link_to image_tag('view.png',:title => "View Record"), visitor_path(visitor.id)
-              %td{:align => "center"}
-                -#################################USE :rel=>"colorbox" OR :rel=>"facebox"###################################################
-                - if visitor.checkin_date.nil?
-                  = link_to image_tag('newcheckin.jpg', :title => "Check in '#{visitor.name}'"), checkinfacebox_visitor_path(:visitor_id => visitor.id), :rel=>"facebox" 
-                - else
-                  = image_tag('checkindone.jpg',:title => "Checkin Already Done For '#{visitor.name}'")
-                -###########################################################################################################################
               %td{:align => "center"}
                 = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_visitor_path(visitor.id)
               %td{:align => "center"}

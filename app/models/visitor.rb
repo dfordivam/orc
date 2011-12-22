@@ -27,7 +27,6 @@ class Visitor < ActiveRecord::Base
   validates :in_gyan_years, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}, :inclusion => (0..90), :numericality => true
   validates :centre_addr, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}
   validates :is_physically_challenged, :presence => true
-  validates :event_id, :presence => true
 
 # The following code (define_index) is needed by thinking-sphinx gem to index this class
   define_index do 
