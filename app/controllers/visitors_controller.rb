@@ -1,6 +1,7 @@
 require 'mime/types'
 require 'spreadsheet'
 require 'action_mailer'
+
 class VisitorsController < ApplicationController
   before_filter :login_required
 
@@ -18,7 +19,6 @@ class VisitorsController < ApplicationController
   end
 
   def new
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.new
     @visitor[:gender] = "male"
     @visitor[:is_physically_challenged] = 'false'
