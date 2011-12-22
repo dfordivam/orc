@@ -2,11 +2,9 @@ class CheckinsController < ApplicationController
   before_filter :login_required
 
   def new
-    if (params[:visitor_id])
-      @visitor = Visitor.find(params[:visitor_id])
-    else
-      @visitor = Visitor.new
-    end
+    if (params[:registration_id])
+      @registration = Registration.find(params[:registration_id])
+      @visitor = @registration.visitor
     @checkin = Checkin.new
     @checkin.visitor = @visitor
     @building = Building.new
@@ -14,6 +12,9 @@ class CheckinsController < ApplicationController
     @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
     @coll = ["BK" , "Non BK"] #_visitor_types
+    else
+      redirect_to registrations_path
+    end
   end
 
   def index

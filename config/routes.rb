@@ -21,7 +21,7 @@ Orc::Application.routes.draw do
   get "users/edit"
   get "events/create"
   # Ravi Added Start
-  match 'visitors/checkinfacebox/:visitor_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
+  match 'visitors/checkinfacebox/:registration_id' => 'visitors#checkinfacebox', :as => :checkinfacebox_visitor
   match 'visitors/save_and_continue' => 'visitors#save_and_continue', :as => :save_and_continue
   match 'utilities/uploadexcel' => 'utilities#uploadexcel', :as => :uploadexcel
   match 'utilities/user_list' => 'utilities#user_list', :as => :user_list
