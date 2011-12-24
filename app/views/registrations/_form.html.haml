@@ -2,7 +2,7 @@
 = form_for @registration do |registration|
   - visitor = @registration.visitor
   = render "shared/flash_messages"
-  = render "shared/error_messages", :target => @visitor
+  = render "shared/error_messages", :target => @registration
   %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
     %tbody
       %tr
