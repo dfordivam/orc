@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207110609) do
+ActiveRecord::Schema.define(:version => 20111207104247) do
 
   create_table "buildings", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20111207110609) do
     t.boolean  "is_active"
     t.string   "remarks"
     t.integer  "is_delete"
+    t.integer  "room_id"
     t.integer  "registration_id"
     t.date     "checkout_date"
     t.time     "checkout_time"
@@ -81,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20111207110609) do
     t.string   "room_no",         :null => false
     t.integer  "total_beds"
     t.integer  "is_delete"
-    t.integer  "checkin_id"
   end
 
   create_table "users", :force => true do |t|
