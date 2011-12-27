@@ -1,7 +1,7 @@
 class Visitor < ActiveRecord::Base
   has_many :checkins
-  belongs_to :event
-  
+  has_many :registrations
+
   before_create :set_default_values
   
   def set_default_values

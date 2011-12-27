@@ -34,7 +34,7 @@ SimpleNavigation::Configuration.run do |navigation|
       primary.item :registration, 'New Registration', new_visitor_path, :highlights_on => /\/visitors/
       primary.item :visitors, 'Visitors', visitors_path
     else
-      primary.item :registration, 'Registration', new_visitor_path
+      primary.item :registration, 'New Registration', new_visitor_path
       primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
     end
 #    primary.item :visitors, 'Visitors', visitors_path, :highlights_on => /\/visitors/
