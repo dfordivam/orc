@@ -1,5 +1,7 @@
 class Room < ActiveRecord::Base
   belongs_to :building
+
+  has_many :checkins
  
   before_create :set_default_values
   

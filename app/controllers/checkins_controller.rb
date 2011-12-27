@@ -5,13 +5,16 @@ class CheckinsController < ApplicationController
     if (params[:registration_id])
       @registration = Registration.find(params[:registration_id])
       @visitor = @registration.visitor
-    @checkin = Checkin.new
-    @checkin.visitor = @visitor
-    @building = Building.new
-    @room = Room.new
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
-    @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
-    @coll = ["BK" , "Non BK"] #_visitor_types
+      @checkin = Checkin.new
+      @checkin.visitor = @visitor
+      @checkin.registration = @registration
+      @building = Building.new
+      @room = Room.new
+      @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+      @building_list = Building.find(:all, :conditions => ["is_delete = ?", 0])
+      @coll = ["BK" , "Non BK"] #_visitor_types
+      @rm_list = [""]
+      @flr_list = [""]
     else
       redirect_to registrations_path
     end
@@ -80,7 +83,7 @@ class CheckinsController < ApplicationController
   end
 
   def create
-    temp_room = Room.where("is_delete = 0 AND building_id = ? AND floor = ? AND room_no = ?", params[:room][:building_id],params[:f1][:f11],params[:r1][:r11]).first
+    temp_room = Room.where("is_delete = 0 AND building_id = ? AND floor = ? AND room_no = ?", params[:room][:building_id],params[:fc1][:fc11],params[:rc1][:rc11]).first
 
     if (temp_room.nil? == false) 
       if ! (temp_room.occupied_beds < temp_room.total_beds)
@@ -95,19 +98,18 @@ class CheckinsController < ApplicationController
     end
 
     @checkin = Checkin.new(params[:checkin])
+    @checkin.event = @checkin.registration.event
     @checkin.checkin_date = Date.today
     @checkin.checkin_time = Time.now.strftime("%H:%M:%S")
     @checkin.visitor_id = params[:checkin][:visitor_id]
-    @checkin.event_id = params[:checkin][:event_id]
     @checkin.room = temp_room
     if params[:visitor]
       @visitor = Visitor.create(params[:visitor])
       @checkin.visitor = @visitor
     end
     if @checkin.save
-      @checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
-      @checkin.visitor.update_attribute(:checkin_time, @checkin.checkin_time)
-      @checkin.update_attribute(:is_accom_req, true)
+      #@checkin.visitor.update_attribute(:checkin_date, @checkin.checkin_date)
+      #@checkin.visitor.update_attribute(:checkin_time, @checkin.checkin_time)
       @checkin.update_attribute(:is_active, Date.today <= (@checkin.checkin_date + @checkin.no_of_days) && (Date.today >= @checkin.checkin_date))
       temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
       temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)

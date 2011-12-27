@@ -3,7 +3,7 @@ class Checkin < ActiveRecord::Base
   belongs_to :event
   belongs_to :registration
 
-  has_many :rooms
+  belongs_to :room
  
   before_create :set_default_values
   
