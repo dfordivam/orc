@@ -46,4 +46,5 @@
                 = visitor.visitor_type
               %td
                 = registration.event.name
-
+              %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), registration.path(registration.id)
