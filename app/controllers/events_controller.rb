@@ -66,7 +66,7 @@ class EventsController < ApplicationController
   end
 
   def participants
-    @participants = Visitor.where(:event_id => params[:id], :is_delete => 0).paginate(:page => params[:page], :per_page => 15)
+    @participants = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
 #    @participants = [1,2]
   end
 end

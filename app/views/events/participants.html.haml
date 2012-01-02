@@ -20,7 +20,8 @@
             %td
               %b Visitor Type
             %td{:colspan => 5}
-          - @participants.each do |visitor|
+          - @participants.each do |registration|
+            - visitor = registration.visitor
             %tr.datarow
               %td
                 &nbsp;
