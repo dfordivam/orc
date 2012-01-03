@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.integer  "floors"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "checkins", :force => true do |t|
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.integer  "no_of_days"
     t.integer  "visitor_id"
     t.integer  "event_id"
-    t.integer  "room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active"
     t.string   "remarks"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
+    t.integer  "room_id"
     t.integer  "registration_id"
     t.date     "checkout_date"
     t.time     "checkout_time"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "registrations", :force => true do |t|
@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
 
   create_table "roles", :force => true do |t|
     t.string   "rolename"
+    t.integer  "is_delete"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
   end
 
   create_table "rooms", :force => true do |t|
@@ -79,13 +79,9 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "building_id"
-    t.string   "room_no",         :default => "", :null => false
+    t.string   "room_no",         :null => false
     t.integer  "total_beds"
-    t.boolean  "is_delete"
-  end
-
-  create_table "test", :id => false, :force => true do |t|
-    t.string "Name", :limit => 20, :default => "", :null => false
+    t.integer  "is_delete"
   end
 
   create_table "users", :force => true do |t|
@@ -99,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.string   "persistence_token"
     t.integer  "roles_mask"
     t.string   "role"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   create_table "users_roles", :force => true do |t|
@@ -107,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
   add_index "users_roles", ["role_id"], :name => "index_users_roles_on_role_id"
@@ -144,7 +140,7 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.string   "is_physically_challenged"
     t.string   "create_by"
     t.string   "updated_by"
-    t.boolean  "is_delete"
+    t.integer  "is_delete"
   end
 
 end
