@@ -55,7 +55,8 @@
                 - if checkin.room
                   = checkin.room.building.name
               %td
-                = checkin.room.room_no
+                - if checkin.room
+                  = checkin.room.room_no
               %td
                 = checkin.is_active
               %td{:align => "center"}
