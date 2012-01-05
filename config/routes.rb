@@ -2,6 +2,7 @@ Orc::Application.routes.draw do
 
 # Search functionality 
   match "search/visitors" => 'visitors#index'
+  get 'visitors/autocomplete_visitor_name'
 
   resources :users
   resources :user_sessions

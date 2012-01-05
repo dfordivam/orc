@@ -84,6 +84,7 @@ GEM
     mime-types (1.16)
     mysql (2.8.1)
     mysql (2.8.1-x86-mingw32)
+    nifty-generators (0.4.6)
     nokogiri (1.5.0)
     nokogiri (1.5.0-x86-mingw32)
     polyglot (0.3.2)
@@ -100,6 +101,8 @@ GEM
       activesupport (= 3.0.7)
       bundler (~> 1.0)
       railties (= 3.0.7)
+    rails3-jquery-autocomplete (1.0.5)
+      rails (~> 3.0)
     railties (3.0.7)
       actionpack (= 3.0.7)
       activesupport (= 3.0.7)
@@ -159,7 +162,9 @@ DEPENDENCIES
   jquery-rails
   mime-types
   mysql
+  nifty-generators
   rails (= 3.0.7)
+  rails3-jquery-autocomplete
   rake (= 0.9.2)
   rspec
   rspec-rails
