@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
   end
 
   def show
-    @registration = Registration.where(:id => params[:id], :is_delete => false)
+    @registration = Registration.where(:id => params[:id], :is_delete => false).first
   end
 
   def new
@@ -22,6 +22,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
+    visitor_id = (params[:registration][:visitor_id])
     @registration = Registration.new(params[:registration])
     if @registration.save
       redirect_to registrations_path
@@ -31,7 +32,8 @@ class RegistrationsController < ApplicationController
   end
 
   def edit
-    @registration = Registration.where(:id => params[:id], :is_delete => false)
+    @event_list = Event.where(:is_delete => false)
+    @registration = Registration.where(:id => params[:id], :is_delete => false).first
   end
 
   def update
@@ -47,6 +49,6 @@ class RegistrationsController < ApplicationController
   def destroy
     @registration = Registration.find(params[:id])
     @registration.update_attribute(:is_delete, true)
+     redirect_to registrations_path
   end
-
 end
