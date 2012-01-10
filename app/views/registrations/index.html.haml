@@ -47,4 +47,9 @@
               %td
                 = registration.event.name
               %td{:align => "center"}
-                = link_to image_tag('view.png',:title => "View Record"), registration.path(registration.id)
+                = link_to image_tag('view.png',:title => "View Record"), registration_path(registration.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_registration_path(registration.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), registration_path(registration.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
