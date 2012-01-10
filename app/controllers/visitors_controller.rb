@@ -5,6 +5,9 @@ require 'action_mailer'
 class VisitorsController < ApplicationController
   before_filter :login_required
 
+  autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender]
+  autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender]
+
   def index
     @search_value  = params[:search_value]
     if @search_value

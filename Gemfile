@@ -18,6 +18,10 @@ gem 'cancan'
 # sudo apt-get install sphinxsearch
 gem 'thinking-sphinx', '2.0.5'
 
+# For auto complete functionality
+gem 'rails3-jquery-autocomplete'
+gem 'nifty-generators'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
