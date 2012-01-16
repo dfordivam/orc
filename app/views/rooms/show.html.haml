@@ -1,0 +1,87 @@
+%div{:class=>"show_page text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure_show_page", :cellpadding=>"10", :cellspacing=>"10", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => 3,:height => "40px"}
+          .header_font
+            = "Room No. :- #{@room.room_no}"
+        %td{:align => "right"}
+          = link_to button_to(" Go Back "),rooms_path, :method => "get", :title => "Go back to list"
+      %tr
+        %td{:colspan => 4}
+          %hr
+      %tr
+        %td
+          %b= label :room_no, 'Room No.'
+        %td
+          = text_field_tag 'room_no', @room.room_no, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :floor, 'Floor'
+        %td
+          = text_field_tag 'floor', @room.floor, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :total_beds, 'Total Beds'
+        %td
+          = text_area_tag 'total_beds',@room.total_beds, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :occupied_beds, 'Occupied Beds'
+        %td
+          = text_field_tag 'occupied_beds', @room.occupied_beds, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :category, 'Type/Category'
+        %td
+          = text_field_tag 'category', @room.category, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :is_ac, 'Is AC?'
+        %td
+          = text_field_tag 'is_ac', @room.is_ac, :class => 'text_feld_area_show_page', :disabled => true
+      %tr
+        %td{:colspan => 4}
+          %hr
+          %hr
+      - if @room_no != 0
+        %tr 
+          %td{:align => "center",:colspan => 5}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %b Checkin Details
+            %hr
+            %hr
+        %tr          
+          %td
+            &nbsp;
+            %b Visitor Name
+          %td
+            %b Address
+          %td
+            %b Event
+          %td
+            %b Checkin Date
+          %td
+            %b Checkout Date
+          %td{:colspan => 5}
+        - @checkins.each do |checkin|
+          %tr.datarow        
+          %td
+            &nbsp;
+            - if checkin.visitor
+              = link_to checkin.visitor.name, visitors_path
+          %td
+            = checkin.visitor.address
+          %td
+            = link_to checkin.event.name, events_path
+          %td
+            = checkin.created_at.strftime("%d-%b-%Y")
+          %td
+            = checkin.created_at.strftime("%d-%b-%Y")
+          %td{:align => "center"}
+            = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
+          %td{:align => "center"}
+            = link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin"), edit_checkin_path(checkin.id)
+          %td{:align => "center"}
+            - if can? :update, @user
+              = link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?" 
+          
+         
+     
