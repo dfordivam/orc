@@ -1,4 +1,4 @@
-= javascript_include_tag 'visitor', 'jquery.min.js', 'jquery-ui.min.js', 'jquery_ujs.js', 'autocomplete-rails.js'
+= javascript_include_tag 'visitor', 'jquery.min.js', 'jquery-ui.min.js', 'jquery_ujs.js', 'autocomplete-rails.js', 'regform'
 = stylesheet_link_tag 'jquery-ui-1.8.2.custom'
 = form_for @visitor do |visitor|
   = render "shared/flash_messages"
@@ -10,40 +10,39 @@
           .header_font
             = visitor.label :visitor_registration, 'Visitor Registration Form'
       %tr
+        %td
+          = link_to "Click Here to add New Visitor", "#", :id => "enableNewVisitorLink"
       %tr
         %td
-          = text_field_tag "visitor_id", "", :readonly => true
-      %tr
+          = visitor.label :mobile_no, 'Contact No*'
+        %td
+          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
         %td
           = visitor.label :name, 'Name*'
         %td
-          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#visitor_id"}, :class => 'text_feld_area'
+          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+      %tr
+        %td
+          = visitor.label :age, 'Age (Yrs)*'
+        %td
+          = visitor.text_field :age, :class => 'text_feld_area', :readonly => true
         %td
           = visitor.label :dob, 'Date of Birth*'
         %td
           = visitor.text_field :dob, :readonly => true, :class => 'text_field_area' 
       %tr
         %td
-          = visitor.label :age, 'Age (Yrs)*'
-        %td
-          = visitor.text_field :age, :class => 'text_feld_area'
-      %tr
-        %td
           = visitor.label :address, 'Address*'
         %td
-          = visitor.text_area :address, :size=> "20x1"
+          = visitor.text_area :address, :size=> "20x1", :readonly => true
         %td
-          = visitor.label :gender, 'Gender*'
+          = visitor.label :gender, 'Gender*', :readonly => true
         %td
-          = visitor.radio_button :gender , "male"
+          = visitor.radio_button :gender , "male", :readonly => true
           Male
-          = visitor.radio_button :gender , "female"
+          = visitor.radio_button :gender , "female", :readonly => true
           Female
       %tr
-        %td
-          = visitor.label :mobile_no, 'Contact No*'
-        %td
-          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#visitor_id"}, :class => 'text_feld_area'
         %td
           = visitor.label :visitor_type, 'Visitor Type*'
         %td
@@ -55,29 +54,47 @@
         %td
           = visitor.label :is_physically_challenged, 'Physically Challenged*'
         %td
-          = visitor.radio_button :is_physically_challenged , 'false', :value=>"false"
+          = visitor.radio_button :is_physically_challenged , 'false', :value=>"false", :readonly => true
           No
-          = visitor.radio_button :is_physically_challenged , 'true', :value=>"true"
+          = visitor.radio_button :is_physically_challenged , 'true', :value=>"true", :readonly => true
           Yes
       %tr
         %td{:colspan =>3}
           %b
             %u Additional Info
-            = image_tag('add-Icon.png', :id => 'add_info')
+            = image_tag 'add-Icon.png', :id => 'add_info'
       %tr
         %td{:colspan => "4"}
           %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
             %tbody{:id => 'additional_info'}
               - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
                 = render :partial => "additional_info"
+      = form_for @registration do |registration|
+        %tr
+          %td
+            = registration.label :visitor_id, 'Visitor ID'
+          %td
+            = registration.number_field :visitor_id, :class => 'text_feld_area'
+        %tr
+          %td
+            = registration.label :accompanying_males, 'Accompanying persons (Male)'
+          %td
+            = registration.number_field :accompanying_males, :class => 'text_feld_area'
+          %td
+            = registration.label :accompanying_females, 'Accompanying persons (Female)'
+          %td
+            = registration.number_field :accompanying_females, :class => 'text_feld_area'
+        %tr
+          %td
+            = registration.label :event, 'Event*'
+          %td
+            = select :registration, :event_id, @event_list.collect { |e| [e.name, e.id] }
       %tr
         %td{:colspan => "2",:align=>"right"}
-          - if @visitor.id.nil?
-            = submit_tag 'Save and Exit', :disable_with => 'Save and Exit', :name => "save", :title => "Save and go back to visitor\'s main page"
-            &nbsp;
-            = submit_tag 'Save and Continue', :disable_with => 'Save and Continue', :name => "cont", :title => "Save and continue to register another visitor"
-          - else
-            = submit_tag 'Update', :disable_with => 'Update'
+          = submit_tag 'Save and Exit', :disable_with => 'Save and Exit', :name => "reg_save", :title => "Save and go back to visitors main page", :id => "submit_button_save_and_exit"
+          &nbsp;
+          = submit_tag 'Save and Continue', :disable_with => 'Save and Continue', :name => "reg_cont", :title => "Save and continue to register another visitor", :id => "submit_button_save_and_cont"
         %td{:colspan => "2",:align=>"left"}
           = link_to button_to("Cancel"),visitors_path, :method => "get", :title => "Cancel registering the visitor"
+
 
