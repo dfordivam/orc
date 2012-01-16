@@ -5,8 +5,13 @@ require 'action_mailer'
 class VisitorsController < ApplicationController
   before_filter :login_required
 
-  autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender]
-  autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender]
+  autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender, :id]
+  autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender, :id]
+
+  def get_autocomplete_items(parameters)
+    items = super(parameters)
+    items = items.where(:is_delete => false)
+  end
 
   def index
     @search_value  = params[:search_value]
@@ -31,6 +36,9 @@ class VisitorsController < ApplicationController
     @visitor[:is_driver_accom_req] = 'false'
     @visitor[:is_driver_in_gyan] = 'false'
     @visitor[:is_special_care_req] = 'false'
+    @registration = Registration.new 
+    @registration.visitor = @visitor
+    @event_list = Event.where(:is_delete => false)
   end
 
   def edit
@@ -55,22 +63,39 @@ class VisitorsController < ApplicationController
   end
 
   def create
-    @visitor = Visitor.new(params[:visitor])
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
-    if @visitor.dob ==nil
-      @visitor.dob = get_dob_from_age(@visitor.age)
-    else
-      @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
-    end
-    if @visitor.save
-      flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
-      if params[:save]
-        redirect_to visitors_path
+    if params[:new_vis_reg_save] or params[:new_vis_reg_cont]
+      @visitor = Visitor.new(params[:visitor])
+      @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+      
+      if @visitor.dob ==nil
+        @visitor.dob = get_dob_from_age(@visitor.age)
       else
-        redirect_to new_visitor_path
+        @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
+      end
+
+      if @visitor.save
+        flash[:notice] = "Visitor #{@visitor.name.capitalize} successfully created"
+      else
+        flash[:notice] = nil
+        render new_visitor_path
       end
     else
-      flash[:notice] = nil
+      @visitor = Visitor.where(:id => params[:registration][:visitor_id], :is_delete => false).first
+    end
+
+    if @visitor.nil? == false
+      @registration = Registration.new(params[:registration])
+      @registration.visitor = @visitor
+      if @registration.save
+        if params[:new_vis_reg_save] or params[:reg_save]
+          redirect_to registrations_path
+        else
+          redirect_to new_visitor_path
+        end
+      else
+        render new_visitor_path
+      end
+    else
       render new_visitor_path
     end
   end
