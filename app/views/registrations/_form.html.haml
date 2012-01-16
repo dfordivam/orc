@@ -23,7 +23,7 @@
         %td
           = registration.label :visitor_id, 'Visitor ID'
         %td
-          = registration.number_field :visitor_id, :class => 'text_feld_area'
+          = registration.number_field :visitor_id, :readonly => true, :class => 'text_feld_area_smaller'
       %tr
         %td
           = registration.label :accompanying_males, 'Accompanying persons (Male)'
@@ -47,8 +47,4 @@
           - else
             = submit_tag 'Update', :disable_with => 'Update'
         %td{:colspan => "2",:align=>"left"}
-<<<<<<< HEAD
-          = link_to button_to("Cancel"), visitors_path, :method => "get", :title => "Cancel registering the visitor"
-=======
           = link_to button_to("Cancel"), visitors_path, :method => "get", :title => "Cancel registering the visito"
->>>>>>> b2816ac9d9ee346bd096e8a1435a3f1a611aec34

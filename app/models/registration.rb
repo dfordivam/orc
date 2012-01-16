@@ -12,7 +12,7 @@ class Registration < ActiveRecord::Base
     self.is_delete = 0
   end
 
-  validates :visitor_id, :presence => true
   validates :event_id, :presence => true
+  validates :visitor_id, :presence => true
 
 end

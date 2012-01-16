@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
   end
 
   create_table "checkins", :force => true do |t|
-<<<<<<< HEAD
     t.date "checkin_date"
     t.time "checkin_time"
     t.integer "no_of_days"
@@ -37,22 +36,6 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.integer "registration_id"
     t.date "checkout_date"
     t.time "checkout_time"
-=======
-    t.date     "checkin_date"
-    t.time     "checkin_time"
-    t.integer  "no_of_days"
-    t.integer  "visitor_id"
-    t.integer  "event_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "is_active"
-    t.string   "remarks"
-    t.integer  "is_delete"
-    t.integer  "room_id"
-    t.integer  "registration_id"
-    t.date     "checkout_date"
-    t.time     "checkout_time"
->>>>>>> b2816ac9d9ee346bd096e8a1435a3f1a611aec34
   end
 
   create_table "events", :force => true do |t|
@@ -74,18 +57,6 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.string "remarks"
     t.boolean "is_delete"
     t.boolean "is_accom_req"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "registrations", :force => true do |t|
-    t.integer  "visitor_id"
-    t.integer  "event_id"
-    t.integer  "accompanying_males"
-    t.integer  "accompanying_females"
-    t.string   "remarks"
-    t.boolean  "is_delete"
-    t.boolean  "is_accom_req"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -139,7 +110,6 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
   add_index "users_roles", ["user_id"], :name => "index_users_roles_on_user_id"
 
   create_table "visitors", :force => true do |t|
-<<<<<<< HEAD
     t.string "name"
     t.integer "age"
     t.text "address"
@@ -171,39 +141,6 @@ ActiveRecord::Schema.define(:version => 20111207104247) do
     t.string "create_by"
     t.string "updated_by"
     t.integer "is_delete"
-=======
-    t.string   "name"
-    t.integer  "age"
-    t.text     "address"
-    t.string   "gender"
-    t.string   "mobile_no"
-    t.string   "visitor_type"
-    t.string   "designation"
-    t.string   "organisation"
-    t.string   "transport_mode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.date     "dob"
-    t.integer  "in_gyan_years"
-    t.text     "centre_addr"
-    t.string   "is_guide"
-    t.string   "email"
-    t.string   "qualification"
-    t.string   "vehicle_no"
-    t.string   "is_driver_along"
-    t.string   "driver_name"
-    t.string   "driver_contact_no"
-    t.string   "is_driver_accom_req"
-    t.string   "is_driver_in_gyan"
-    t.string   "type_of_food"
-    t.string   "medicine_requirement"
-    t.string   "remarks"
-    t.boolean  "is_special_care_req"
-    t.string   "is_physically_challenged"
-    t.string   "create_by"
-    t.string   "updated_by"
-    t.integer  "is_delete"
->>>>>>> b2816ac9d9ee346bd096e8a1435a3f1a611aec34
   end
 
 end

@@ -19,6 +19,7 @@ class VisitorsController < ApplicationController
 
   def show
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @registrations = @visitor.registrations.where(:is_delete => false)
   end
 
   def new
@@ -33,7 +34,7 @@ class VisitorsController < ApplicationController
   end
 
   def edit
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+   # @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
     @visitor.dob= @visitor.dob.strftime("%d %B %Y")
   end

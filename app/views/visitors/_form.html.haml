@@ -8,7 +8,7 @@
       %tr
         %td{:colspan => "4" ,:align=>"center"}
           .header_font
-            = visitor.label :visitor_registration, 'Visitor Registration Form'
+            = visitor.label :visitor_registration, 'Visitor Details Form'
       %tr
       %tr
       %tr
@@ -78,6 +78,3 @@
             = submit_tag 'Update', :disable_with => 'Update'
         %td{:colspan => "2",:align=>"left"}
           = link_to button_to("Cancel"),visitors_path, :method => "get", :title => "Cancel registering the visitor"
-
-
-

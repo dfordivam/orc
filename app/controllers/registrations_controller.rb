@@ -23,11 +23,18 @@ class RegistrationsController < ApplicationController
 
   def create
     visitor_id = (params[:registration][:visitor_id])
-    @registration = Registration.new(params[:registration])
-    if @registration.save
-      redirect_to registrations_path
+    event_id = (params[:registration][:event_id])
+    @existing_registration = Registration.where(:visitor_id => visitor_id, :event_id =>event_id , :is_delete => false).first
+    if @existing_registration.nil?
+      @registration = Registration.new(params[:registration])
+      if @registration.save
+        redirect_to registrations_path
+      else
+        render new_registration_path(:visitor_id => visitor_id)
+      end
     else
-      render new_registration_path
+      flash[:notice] = "#ERROR# Visitor is already registered "
+      redirect_to registrations_path
     end
   end
 
