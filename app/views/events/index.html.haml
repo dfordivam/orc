@@ -34,6 +34,8 @@
               %td
                 = event.location
               %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), event_path(event.id)
+              %td{:align => "center"}
                 = link_to image_tag('edit.png',:title => "Edit '#{event.name}'"), edit_event_path(event.id)
               %td{:align => "center"}
                 - if can? :update, @user

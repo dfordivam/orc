@@ -23,8 +23,8 @@ class Visitor < ActiveRecord::Base
   validates :age, :presence => true, :numericality => true, :inclusion => (0..100)
   validates :address, :presence => true
   validates :gender, :presence => true
-  #validates :mobile_no, :presence => true, :length => 10..10, :numericality => true
-  validates :mobile_no, :length => 10..10, :numericality => true, :if => Proc.new { |visitor| visitor.mobile_no != ''}
+  validates :mobile_no, :presence => true, :length => 6..10, :numericality => true
+  #validates :mobile_no, :length => 10..10, :numericality => true, :if => Proc.new { |visitor| visitor.mobile_no != ''}
   validates :visitor_type, :presence => true
   validates :in_gyan_years, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}, :inclusion => (0..90), :numericality => true
   validates :centre_addr, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}

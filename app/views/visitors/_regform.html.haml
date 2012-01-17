@@ -1,4 +1,4 @@
-= javascript_include_tag 'visitor', 'jquery.min.js', 'jquery-ui.min.js', 'jquery_ujs.js', 'autocomplete-rails.js', 'regform'
+= javascript_include_tag 'visitor', 'jquery.min.js', 'jquery-ui.min.js', 'jquery_ujs.js', 'autocomplete-rails.js', 'regform','regformclear'
 = stylesheet_link_tag 'jquery-ui-1.8.2.custom'
 = form_for @visitor do |visitor|
   = render "shared/flash_messages"
@@ -11,7 +11,9 @@
             = visitor.label :visitor_registration, 'Visitor Registration Form'
       %tr
         %td
-          = link_to "Click Here to add New Visitor", "#", :id => "enableNewVisitorLink"
+          = link_to " Click to Add New Visitor", "#", :id => "enableNewVisitorLink"
+        %td{:colspan => "3" , :align=>"right"}
+          = link_to "Clear Form", "#", :id => "clearFormLink"
       %tr
         %td
           = visitor.label :mobile_no, 'Contact No*'

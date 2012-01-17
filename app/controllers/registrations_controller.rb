@@ -2,11 +2,12 @@ class RegistrationsController < ApplicationController
   before_filter :login_required
 
   def index
-    @registrations = Registration.where(:is_delete => false)
+    @registrations = Registration.find(:all,:conditions => ["is_delete = ?", 0], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show
     @registration = Registration.where(:id => params[:id], :is_delete => false).first
+    @checkins = @registration.checkins.where(:is_delete => false)
   end
 
   def new

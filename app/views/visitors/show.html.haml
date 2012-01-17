@@ -145,6 +145,7 @@
           %td{:colspan => 5}
         - @registrations.each do |registration|
           - visitor = registration.visitor
+          - event = registration.event
           %tr.datarow        
           %td
             &nbsp;
@@ -152,7 +153,7 @@
           %td
             = registration.accompanying_females.nil? ? '0' : registration.accompanying_females
           %td
-            = link_to registration.event.name, events_path
+            = link_to registration.event.name, event_path(event.id)
           %td
             = registration.created_at.strftime("%d-%b-%Y")
           %td{:align => "right"}

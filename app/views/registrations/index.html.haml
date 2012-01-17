@@ -2,11 +2,13 @@
 %div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
   .div_link{ :align => "right" }
     - form_tag ('/search/visitors') do
-      = search_field_tag('search_value', @search_value)
-      = submit_tag ('Search Visitors')
+      /= search_field_tag('search_value', @search_value)
+      /= submit_tag ('Search Visitors')
     = render "shared/flash_messages"
   .div_link
-    = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_registration_path
+    /= link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
+  .paginate_ss
+    = will_paginate
   .wrapper_vistors
     .row_hover
       %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
@@ -53,3 +55,5 @@
               %td{:align => "center"}
                 - if can? :update, @user
                   = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), registration_path(registration.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+    .paginate_ss
+      = will_paginate

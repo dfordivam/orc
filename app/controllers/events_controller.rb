@@ -46,10 +46,10 @@ class EventsController < ApplicationController
     ## @event.destroy
     @event.is_delete = 1
     if @event.save 
-      temp_visitor = Visitor.find(:all,:conditions => ["event_id = ?", @event.id])
+      temp_registration = Registration.find(:all,:conditions => ["event_id = ?", @event.id])
       temp_checkin = Checkin.find(:all,:conditions => ["event_id = ?", @event.id])
-      for t_v in temp_visitor
-        t_v.update_attribute(:is_delete,1)
+      for t_r in temp_registration
+        t_r.update_attribute(:is_delete,1)
       end
       for t_c in temp_checkin
         t_c.update_attribute(:is_delete,1)

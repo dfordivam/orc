@@ -15,10 +15,19 @@ function enableAddNewVisitor() {
   $("#enableNewVisitorLink").remove();
 
 }
+function clearVisitorDetails(){
+  $("#visitor_age").val("");
+  $("#visitor_address").val("");
+  $("#visitor_mobile_no").val(' ');
+  $("#visitor_name").val(' ');
+}
 
 function changeLinkLocation(){
 }
 
 jQuery(document).ready(function(){
   $("#enableNewVisitorLink").click(enableAddNewVisitor);
+  $("#clearFormLink").click(clearVisitorDetails);
 });
+
+
