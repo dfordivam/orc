@@ -31,7 +31,8 @@ class RoomsController < ApplicationController
   end
 
   def show 
-    @room = Room.find(params[:id])
+    @room = Room.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @checkins = @room.checkins.where(:is_delete => false)
   end
 
   def destroy 

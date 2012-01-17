@@ -2,11 +2,12 @@ class RegistrationsController < ApplicationController
   before_filter :login_required
 
   def index
-    @registrations = Registration.where(:is_delete => false)
+    @registrations = Registration.find(:all,:conditions => ["is_delete = ?", 0], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show
-    @registration = Registration.where(:id => params[:id], :is_delete => false)
+    @registration = Registration.where(:id => params[:id], :is_delete => false).first
+    @checkins = @registration.checkins.where(:is_delete => false)
   end
 
   def new
@@ -22,16 +23,25 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    @registration = Registration.new(params[:registration])
-    if @registration.save
-      redirect_to registrations_path
+    visitor_id = (params[:registration][:visitor_id])
+    event_id = (params[:registration][:event_id])
+    @existing_registration = Registration.where(:visitor_id => visitor_id, :event_id =>event_id , :is_delete => false).first
+    if @existing_registration.nil?
+      @registration = Registration.new(params[:registration])
+      if @registration.save
+        redirect_to registrations_path
+      else
+        render new_registration_path(:visitor_id => visitor_id)
+      end
     else
-      render new_registration_path
+      flash[:notice] = "#ERROR# Visitor is already registered "
+      redirect_to registrations_path
     end
   end
 
   def edit
-    @registration = Registration.where(:id => params[:id], :is_delete => false)
+    @event_list = Event.where(:is_delete => false)
+    @registration = Registration.where(:id => params[:id], :is_delete => false).first
   end
 
   def update
@@ -47,6 +57,6 @@ class RegistrationsController < ApplicationController
   def destroy
     @registration = Registration.find(params[:id])
     @registration.update_attribute(:is_delete, true)
+     redirect_to registrations_path
   end
-
 end

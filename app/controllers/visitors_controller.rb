@@ -24,6 +24,7 @@ class VisitorsController < ApplicationController
 
   def show
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @registrations = @visitor.registrations.where(:is_delete => false)
   end
 
   def new
@@ -41,7 +42,7 @@ class VisitorsController < ApplicationController
   end
 
   def edit
-    @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+   # @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
     @visitor.dob= @visitor.dob.strftime("%d %B %Y")
   end
@@ -79,7 +80,15 @@ class VisitorsController < ApplicationController
         render new_visitor_path
       end
     else
-      @visitor = Visitor.where(:id => params[:registration][:visitor_id], :is_delete => false).first
+      visitor_id = (params[:registration][:visitor_id])
+      @visitor = Visitor.where(:id => visitor_id, :is_delete => false).first
+      event_id = (params[:registration][:event_id])
+      @existing_registration = Registration.where(:visitor_id => visitor_id, :event_id =>event_id , :is_delete => false).first
+      if @existing_registration.nil? == false
+        flash[:notice] = "#ERROR# Visitor is already registered "
+        redirect_to new_visitor_path
+        return
+      end
     end
 
     if @visitor.nil? == false
@@ -114,7 +123,11 @@ class VisitorsController < ApplicationController
     ## @visitor.destroy
     @visitor.is_delete = 1
     if @visitor.save 
+      temp_registration = Registration.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
       temp_checkin = Checkin.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
+      for t_r in temp_registration
+        t_r.update_attribute(:is_delete,1)
+      end
       for t_c in temp_checkin
         t_c.update_attribute(:is_delete,1)
       end

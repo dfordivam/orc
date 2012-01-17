@@ -21,27 +21,27 @@
           = text_field_tag 'dob', @visitor.dob.strftime("%d-%b-%Y"), :disabled => true, :class => 'text_feld_area_show_page'
       %tr
         %td
-          %b= label :age, 'Age (Yrs)'
-        %td
-          = text_field_tag 'age', @visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
-        %td
-          %b= label :event, 'Event'
-        %td
-          = text_field_tag 'event', @visitor.event.name, :disabled => true, :class => 'text_feld_area_show_page'
-      %tr
-        %td
           %b= label :address, 'Address'
         %td
           = text_area_tag 'address', @visitor.address, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
         %td
+          %b= label :age, 'Age (Yrs)'
+        %td
+          = text_field_tag 'age', @visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
+      %tr
+        %td
           %b= label :gender, 'Gender'
         %td
           = text_field_tag 'dob', @visitor.gender.downcase == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
-      %tr
         %td
           %b= label :mobile_no, 'Contact No'
         %td
           = text_field_tag 'mobile_no', @visitor.mobile_no, :class => 'text_feld_area_show_page', :disabled => true
+      %tr     
+        %td
+          %b= label :phyc_chal, 'Physically challenged'
+        %td
+          = text_field_tag 'phyc_chal', (@visitor.is_physically_challenged.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
         %td
           %b= label :visitor_type, 'Visitor Type'
         %td
@@ -76,9 +76,14 @@
           = text_field_tag 'qualification', (@visitor.qualification.nil? || @visitor.qualification=='') ? "N/A" : @visitor.qualification.upcase, :class => 'text_feld_area_show_page', :disabled => true
       %tr
         %td
+          %b= label :transport_mode, 'Mode of Transport'
+        %td
+          = text_field_tag 'transport_mode', (@visitor.transport_mode.nil? || @visitor.transport_mode=='') ? "N/A" : @visitor.transport_mode.upcase, :class => 'text_feld_area_show_page', :disabled => true
+        %td
           %b= label :isguide, 'Is-Guide'
         %td
           = text_field_tag 'isguide', (@visitor.is_guide.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+      %tr
         %td
           %b= label :isdriveralong, 'Is driver along'
         %td
@@ -104,10 +109,6 @@
             = text_field_tag 'driver_ingyan', (@visitor.is_driver_in_gyan.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
       %tr
         %td
-          %b= label :phyc_chal, 'Physically challenged'
-        %td
-          = text_field_tag 'phyc_chal', (@visitor.is_physically_challenged.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
-        %td
           %b= label :special_care, 'Need special care'
         %td
           = text_field_tag 'special_care', (@visitor.is_special_care_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
@@ -119,4 +120,48 @@
         %td
           %b= label :remarks, 'Remarks'
         %td
-          = text_field_tag 'remarks', (@visitor.remarks.nil? || @visitor.remarks=='') ? "N/A" : @visitor.remarks.upcase, :class => 'text_feld_area_show_page', :disabled => true
+          = text_field_tag 'remarks', (@visitor.remarks.nil? || @visitor.remarks=='') ? "N/A" : @visitor.remarks.upcase, :class => 'text_feld_area_show_page', :disabled => true 
+      %tr
+        %td{:colspan => 4}
+          %hr
+          %hr
+      - if @visitor.id != 0
+        %tr 
+          %td{:align => "center",:colspan => 5}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %b Registration Details
+            %hr
+            %hr
+        %tr          
+          %td
+            &nbsp;
+            %b Accompanying persons(Male)
+          %td
+            %b Accompanying persons (Female)
+          %td
+            %b Event
+          %td
+            %b Registration Date
+          %td{:colspan => 5}
+        - @registrations.each do |registration|
+          - visitor = registration.visitor
+          - event = registration.event
+          %tr.datarow        
+          %td
+            &nbsp;
+            = registration.accompanying_males.nil? ? '0' : registration.accompanying_males
+          %td
+            = registration.accompanying_females.nil? ? '0' : registration.accompanying_females
+          %td
+            = link_to registration.event.name, event_path(event.id)
+          %td
+            = registration.created_at.strftime("%d-%b-%Y")
+          %td{:align => "right"}
+            = link_to image_tag('view.png',:title => "View Record"), registration_path(registration.id)
+          %td{:align => "right"}
+            = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_registration_path(registration.id)
+          %td{:align => "right"}
+            - if can? :update, @user
+              = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), registration_path(registration.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+          
+         

@@ -52,6 +52,8 @@
           %td
             = room.category
           %td{:align => "center"}
+            = link_to image_tag('view.png',:title => "View Record"), room_path(room.id)
+          %td{:align => "center"}
             = link_to image_tag('edit.png',:title => "Edit '#{room.room_no}'"), edit_room_path(room.id)
           %td{:align => "center"}
             - if can? :update, @user

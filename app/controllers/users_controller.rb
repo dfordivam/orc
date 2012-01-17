@@ -17,13 +17,21 @@ class UsersController < ApplicationController
 
   def create
     @roles = Role.all
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "Registration successful."
-      redirect_to users_url
+    username = (params[:user][:username])
+    email = (params[:user][:email])
+    @existing_user = User.where(:username => username, :email => email , :is_delete => false).first
+    if @existing_user.nil?
+      @user = User.new(params[:user])
+      if @user.save
+        flash[:notice] = "Registration successful."
+        redirect_to users_url
+      else
+        render :action => 'new'
+      end
     else
-      render :action => 'new'
-    end
+      flash[:notice] = "#ERROR# User is already registered "
+      redirect_to users_url
+    end    
   end
 
   def update
