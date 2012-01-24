@@ -5,7 +5,8 @@ class Event < ActiveRecord::Base
   before_create :set_default_values
   
   def set_default_values
-    self.is_delete = 0
+    self.is_delete = false
+    self.is_active = true
   end
 
   validates :name, :presence => true

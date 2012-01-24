@@ -69,4 +69,20 @@ class EventsController < ApplicationController
     @participants = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
 #    @participants = [1,2]
   end
+
+  def inactivate
+    @event = Event.where(:id => params[:id], :is_delete => false).first
+    if @event.nil? == false
+      @event.update_attribute(:is_active, false)
+    end
+    redirect_to events_path
+  end
+
+  def activate
+    @event = Event.where(:id => params[:id], :is_delete => false).first
+    if @event.nil? == false
+      @event.update_attribute(:is_active, true)
+    end
+    redirect_to events_path
+  end
 end

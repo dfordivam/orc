@@ -32,7 +32,7 @@ class Visitor < ActiveRecord::Base
 
 # The following code (define_index) is needed by thinking-sphinx gem to index this class
   define_index do 
-    indexes "LOWER(name)", :as => :name, :sortable => true
+    indexes :name
     indexes :address
     indexes :centre_addr
     set_property :enable_star => 1
