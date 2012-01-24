@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end    
 
   def index
-    @events = Event.find(:all, :conditions => ["is_delete = ?", 0], :order => "name, start_date_time, location").paginate(:page => params[:page], :per_page => 15)
+    @events = Event.where(:is_delete => false).order("start_date_time DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def participants

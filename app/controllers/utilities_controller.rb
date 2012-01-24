@@ -102,17 +102,30 @@ class UtilitiesController < ApplicationController
     @successful_loaded = 0
     visitors.each do |visitor|
       if ! visitor[:isbad]
-        event_name = visitor[:event]
-        event = Event.where(:name => event_name).first
-        visitor[:event] = event
+        event_id = visitor[:event_id]
+        event = Event.where(:id => event_id).first
         visitor.delete(:isbad)
         visitor.delete(:comment)
-        @new_visitor = Visitor.new(visitor)
-        if @new_visitor.save
-          @successful_loaded += 1
+        visitor.delete(:event)
+        visitor.delete(:event_id)
+    
+        if visitor[:existing_visitor_id]
+          @visitor_for_reg = Visitor.find visitor[:existing_visitor_id]
         else
-          flash[:notice] = "#ERROR#Fatal Error (#{@new_visitor.errors.full_messages[0]||''}) in Visitors. Please Contact Admin. Reference: #{unique_file_name}"
+          @visitor_for_reg = Visitor.new(visitor)
+          @visitor_for_reg.save
         end
+
+#@new_visitor = Visitor.new(visitor)
+#if @new_visitor.save
+          @registration = Registration.new()
+          @registration.visitor = @visitor_for_reg
+          @registration.event = event
+          @registration.save
+          @successful_loaded += 1
+#else
+#flash[:notice] = "#ERROR#Fatal Error (#{@new_visitor.errors.full_messages[0]||''}) in Visitors. Please Contact Admin. Reference: #{unique_file_name}"
+#end
       end
     end  
     flash[:notice] = flash[:notice]||"#{ @successful_loaded ==0 ? 'No ' : @successful_loaded} Records Loaded Successfully !!"
@@ -252,6 +265,20 @@ class UtilitiesController < ApplicationController
         visitor[:isbad] = true
         visitor[:comment] = "Give All Mandatory Fields"
       end 
+
+      visitor_event = Event.where(:name => visitor[:event], :is_delete => false).first
+      if visitor_event.nil?
+        visitor[:isbad] = true
+        visitor[:comment] = "Please provide a valid event"
+      else
+        visitor[:event_id] = visitor_event.id
+      end
+
+      existing_visitor = Visitor.where(:mobile_no => visitor[:mobile_no], :is_delete => false).first
+      if existing_visitor.nil? == false
+        visitor[:existing_visitor_id] = existing_visitor.id
+        visitor[:comment] = "Visitor details found"
+      end
 
       if (visitor[:visitor_type]) && (visitor[:visitor_type] == 'bk')
         if (visitor[:in_gyan_years] && visitor[:in_gyan_years].to_i && visitor[:centre_addr])

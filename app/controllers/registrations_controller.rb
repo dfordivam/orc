@@ -2,7 +2,7 @@ class RegistrationsController < ApplicationController
   before_filter :login_required
 
   def index
-    @registrations = Registration.find(:all,:conditions => ["is_delete = ?", 0], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 15)
+    @registrations = Registration.where(:is_delete => false).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show
@@ -34,8 +34,8 @@ class RegistrationsController < ApplicationController
         render new_registration_path(:visitor_id => visitor_id)
       end
     else
-      flash[:notice] = "#ERROR# Visitor is already registered "
-      redirect_to registrations_path
+      flash[:notice] = "#ERROR# Visitor is already registered for the chosen event"
+      redirect_to new_registration_path(:visitor_id => visitor_id)
     end
   end
 
