@@ -266,7 +266,7 @@ class UtilitiesController < ApplicationController
         visitor[:comment] = "Give All Mandatory Fields"
       end 
 
-      visitor_event = Event.where(:name => visitor[:event], :is_delete => false).first
+      visitor_event = Event.where(:name => visitor[:event], :is_delete => false, :is_active => true).first
       if visitor_event.nil?
         visitor[:isbad] = true
         visitor[:comment] = "Please provide a valid event"
