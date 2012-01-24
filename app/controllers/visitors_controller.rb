@@ -38,7 +38,7 @@ class VisitorsController < ApplicationController
     @visitor[:is_special_care_req] = 'false'
     @registration = Registration.new 
     @registration.visitor = @visitor
-    @event_list = Event.where(:is_delete => false)
+    @event_list = Event.where(:is_delete => false, :is_active => true)
   end
 
   def edit
@@ -65,7 +65,7 @@ class VisitorsController < ApplicationController
   def create
     if params[:new_vis_reg_save] or params[:new_vis_reg_cont]
       @visitor = Visitor.new(params[:visitor])
-      @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
+      @event_list = Event.where(:is_delete => false, :is_active => true)
       
       if @visitor.dob ==nil
         @visitor.dob = get_dob_from_age(@visitor.age)
