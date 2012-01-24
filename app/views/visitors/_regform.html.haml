@@ -74,9 +74,7 @@
       = form_for @registration do |registration|
         %tr
           %td
-            = registration.label :visitor_id, 'Visitor ID'
-          %td
-            = registration.number_field :visitor_id, :class => 'text_feld_area'
+            = registration.number_field :visitor_id, :class => 'text_feld_area', :hidden => true
         %tr
           %td
             = registration.label :accompanying_males, 'Accompanying persons (Male)'
