@@ -19,7 +19,9 @@
               %b Capacity
             %td
               %b Location
-            %td{:colspan => 2}
+            %td
+              %b Is Active
+            %td{:colspan => 4}
           - @events.each do |event|
             %tr.datarow
               %td
@@ -33,6 +35,13 @@
                 = event.capacity
               %td
                 = event.location
+              %td
+                = event.is_active ? "Yes" : "No"
+              %td
+                -if event.is_active
+                  = link_to "Inactivate", inactivate_event_path(event.id), :method => :post
+                - else
+                  = link_to "Activate", activate_event_path(event.id), :method => :post
               %td{:align => "center"}
                 = link_to image_tag('view.png',:title => "View Record"), event_path(event.id)
               %td{:align => "center"}
