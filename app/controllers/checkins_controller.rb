@@ -21,7 +21,7 @@ class CheckinsController < ApplicationController
   end
 
   def index
-    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0]).paginate(:page => params[:page], :per_page => 15)
+    @checkins = Checkin.find(:all, :conditions => ["is_delete = ?", 0], :order => "created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show 
@@ -114,10 +114,10 @@ class CheckinsController < ApplicationController
       temp_room.update_attribute(:occupied_beds , temp_room.occupied_beds + 1)
       temp_room.update_attribute(:empty_beds , temp_room.total_beds - temp_room.occupied_beds)
       flash[:notice] = "Check in successful "
-      redirect_to visitors_path
+      redirect_to checkins_path
     else
       flash[:notice] = "#ERROR#Check in fail !! Please try again "
-      redirect_to visitors_path
+      redirect_to registrations_path
     end
   end
 

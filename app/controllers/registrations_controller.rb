@@ -40,18 +40,26 @@ class RegistrationsController < ApplicationController
   end
 
   def edit
-    @event_list = Event.where(:is_delete => false)
-    @registration = Registration.where(:id => params[:id], :is_delete => false).first
+      @event_list = Event.where(:is_delete => false)
+      @registration = Registration.where(:id => params[:id], :is_delete => false).first
   end
 
   def update
-    @registration = Registration.find(params[:id])
-    if @registration.update_attributes(params[:registration])
-      flash[:notice] = "Registration successfully updated"
-      redirect_to registrations_path
+    visitor_id = (params[:registration][:visitor_id])
+    event_id = (params[:registration][:event_id])
+    @existing_registration = Registration.where(:visitor_id => visitor_id, :event_id =>event_id , :is_delete => false).first
+    if @existing_registration.nil?
+      registration = Registration.find(params[:id])
+      if @registration.update_attributes(params[:registration])
+        flash[:notice] = "Registration successfully updated"
+        redirect_to registrations_path
+      else
+        render edit_registration_path(params[:id])
+      end  
     else
-      render edit_registration_path(params[:id])
-    end  
+      flash[:notice] = "#ERROR# Visitor is already registered for the chosen event"
+      redirect_to new_registration_path(:visitor_id => visitor_id)
+    end
   end
 
   def destroy
