@@ -48,14 +48,15 @@
       %tr{:id => 'add_fields'}
         - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
           = render :partial => "add_fields"
-      %tr
-        %td
-          = visitor.label :is_physically_challenged, 'Physically Challenged*'
-        %td
-          = visitor.radio_button :is_physically_challenged , 'false', :value=>"false"
-          No
-          = visitor.radio_button :is_physically_challenged , 'true', :value=>"true"
-          Yes
+      -#
+        %tr
+          %td
+            = visitor.label :is_physically_challenged, 'Physically Challenged*'
+          %td
+            = visitor.radio_button :is_physically_challenged , 'false', :value=>"false"
+            No
+            = visitor.radio_button :is_physically_challenged , 'true', :value=>"true"
+            Yes
       %tr
         %td{:colspan =>3}
           %b

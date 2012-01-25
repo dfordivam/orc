@@ -44,7 +44,7 @@ class VisitorsController < ApplicationController
   def edit
    # @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
-    @visitor.dob= @visitor.dob.strftime("%d %B %Y")
+    @visitor.dob = @visitor.dob.strftime("%d %B %Y")
   end
 
   def checkinfacebox
@@ -67,7 +67,7 @@ class VisitorsController < ApplicationController
       @visitor = Visitor.new(params[:visitor])
       @event_list = Event.where(:is_delete => false, :is_active => true)
       
-      if @visitor.dob ==nil
+      if @visitor.dob == nil
         @visitor.dob = get_dob_from_age(@visitor.age)
       else
         @visitor.age = Time.now.strftime("%Y").to_i - (@visitor.dob.nil? ? Time.now.strftime("%Y").to_i : @visitor.dob.strftime("%Y").to_i)
@@ -110,6 +110,19 @@ class VisitorsController < ApplicationController
 
   def update
     @visitor = Visitor.find(params[:id])
+    temp_visitor = Visitor.new(params[:visitor])
+
+    puts ' temp ' + temp_visitor.dob.strftime("%D")
+    puts ' old ' + @visitor.dob.strftime("%D")
+
+    if temp_visitor.dob.strftime("%D") != @visitor.dob.strftime("%D")
+      params[:visitor][:age] = Time.now.strftime("%Y").to_i - (temp_visitor.dob.nil? ? Time.now.strftime("%Y").to_i : temp_visitor.dob.strftime("%Y").to_i)
+    else
+      if temp_visitor.age != @visitor.age
+        params[:visitor][:dob] = get_dob_from_age(temp_visitor.age)
+      end
+    end
+
     if @visitor.update_attributes(params[:visitor])
       flash[:notice] = "Visitor successfully updated"
       redirect_to visitors_path

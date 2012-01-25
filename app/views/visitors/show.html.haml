@@ -37,11 +37,12 @@
           %b= label :mobile_no, 'Contact No'
         %td
           = text_field_tag 'mobile_no', @visitor.mobile_no, :class => 'text_feld_area_show_page', :disabled => true
-      %tr     
-        %td
-          %b= label :phyc_chal, 'Physically challenged'
-        %td
-          = text_field_tag 'phyc_chal', (@visitor.is_physically_challenged.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+      %tr 
+        -#
+          %td
+            %b= label :phyc_chal, 'Physically challenged'
+          %td
+            = text_field_tag 'phyc_chal', (@visitor.is_physically_challenged.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
         %td
           %b= label :visitor_type, 'Visitor Type'
         %td
@@ -74,53 +75,54 @@
           %b= label :qualification, 'Qualification'
         %td
           = text_field_tag 'qualification', (@visitor.qualification.nil? || @visitor.qualification=='') ? "N/A" : @visitor.qualification.upcase, :class => 'text_feld_area_show_page', :disabled => true
-      %tr
-        %td
-          %b= label :transport_mode, 'Mode of Transport'
-        %td
-          = text_field_tag 'transport_mode', (@visitor.transport_mode.nil? || @visitor.transport_mode=='') ? "N/A" : @visitor.transport_mode.upcase, :class => 'text_feld_area_show_page', :disabled => true
-        %td
-          %b= label :isguide, 'Is-Guide'
-        %td
-          = text_field_tag 'isguide', (@visitor.is_guide.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
-      %tr
-        %td
-          %b= label :isdriveralong, 'Is driver along'
-        %td
-          = text_field_tag 'isdriveralong', (@visitor.is_driver_along.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
-      - if @visitor.is_driver_along.to_s=="true"
+      -#
         %tr
           %td
-            %b= label :driver_name, 'Driver name'
+            %b= label :transport_mode, 'Mode of Transport'
           %td
-            = text_field_tag 'driver_name', (@visitor.driver_name.nil? || @visitor.driver_name=='')? "N/A" : @visitor.driver_name.upcase, :class => 'text_feld_area_show_page', :disabled => true
+            = text_field_tag 'transport_mode', (@visitor.transport_mode.nil? || @visitor.transport_mode=='') ? "N/A" : @visitor.transport_mode.upcase, :class => 'text_feld_area_show_page', :disabled => true
           %td
-            %b= label :driver_contact_no, 'Driver contact'
+            %b= label :isguide, 'Is-Guide'
           %td
-            = text_field_tag 'driver_contact_no', @visitor.driver_contact_no.nil? ? "N/A" : @visitor.driver_contact_no, :class => 'text_feld_area_show_page', :disabled => true
+            = text_field_tag 'isguide', (@visitor.is_guide.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
         %tr
           %td
-            %b= label :driver_accom, 'Need driver accom'
+            %b= label :isdriveralong, 'Is driver along'
           %td
-            = text_field_tag 'driver_accom', (@visitor.is_driver_accom_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+            = text_field_tag 'isdriveralong', (@visitor.is_driver_along.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+        - if @visitor.is_driver_along.to_s=="true"
+          %tr
+            %td
+              %b= label :driver_name, 'Driver name'
+            %td
+              = text_field_tag 'driver_name', (@visitor.driver_name.nil? || @visitor.driver_name=='')? "N/A" : @visitor.driver_name.upcase, :class => 'text_feld_area_show_page', :disabled => true
+            %td
+              %b= label :driver_contact_no, 'Driver contact'
+            %td
+              = text_field_tag 'driver_contact_no', @visitor.driver_contact_no.nil? ? "N/A" : @visitor.driver_contact_no, :class => 'text_feld_area_show_page', :disabled => true
+          %tr
+            %td
+              %b= label :driver_accom, 'Need driver accom'
+            %td
+              = text_field_tag 'driver_accom', (@visitor.is_driver_accom_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+            %td
+              %b= label :driver_ingyan, 'Driver in gyan'
+            %td
+              = text_field_tag 'driver_ingyan', (@visitor.is_driver_in_gyan.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+        %tr
           %td
-            %b= label :driver_ingyan, 'Driver in gyan'
+            %b= label :special_care, 'Need special care'
           %td
-            = text_field_tag 'driver_ingyan', (@visitor.is_driver_in_gyan.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
-      %tr
-        %td
-          %b= label :special_care, 'Need special care'
-        %td
-          = text_field_tag 'special_care', (@visitor.is_special_care_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
-      %tr
-        %td
-          %b= label :medicine, 'Medicine req'
-        %td
-          = text_field_tag 'medicine', (@visitor.medicine_requirement.nil? || @visitor.medicine_requirement=='') ? "N/A" : @visitor.medicine_requirement.upcase, :class => 'text_feld_area_show_page', :disabled => true
-        %td
-          %b= label :remarks, 'Remarks'
-        %td
-          = text_field_tag 'remarks', (@visitor.remarks.nil? || @visitor.remarks=='') ? "N/A" : @visitor.remarks.upcase, :class => 'text_feld_area_show_page', :disabled => true 
+            = text_field_tag 'special_care', (@visitor.is_special_care_req.to_s=="true") ? "YES" : "NO", :class => 'text_feld_area_smaller', :disabled => true
+        %tr
+          %td
+            %b= label :medicine, 'Medicine req'
+          %td
+            = text_field_tag 'medicine', (@visitor.medicine_requirement.nil? || @visitor.medicine_requirement=='') ? "N/A" : @visitor.medicine_requirement.upcase, :class => 'text_feld_area_show_page', :disabled => true
+          %td
+            %b= label :remarks, 'Remarks'
+          %td
+            = text_field_tag 'remarks', (@visitor.remarks.nil? || @visitor.remarks=='') ? "N/A" : @visitor.remarks.upcase, :class => 'text_feld_area_show_page', :disabled => true 
       %tr
         %td{:colspan => 4}
           %hr
