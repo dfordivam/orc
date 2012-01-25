@@ -39,6 +39,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @participants = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
   end
 
   def destroy 
