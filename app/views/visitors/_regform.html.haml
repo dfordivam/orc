@@ -49,6 +49,10 @@
           = visitor.label :visitor_type, 'Visitor Type*'
         %td
           = select :visitor, :visitor_type, VISITOR_TYPE , :include_blank => ""
+        %td
+          = label_tag :email, 'Email'
+        %td
+          = text_field_tag "visitor[email]", "#{!params["visitor"].blank? ? params["visitor"]["email"] : !@visitor.blank? ? @visitor.email : nil}", :class => 'text_feld_area'
       %tr{:id => 'add_fields'}
         - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
           = render :partial => "add_fields"
