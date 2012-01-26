@@ -29,7 +29,7 @@
           %td
             = f.label :occupied_beds, 'Occupied Beds'
           %td
-            = f.number_field :occupied_beds, :value => 0, :class => 'text_feld_area'
+            = f.number_field :occupied_beds,:readonly => true, :class => 'text_feld_area'
         %tr
           %td
             = f.label :category, 'Type/Category'

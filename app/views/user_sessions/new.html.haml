@@ -2,7 +2,7 @@
   - form_for @user_session do |form|
     = render "shared/flash_messages"
     = render "shared/error_messages", :target => @user_session
-    %table
+    %table{:style => "padding-top:15px"}
       %tbody
         %tr
           %td{:colspan=>"2",:align=>"center"}
