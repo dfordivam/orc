@@ -40,8 +40,8 @@ class RegistrationsController < ApplicationController
   end
 
   def edit
-      @event_list = Event.where(:is_delete => false)
-      @registration = Registration.where(:id => params[:id], :is_delete => false).first
+    @event_list = Event.where(:is_delete => false)
+    @registration = Registration.where(:id => params[:id], :is_delete => false).first
   end
 
   def update
@@ -65,6 +65,6 @@ class RegistrationsController < ApplicationController
   def destroy
     @registration = Registration.find(params[:id])
     @registration.update_attribute(:is_delete, true)
-     redirect_to registrations_path
+    redirect_to registrations_path
   end
 end
