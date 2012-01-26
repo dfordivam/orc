@@ -16,7 +16,7 @@ class VisitorsController < ApplicationController
   def index
     @search_value  = params[:search_value]
     if @search_value
-      @visitors = Visitor.search @search_value
+      @visitors = Visitor.search @search_value, :conditions => { :is_delete => '0' }
     else 
       @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0], :order => "name,address").paginate(:page => params[:page], :per_page => 15)
     end
