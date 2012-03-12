@@ -5,6 +5,9 @@ require 'action_mailer'
 class VisitorsController < ApplicationController
   before_filter :login_required
 
+  Mime::Type.register "application/vnd.ms-excel", :xls
+
+
   autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender, :id]
   autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender, :id]
 
@@ -18,13 +21,17 @@ class VisitorsController < ApplicationController
     if @search_value
       @visitors = Visitor.search @search_value, :conditions => { :is_delete => '0' }
     else 
-      @visitors = Visitor.find(:all, :conditions => ["is_delete = ?", 0], :order => "name,address").paginate(:page => params[:page], :per_page => 15)
+      @visitors = Visitor.where(:is_delete => false).order(:name,:address).paginate(:page => params[:page], :per_page => 15)
     end
   end
 
   def show
-    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", false])
     @registrations = @visitor.registrations.where(:is_delete => false)
+    respond_to do |format|
+      format.xls { create_excel_and_send( @visitor, @registrations ) }
+      format.html { render :show }
+    end
   end
 
   def new
@@ -42,11 +49,11 @@ class VisitorsController < ApplicationController
   end
 
   def edit
-   # @event_list = Event.find(:all, :conditions => ["is_delete = ?", 0])
     @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
     @visitor.dob = @visitor.dob.strftime("%d %B %Y")
   end
 
+=begin
   def checkinfacebox
     @visitor = Visitor.find(params[:visitor_id], :conditions => ["is_delete = ?", 0])
     @checkin = Checkin.new
@@ -61,6 +68,7 @@ class VisitorsController < ApplicationController
     @coll = ["BK" ,"Non BK" ,"Teacher" ,"Service" ] 
     render :layout => "aboutblank"
   end
+=end
 
   def create
     if params[:new_vis_reg_save] or params[:new_vis_reg_cont]
@@ -133,10 +141,9 @@ class VisitorsController < ApplicationController
 
   def destroy
     @visitor = Visitor.find(params[:id])
-    ## @visitor.destroy
     @visitor.is_delete = 1
     if @visitor.save 
-      temp_registration = Registration.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
+      temp_registration = @visitor.registrations.where(:is_delete => false)
       temp_checkin = Checkin.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
       for t_r in temp_registration
         t_r.update_attribute(:is_delete,1)
@@ -175,4 +182,75 @@ class VisitorsController < ApplicationController
   def additional_info
     render :partial => "additional_info"
   end
+
+  def create_excel_and_send (visitor, registrations)
+    file_name = "#{visitor.name}.xls"
+    file_book = Spreadsheet::Workbook.new
+    file_sheet = file_book.create_worksheet(:name => "#{visitor.name}")
+    
+    write_excel(file_sheet, visitor, registrations) 
+
+    file_book.write "#{RAILS_ROOT}/public/downloads/#{file_name}"
+    file_path = "#{RAILS_ROOT}/public/downloads/#{file_name}"
+    send_file file_path, :type => 'application/vnd.ms-excel'
+  end
+
+  def write_excel(sheet, visitor, registrations)
+     row_counter = 0
+     sheet.row(row_counter).default_format = Spreadsheet::Format.new(:weight=>"bold",:color=>"red",:pattern  => 1,:pattern_fg_color => "yellow")
+
+     row_counter += 1
+     sheet.row(row_counter).insert 0, "Name"
+     sheet.row(row_counter).insert 1, visitor.name
+     sheet.row(row_counter).insert 3, "DOB"
+     sheet.row(row_counter).insert 4, visitor.dob.strftime("%d-%b-%Y")
+
+     row_counter += 1
+     sheet.row(row_counter).insert 0, "Address"
+     sheet.row(row_counter).insert 1, visitor.address
+     sheet.row(row_counter).insert 3, "Age"
+     sheet.row(row_counter).insert 4, visitor.age
+
+     row_counter += 1
+     sheet.row(row_counter).insert 0, "Gender"
+     sheet.row(row_counter).insert 1, visitor.gender.downcase == "female" ? "Female" : "Male"
+     sheet.row(row_counter).insert 3, "Contact No."
+     sheet.row(row_counter).insert 4, visitor.mobile_no
+
+
+     row_counter += 1
+     sheet.row(row_counter).insert 0, "Type"
+     sheet.row(row_counter).insert 1, visitor.visitor_type.upcase
+     sheet.row(row_counter).insert 3, "Email"
+     sheet.row(row_counter).insert 4, (visitor.email.nil? || @visitor.email=='') ? "N/A": @visitor.email
+#     sheet.row(row_counter).insert 3, event_name
+#     sheet.row(row_counter).insert 3, event_name
+
+     row_counter += 2
+     sheet.row(row_counter).default_format = Spreadsheet::Format.new(:weight=>"bold")
+     sheet.row(row_counter).insert 0, "S.No."
+     sheet.row(row_counter).insert 1, "Event"
+     sheet.row(row_counter).insert 2, "Registration Date"
+     sheet.row(row_counter).insert 3, "Accompanying Male"
+     sheet.row(row_counter).insert 4, "Accompanying Female"
+#     sheet.row(row_counter).insert 5, ")"
+#     sheet.row(row_counter).insert 6, "CENTER ADDRESS"
+#     sheet.row(row_counter).insert 7, "CENTER NAME"
+#     sheet.row(row_counter).insert 8, "ZONE"
+
+     registrations.length.times do |serial_no|
+       registration = registrations[serial_no]
+       row_counter += 1 
+       sheet.row(row_counter).insert 0, (serial_no+1)
+       sheet.row(row_counter).insert 1, registration.event.name
+       sheet.row(row_counter).insert 2, registration.created_at.strftime("%d-%b-%Y")
+       sheet.row(row_counter).insert 3, registration.accompanying_males.nil? ? '0' : registration.accompanying_males
+       sheet.row(row_counter).insert 4, registration.accompanying_females.nil? ? '0' : registration.accompanying_females
+#       sheet.row(row_counter).insert 5, participants[serial_no].in_gyan
+#       sheet.row(row_counter).insert 6, addresses[serial_no].addr1
+#       sheet.row(row_counter).insert 7, Centre.find_by_id(centres[serial_no].id).name
+#       sheet.row(row_counter).insert 8, zones[serial_no].name
+     end
+  end
+
 end
