@@ -5,6 +5,8 @@
         %td{:colspan => 3,:height => "40px"}
           .header_font
             = @visitor.name.capitalize
+        %td{:align => "center"}
+          = link_to " Download Excel ", visitor_path(@visitor, :format => :xls), :title => "Download Excel File for the Visitor"
         %td{:align => "right"}
           = link_to button_to(" Go Back "),visitors_path, :method => "get", :title => "Go back to list"
       %tr
