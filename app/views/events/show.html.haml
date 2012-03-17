@@ -5,6 +5,8 @@
         %td{:colspan => 3,:height => "40px"}
           .header_font
             = "Event Name. :- #{@event.name}"
+        %td{:align => "center"}
+          = link_to " Download Excel ", event_path(@event, :format => :xls), :title => "Download Excel File for the Event"
         %td{:align => "right"}
           = link_to button_to(" Go Back "),events_path, :method => "get", :title => "Go back to list"
       %tr
