@@ -7,3 +7,5 @@ config/database.yml
 config/sphinx.yml
 config/*.sphinx.conf
 *.sw?
+public/downloads
+backups
