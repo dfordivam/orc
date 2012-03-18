@@ -18,11 +18,11 @@
         %td
           = visitor.label :mobile_no, 'Contact No*'
         %td
-          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id", :visitor_type => "#visitor_visitor_type" }, :class => 'text_feld_area'
         %td
           = visitor.label :name, 'Name*'
         %td
-          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id", :visitor_type => "#visitor_visitor_type" }, :class => 'text_feld_area'
       %tr
         %td
           = visitor.label :age, 'Age (Yrs)*'
@@ -52,7 +52,7 @@
         %td
           = label_tag :email, 'Email'
         %td
-          = text_field_tag "visitor[email]", "#{!params["visitor"].blank? ? params["visitor"]["email"] : !@visitor.blank? ? @visitor.email : nil}", :class => 'text_feld_area'
+          = text_field_tag "visitor[email]", "#{!params["visitor"].blank? ? params["visitor"]["email"] : !@visitor.blank? ? @visitor.email : nil}", :class => 'text_feld_area' , :readonly => true
       %tr{:id => 'add_fields'}
         - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
           = render :partial => "add_fields"

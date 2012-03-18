@@ -1,6 +1,7 @@
 function enableAddNewVisitor() {
   $("#visitor_address").removeAttr("readonly");
   $("#visitor_age").removeAttr("readonly");
+  $("#visitor_email").removeAttr("readonly");
   $("#visitor_gender_male").removeAttr("readonly");
   $("#visitor_gender_female").removeAttr("readonly");
   $("#visitor_visitor_type").removeAttr("readonly");
@@ -12,6 +13,10 @@ function enableAddNewVisitor() {
   $("#visitor_mobile_no").removeAttr("data-autocomplete");
   $("#visitor_name").removeAttr("data-autocomplete");
   $("#registration_visitor_id").attr("hidden", "true");
+  $("#visitor_visitor_type").removeAttr("disabled");
+  $("#visitor_gender_male").removeAttr("disabled");
+  $("#visitor_gender_male").attr("checked", "true");
+  $("#visitor_gender_female").removeAttr("disabled");
   $("#enableNewVisitorLink").remove();
 
 }
@@ -28,6 +33,10 @@ function changeLinkLocation(){
 jQuery(document).ready(function(){
   $("#enableNewVisitorLink").click(enableAddNewVisitor);
   $("#clearFormLink").click(clearVisitorDetails);
+  $("#visitor_visitor_type").attr("disabled", "true");
+  $("#visitor_gender_male").attr("disabled", "true");
+  $("#visitor_gender_female").attr("disabled", "true");
+  $("#visitor_gender_male").removeAttr("checked");
 });
 
 

@@ -8,8 +8,8 @@ class VisitorsController < ApplicationController
   Mime::Type.register "application/vnd.ms-excel", :xls
 
 
-  autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender, :id]
-  autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender, :id]
+  autocomplete :visitor, :name, :extra_data => [:mobile_no, :age, :address, :gender, :visitor_type, :id]
+  autocomplete :visitor, :mobile_no, :extra_data => [:name, :age, :address, :gender, :visitor_type, :id]
 
   def get_autocomplete_items(parameters)
     items = super(parameters)
@@ -31,6 +31,7 @@ class VisitorsController < ApplicationController
     respond_to do |format|
       format.xls { create_excel_and_send( @visitor, @registrations ) }
       format.html { render :show }
+      format.js { render :json => @visitor }
     end
   end
 
