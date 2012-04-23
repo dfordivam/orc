@@ -4,6 +4,7 @@ config/database.yml
 log/*
 tmp/*
 nbproject/*
+Gemfile.lock
  
 ## generic files to ignore
 *~
