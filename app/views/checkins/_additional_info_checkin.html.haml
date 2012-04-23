@@ -1,0 +1,81 @@
+%tr
+  %td{:colspan=>"4", :id => 'hide_info_checkin'}
+    %b
+      %u Hide Additional Info
+      = image_tag('Minus.png', :onclick => "javascript:hideAdditionalInfo()")
+%tr
+  %td
+    = label_tag :designation, 'Designation'
+  %td
+    = text_field_tag :designation, "", :class => 'text_feld_area'
+  %td
+    = label_tag :transport_mode, 'Mode of Transport'
+  %td
+    = text_field_tag :transport_mode, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :in_gyan_years, 'In Gyan years'
+  %td
+    = number_field_tag :in_gyan_years, "", :class => 'text_feld_area'
+  %td
+    = label_tag :centre_addr, 'Centre Address'
+  %td
+    = text_field_tag :centre_addr, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :is_guide, 'Is Guide?'
+  %td
+    = radio_button_tag :is_guide , 0, :value=>"true" 
+    No
+    = radio_button_tag :is_guide , 1
+    Yes
+  %td
+    = label_tag :email, 'Email'
+  %td
+    = text_field_tag :email, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :qualification, 'Qualification'
+  %td
+    = text_field_tag :qualification, "", :class => 'text_feld_area'
+  %td
+    = label_tag :vehicle_no, 'Vehicle No.'
+  %td
+    = text_field_tag :vehicle_no, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :medicine_requirement, 'Medicine Requirement'
+  %td
+    = text_field_tag :medicine_requirement, "", :class => 'text_feld_area'
+  %td
+    = label_tag :remarks, 'Remarks'
+  %td
+    = text_field_tag :remarks, "", :class => 'text_feld_area'
+%tr
+  %td
+    = label_tag :is_special_care_req, 'Special Care Needed' 
+  %td
+    = radio_button_tag :is_special_care_req , 0, :value=>"true" 
+    No
+    = radio_button_tag :is_special_care_req , 1
+    Yes
+  %td
+    = label_tag :is_physically_challenged, 'Physically Challenged'
+  %td
+    = radio_button_tag :is_physically_challenged , 0, :value=>"true" 
+    No
+    = radio_button_tag :is_physically_challenged , 1
+    Yes
+%tr
+  %td
+    = label_tag :is_driver_along, 'Is Driver Along'
+  %td{:colspan=>"3"}
+    = radio_button_tag :is_driver_along_checkin , 0, :value=>"true" 
+    No
+    = radio_button_tag :is_driver_along_checkin , 1
+    Yes
+%tr
+  %td{:colspan => "4"}
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+      %tbody{:id=>"additional_info2_checkin", :style=>"display:none"}
+        = render :partial => "additional_info2_checkin"

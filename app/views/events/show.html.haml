@@ -1,0 +1,75 @@
+%div{:class=>"show_page text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure_show_page", :cellpadding=>"10", :cellspacing=>"10", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => 3,:height => "40px"}
+          .header_font
+            = "Event Name. :- #{@event.name}"
+        %td{:align => "right"}
+          = link_to button_to(" Go Back "),events_path, :method => "get", :title => "Go back to list"
+      %tr
+        %td{:colspan => 4}
+          %hr
+      %tr
+        %td
+          %b= label :name, 'Event Name'
+        %td
+          = text_field_tag 'name', @event.name, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :start_date_time, 'Start Date'
+        %td
+          = text_field_tag 'start_date_time', @event.start_date_time, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :end_date_time, 'End Date'
+        %td
+          = text_area_tag 'end_date_time',@event.end_date_time, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :capacity, 'Capacity'
+        %td
+          = text_field_tag 'capacity', @event.capacity, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td
+          %b= label :location, 'Location'
+        %td
+          = text_field_tag 'location', @event.location, :disabled => true, :class => 'text_feld_area_show_page'
+%div
+  .paginate_ss
+    = will_paginate @participants
+  .wrapper_vistors
+    .row_hover
+      %table{:width=>"980px", :cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Age
+            %td
+              %b Gender
+            %td
+              %b Address
+            %td
+              %b Mobile
+            %td
+              %b Visitor Type
+            %td{:colspan => 5}
+          - @participants.each do |registration|
+            - visitor = registration.visitor
+            %tr.datarow
+              %td
+                &nbsp;
+                = link_to visitor.name, visitor_path(visitor.id)
+              %td
+                = visitor.age
+              %td
+                = gender(visitor.gender)
+              %td
+                = visitor.address
+              %td
+                = visitor.mobile_no
+              %td
+                = visitor.visitor_type
+    .paginate_ss
+    = will_paginate @participants

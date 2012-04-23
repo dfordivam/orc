@@ -1,0 +1,81 @@
+= render "shared/flash_messages"
+%br
+%div{:class=>"mid_bg_add_utilities_b padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure", :cellpadding=>"0", :cellspacing=>"0", :border=>0}
+    %tbody
+      %tr
+        %td{:colspan => "10", :align => "center", :style => "font-size: 13px;background-color:#064B70;color:#FFFFFF"}
+          %u
+            %b Kindly note down the file name for future reference: 
+          &nbsp;&nbsp;&nbsp;
+          = @unique_file_name
+      %tr 
+        %td
+          %b &nbsp;&nbsp;&nbsp; 
+          = form_tag building_load_path(:id => @unique_file_name), :method => 'post', :multipart => "true" do
+            = submit_tag " Continue To Upload.. ", :disable_with => ' Continue To Upload.. '
+        %td{:style => "vertical-align:bottom"}
+          = button_to " Cancel Upload ", cancel_building_path, :confirm => "Are you sure to abort loading Building data ??"
+        %td{:colspan => "8"}
+      %tr 
+        %td{:colspan => "10"}
+          %br
+      %tr{:style => "background-color:#3A82F1"} 
+        %td
+          %b &nbsp;&nbsp;&nbsp; Building Name
+        %td
+          %b &nbsp;&nbsp;&nbsp; Floor
+        %td
+          %b &nbsp;&nbsp;&nbsp; Room No
+        %td
+          %b &nbsp;&nbsp;&nbsp; Is Ac
+        %td
+          %b &nbsp;&nbsp;&nbsp; Is Ext.
+        %td
+          %b &nbsp;&nbsp;&nbsp; Beds Ext.
+        %td
+          %b &nbsp;&nbsp;&nbsp; Total Beds
+        %td
+          %b &nbsp;&nbsp;&nbsp; Occup. Beds
+        %td
+          %b &nbsp;&nbsp;&nbsp; Category
+        %td
+          %b &nbsp;&nbsp;&nbsp; Comment
+      %tr 
+        - for b_r in @buildings_rooms do
+          %tr{:class => cycle('list_line_odd','list_line_even')}
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = b_r[:building_name]
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{if !b_r[:floor].nil? then b_r[:floor].to_i else nil end}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{b_r[:room_name].to_i == 0 ? b_r[:room_name] : b_r[:room_name].to_i}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{b_r[:is_ac].to_s.capitalize}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{b_r[:is_extensible].to_s.capitalize}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{if !b_r[:beds_extensible].nil? then b_r[:beds_extensible].to_i else nil end}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{if !b_r[:total_beds].nil? then b_r[:total_beds].to_i else nil end}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{if !b_r[:occupied_beds].nil? then b_r[:occupied_beds].to_i else nil end}"
+            %td
+              &nbsp;&nbsp;&nbsp;
+              = "#{if !b_r[:category].nil? then b_r[:category].to_i else nil end}"
+            - if b_r[:isbad]
+              %td{:style=>"color:white;font-weight:bold;background-color:red"}
+                &nbsp;&nbsp;&nbsp;
+                = b_r[:comment]
+            - else
+              %td{:style=>"color:white;font-weight:bold;background-color:green"}
+                &nbsp;&nbsp;&nbsp;
+                = b_r[:comment]

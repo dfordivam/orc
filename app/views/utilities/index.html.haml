@@ -1,0 +1,69 @@
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  %table{:class => "table-structure", :cellpadding=>"0", :cellspacing=>"0"}
+    %tbody
+      %tr 
+        %td{:colspan => "4", :align=>"center", :style => "font_weight:bold; color:red"}
+          = render "shared/flash_messages"
+          %br
+      %tr{:bgcolor => "#D6D9BA"}
+        %td
+          %b &nbsp; &nbsp; &nbsp; 1) Upload Users List:
+        %td
+          = form_tag uploadexcel_path, :id=> "upload_user_list",:method => 'post', :multipart => "true" do
+            %table
+              %tbody
+                %tr
+                  %td
+                    = file_field 'upload_user_list_file',:user_list_file, :style=>"color:#FF0055;font_weight:bold"
+                  %td
+                  %td
+                    = submit_tag " View & Upload "
+        %td{:align=>"center"}
+          = button_to " Download Template ", download_user_list_path
+      %tr{:bgcolor => "#808963"}
+        %td
+          %b &nbsp; &nbsp; &nbsp; 2) Upload Buildings Information:
+        %td
+          = form_tag uploadexcel_path, :id => "upload_building_list",:method => 'post', :multipart=>true do
+            %table
+              %tbody
+                %tr
+                  %td
+                    = file_field 'upload_building_list_file',:building_list_file, :style=>"color:#FF0055;font_weight:bold"
+                  %td
+                  %td
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
+        %td{:align=>"center"}
+          = button_to " Download Template ", download_building_list_path
+      %tr{:bgcolor => "#D6D9BA"}
+        %td
+          %b &nbsp; &nbsp; &nbsp; 3) Upload Events List:
+        %td
+          = form_tag uploadexcel_path, :id=> "upload_event_list",:method => 'post', :multipart=>true do
+            %table
+              %tbody
+                %tr
+                  %td
+                    = file_field 'upload_event_list_file',:event_list_file, :style=>"color:#FF0055;font_weight:bold"
+                  %td
+                  %td
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
+        %td{:align=>"center"}
+          = button_to " Download Template " ,download_event_list_path
+      %tr{:bgcolor => "#808963"}
+        %td
+          %b &nbsp; &nbsp; &nbsp; 4) Upload Visitors List:
+        %td
+          = form_tag uploadexcel_path, :id=> "upload_visitor_list",:method => 'post', :multipart=>true do
+            %table
+              %tbody
+                %tr
+                  %td
+                    = file_field 'upload_visitor_list_file',:visitor_list_file, :style=>"color:#FF0055;font_weight:bold"
+                  %td
+                  %td
+                    = submit_tag " View & Upload ", :disable_with => ' View & Upload '
+        %td{:align=>"center"}
+          = button_to " Download Template " ,download_visitor_list_path
+
+

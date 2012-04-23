@@ -1,0 +1,52 @@
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @room, :url => {:action => 'add_rooms_to_building_view', :building_id => @building.id} do |f|
+    = render "shared/flash_messages"
+    = render "shared/error_messages", :target => @room
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :add_room, 'Add Rooms To "' + @building.name + '"'
+        %tr
+          %td
+            = f.label :building, 'Building'
+          %td{:colspan=>"3"}
+            = f.hidden_field :building, :value => @building.id, :size => 1
+            = text_field_tag :building_name, @building.name, :readonly => true, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :floor, 'Floor**'
+          %td
+            -#= f.number_field :floor, :class => 'text_feld_area'
+            = f.select :floor, @floor_list
+          %td
+            = f.label :room_no, 'Room Name/No.**'
+          %td
+            = f.text_field :room_no, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :total_beds, 'Total Beds**'
+          %td
+            = f.number_field :total_beds, :class => 'text_feld_area'
+          %td
+            = f.label :occupied_beds, 'Occupied Beds'
+          %td
+            = f.number_field :occupied_beds, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :category, 'Type/Category'
+          %td
+            = select :room, :category, @room_category
+          %td
+            = f.label :is_ac, 'Is AC?'
+          %td
+            = f.radio_button :is_ac , 0, :value=>"true" 
+            No
+            = f.radio_button :is_ac , 1
+            Yes
+        %tr
+          %td{:colspan => "2",:align=>"right"}
+            = submit_tag 'Submit', :disable_with => 'Submit'
+          %td{:colspan => "2",:align=>"left"}
+            = link_to button_to("Cancel"),buildings_path, :method => "get"

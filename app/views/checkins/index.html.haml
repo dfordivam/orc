@@ -1,0 +1,65 @@
+%div{:class=>"mid_bg_add_checkin text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"1"}
+  .div_link
+    = render "shared/flash_messages"
+    -# Commenting 'Add new Checkin Link... Not required anymore...
+    -#= link_to 'Add new Checkin', new_checkin_path
+  .paginate_ss
+    = will_paginate
+  .wrapper_checkin
+    .row_hover_checkin
+      %table{:width=>"1130px",:style => "margin-left:5px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Visitor Name
+            %td
+              %b Gender
+            %td
+              %b Visitor Type
+            %td
+              %b Event
+            %td
+              %b Building
+            %td
+              %b Floor No
+            %td
+              %b Room No
+            %td
+              %b Is Active
+            %td{:colspan => "3"}
+          - @checkins.each do |checkin|
+            %tr.datarow
+              %td
+                &nbsp;
+                - visitor_name = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.name : checkin.source.name
+                = visitor_name
+              %td
+                = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.gender : checkin.source.gender
+                -#= checkin.source.gender
+              %td
+                = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.visitor_type : checkin.source.visitor_type
+                -#= checkin.source.visitor_type
+              %td
+                -#= checkin.event.name
+                = checkin.source_type.eql?("Registration") ?  checkin.source.event.name : checkin.source.registration.event.name
+              %td
+                = checkin.building.name
+              %td
+                = checkin.floor_id
+              %td
+                = checkin.room.room_no
+              %td
+                = checkin.is_active
+              /
+                %td{:align => "center"}
+                  = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
+                %td{:align => "center"}
+                  -#= link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
+                  = link_to image_tag('edit.png',:title => "Edit #{visitor_name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
+                %td{:align => "center"}
+                  - if can? :update, @user
+                    -#= link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?"
+                    = link_to image_tag('delete.png',:title => "Delete #{visitor_name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{visitor_name} checkin ?"
+  .paginate_ss
+    = will_paginate

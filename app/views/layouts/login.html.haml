@@ -1,0 +1,13 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title ORC Accomodation Administration Console
+    = stylesheet_link_tag "application", "screen", "datepicker", "facebox", "colorbox"
+    = javascript_include_tag 'jquery', 'jquery_ujs', 'jquery-ui', 'common', 'facebox' , 'jquery.colorboxs', 'jquery.colorbox-min'
+    = csrf_meta_tag
+  %body
+    %a{:href => "#"}
+      %img.marginlttp{:border => "0", :src => "/images/copny_name_img.png"}/
+      %p.hrule
+    #contentBodylogin
+      = yield

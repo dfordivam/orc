@@ -1,0 +1,10 @@
+- if ! flash[:notice].nil?
+  %table{:width=>"100%"}
+    %tr
+      %td
+        - if flash[:notice].index("#ERROR#")==0 then flash[:notice].sub!("#ERROR#","")
+          .flashNoticeError
+            %b= flash[:notice]
+        - else
+          .flashNoticeNoError
+            %b= flash[:notice]

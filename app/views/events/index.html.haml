@@ -1,0 +1,53 @@
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  .div_link
+    = link_to image_tag('newevent.png',:title=>'Click to add new event',:mouseover => 'neweventover.png', :height=>40), new_event_path
+  .paginate_ss
+    = will_paginate
+  .wrapper_event
+    .row_hover
+      %table{:width=>"920px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Event Name
+            %td
+              %b Start Date
+            %td
+              %b End Date
+            %td
+              %b Capacity
+            %td
+              %b Location
+            %td
+              %b Is Active
+            %td{:colspan => 4}
+          - @events.each do |event|
+            %tr.datarow
+              %td
+                &nbsp;
+                = link_to event.name, event_participants_path(event.id)
+              %td
+                = event.start_date_time.strftime("%d-%b-%Y")
+              %td
+                = event.end_date_time.strftime("%d-%b-%Y")
+              %td
+                = event.capacity
+              %td
+                = event.location
+              %td
+                = event.is_active ? "Yes" : "No"
+              %td
+                -if event.is_active
+                  = link_to "Inactivate", inactivate_event_path(event.id), :method => :post
+                - else
+                  = link_to "Activate", activate_event_path(event.id), :method => :post
+              %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), event_path(event.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png',:title => "Edit '#{event.name}'"), edit_event_path(event.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png',:title => "Delete '#{event.name}'"), event_path(event.id), :method => :delete, :confirm=>"Are you sure to delete event #{event.name} ?"
+  .paginate_ss
+    = will_paginate

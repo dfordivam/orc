@@ -1,0 +1,34 @@
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @building do |f|
+    = render "shared/flash_messages"
+    = render "shared/error_messages", :target => @building
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4",:align=>"center"}
+            .header_font
+              = f.label :edit_bilding_info, 'Building Entry Form'
+        %tr	
+          %td
+            = f.label :name, 'Name*'
+          %td
+            = f.text_field :name, :class => 'text_feld_area'
+          %td
+            = f.label :floors, 'Total No. of Floors* '
+          %td
+            = f.number_field :floors, :class => 'text_feld_area'
+        -# Wont show No. of Rooms here....
+        -#%tr
+        -#  %td
+        -#    = f.label :rooms, 'Number of Rooms*'
+        -#  %td
+        -#    = f.number_field :no_of_rooms, :class => 'text_feld_area'
+        -#  %td{:colspan=>"2"}
+        %tr
+          %td{:colspan => "2",:align=>"right"}
+            - if @building.id.nil?
+              = submit_tag 'Submit', :disable_with => 'Submit'
+            - else
+              = submit_tag 'Update', :disable_with => 'Update'
+          %td{:colspan => "2",:align=>"left"}
+            = link_to button_to("Cancel"),buildings_path, :method => "get"

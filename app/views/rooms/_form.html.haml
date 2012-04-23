@@ -1,0 +1,49 @@
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @room do |f|
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :add_room, 'Add Rooms To "' + @building.name + '"'
+        %tr
+          %td
+            = f.label :building, 'Building'
+          %td{:colspan=>"3"}
+            = f.text_field :building, :value => @building.id, :hidden => true
+            = text_field_tag :building_name, @building.name, :readonly => true, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :room_no, 'Room No.*'
+          %td
+            = f.number_field :room_no, :step => 1, :class => 'text_feld_area'
+          %td
+            = f.label :floor, 'Floor*'
+          %td
+            = f.number_field :floor, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :total_beds, 'Total Beds*'
+          %td
+            = f.number_field :total_beds, :class => 'text_feld_area'
+          %td
+            = f.label :occupied_beds, 'Occupied Beds'
+          %td
+            = f.number_field :occupied_beds, :value => 0, :class => 'text_feld_area'
+        %tr
+          %td
+            = f.label :category, 'Type/Category'
+          %td
+            = select :room, :category, @room_category
+          %td
+            = f.label :is_ac, 'Is AC?'
+          %td
+            = f.radio_button :is_ac , 0, :value=>"true" 
+            No
+            = f.radio_button :is_ac , 1
+            Yes
+        %tr
+          %td{:colspan => "2",:align=>"right"}
+            = submit_tag 'Submit', :disable_with => 'Submit'
+          %td{:colspan => "2",:align=>"left"}
+            = link_to button_to("Cancel"),buildings_path, :method => "get"

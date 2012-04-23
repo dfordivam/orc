@@ -1,0 +1,18 @@
+class Event < ActiveRecord::Base
+  #has_many :registrations
+  has_many :visitors, :through => :registrations
+  has_many :registrations
+#  has_many :checkins
+  has_many :accompany_visitors
+  before_create :set_default_values
+  
+  def set_default_values
+    self.is_delete = false
+    self.is_active = true
+  end
+
+  validates :name, :presence => true
+  validates :start_date_time, :presence => true
+  validates :end_date_time, :presence => true
+  validates :location, :presence => true
+end

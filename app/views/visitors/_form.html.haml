@@ -1,0 +1,80 @@
+= javascript_include_tag 'visitor', 'checkin'
+= form_for @visitor do |visitor|
+  = render "shared/flash_messages"
+  = render "shared/error_messages", :target => @visitor
+  %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+    %tbody
+      %tr
+        %td{:colspan => "4" ,:align=>"center"}
+          .header_font
+            = visitor.label :visitor_registration, 'Visitor Registration Form'
+      %tr
+      %tr
+      %tr
+        %td
+          = visitor.label :name, 'Name*'
+        %td
+          = visitor.text_field :name, :class => 'text_feld_area'
+        %td
+          = visitor.label :dob, 'Date of Birth'
+        %td
+          = visitor.text_field :dob, :readonly => true, :class => 'text_field_area'
+      %tr
+        %td
+          = visitor.label :age, 'Age (Yrs)*'
+        %td
+          = visitor.text_field :age, :class => 'text_feld_area'
+      %tr
+        %td
+          = visitor.label :address, 'Address*'
+        %td
+          = visitor.text_area :address, :size=> "20x1"
+        %td
+          = visitor.label :gender, 'Gender*'
+        %td
+          = visitor.radio_button :gender , "male"
+          Male
+          = visitor.radio_button :gender , "female"
+          Female
+      %tr
+        %td
+          = visitor.label :mobile_no, 'Contact No*'
+        %td
+          = visitor.text_field :mobile_no, :class => 'text_feld_area'
+        %td
+          = visitor.label :visitor_type, 'Visitor Type*'
+        %td
+          = select :visitor, :visitor_type, VISITOR_TYPE , :include_blank => ""
+      %tr{:id => 'add_fields'}
+        - if (!params["visitor"].blank? && params["visitor"]["visitor_type"] == 'bk')
+          = render :partial => "add_fields"
+      -#
+        %tr
+          %td
+            = visitor.label :is_physically_challenged, 'Physically Challenged*'
+          %td
+            = visitor.radio_button :is_physically_challenged , 'false', :value=>"false"
+            No
+            = visitor.radio_button :is_physically_challenged , 'true', :value=>"true"
+            Yes
+      %tr
+        %td{:colspan =>3}
+          %b
+            %u Additional Info
+            = image_tag('add-Icon.png', :id => 'add_info')
+      %tr
+        %td{:colspan => "4"}
+          %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+            %tbody{:id => 'additional_info'}
+              - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
+                = render :partial => "additional_info"
+      %tr
+        %td{:colspan => "2",:align=>"right"}
+          - if @visitor.id.nil?
+            = submit_tag 'Save and Exit', :disable_with => 'Save and Exit', :name => "save", :title => "Save and go back to visitor\'s main page"
+            &nbsp;
+            = submit_tag 'Save and Continue', :disable_with => 'Save and Continue', :name => "cont", :title => "Save and continue to register another visitor"
+          - else
+            = submit_tag 'Update', :disable_with => 'Update'
+        %td{:colspan => "2",:align=>"left"}
+          = link_to button_to("Cancel"),visitors_path, :method => "get", :title => "Cancel registering the visitor"

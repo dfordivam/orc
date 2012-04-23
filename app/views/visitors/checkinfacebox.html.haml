@@ -1,0 +1,67 @@
+= javascript_include_tag 'visitor', 'common'
+%div{:class=>"mid_bg_add_visitors_facebox text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @checkin do |f|
+    = render "shared/flash_messages"
+    = render "shared/error_messages", :target => @building
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font
+              = f.label :visitor_checkin, 'Visitor ' + @visitor.name + ' Check In Here' 
+          %td
+            = f.hidden_field :visitor_id, :readonly => true, :size => 1
+        %tr
+          %td
+            = f.label :building, 'Building'
+          %td
+            = select :room, :building_id, @building_list.collect {|e| [e.name, e.id]}
+          %td
+            = f.label :room, 'Floor/Room'
+          %td
+            %table
+              %tbody
+                %tr
+                  %td
+                    = label :f, 'Floor'
+                    = select :f1,:f11, @floor_list
+                    = label :r, 'Room'
+                    = select :r1,:r11, @room_list 
+        %tr
+          %td
+            = f.label :event, 'Event'
+          %td
+            = text_field_tag 'eid', @checkin.event.name, :disabled => true, :size => 24, :style => "background-color:#8698AC"
+            = f.hidden_field :event_id, :readonly => true, :size => 1
+          %td
+            = f.label :no_of_days, 'No. of Days*'
+          %td
+            = f.number_field :no_of_days, :class => 'text_feld_area' 
+        %tr
+          %td
+            = f.label :is_sight_seeing_req, 'Sight-Seeing Required'
+          %td
+            = f.radio_button :is_sight_seeing_req , 0, :value=>"true" 
+            No
+            = f.radio_button :is_sight_seeing_req , 1
+            Yes
+          %td
+            = f.label :meals_req, 'Meals Required'
+          %td
+            = f.label :meals_req, ' Breakfast'
+            = f.check_box :meals_req
+            = f.label :meals_req, ' Lunch'
+            = f.check_box :meals_req 
+            = f.label :meals_req, ' Dinner'
+            = f.check_box :meals_req
+        %tr
+          %td
+            = f.label :remarks, 'Checkin Remarks'
+          %td
+            = f.text_field :remarks, :class => 'text_feld_area'
+          %td{:colspan => 4}
+        %tr
+          %td{:colspan => "2",:align=>"right"}
+            = submit_tag 'Submit', :disable_with => 'Submit'
+          %td{:colspan => "2",:align=>"left"}
+            = link_to button_to("Cancel"),visitors_path, :method => "get"

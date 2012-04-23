@@ -1,0 +1,58 @@
+= javascript_include_tag 'visitor', 'jquery.min.js', 'jquery-ui.min.js', 'jquery_ujs.js', 'autocomplete-rails.js'
+= stylesheet_link_tag 'jquery-ui-1.8.2.custom'
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  .div_link{ :align => "right" }
+    - form_tag ('/search/visitors') do
+      = search_field_tag('search_value', @search_value)
+      = submit_tag ('Search Visitors')
+    - form_tag ('/search/visitors') do
+      = autocomplete_field_tag 'name', '', visitors_autocomplete_visitor_name_path 
+    = render "shared/flash_messages"
+  .div_link
+    = link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
+  .paginate_ss
+    = will_paginate
+  .wrapper_vistors
+    .row_hover
+      %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Age
+            %td
+              %b Gender
+            %td
+              %b Address
+            %td
+              %b Mobile
+            %td
+              %b Visitor Type
+            %td{:colspan => 5}
+          - @visitors.each do |visitor|
+            %tr.datarow
+              %td
+                &nbsp;
+                = visitor.name
+              %td
+                = visitor.age
+              %td
+                = gender(visitor.gender)
+              %td
+                = visitor.address
+              %td
+                = visitor.mobile_no
+              %td
+                = visitor.visitor_type
+              %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), visitor_path(visitor.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_visitor_path(visitor.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), visitor_path(visitor.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+    .paginate_ss
+      = will_paginate
+

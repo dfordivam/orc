@@ -1,0 +1,33 @@
+function enableAddNewVisitor() {
+  $("#visitor_address").removeAttr("readonly");
+  $("#visitor_age").removeAttr("readonly");
+  $("#visitor_gender_male").removeAttr("readonly");
+  $("#visitor_gender_female").removeAttr("readonly");
+  $("#visitor_visitor_type").removeAttr("readonly");
+  $("#visitor_is_physically_challenged_true").removeAttr("readonly");
+  $("#visitor_is_physically_challenged_false").removeAttr("readonly");
+  $("#submit_button_save_and_cont").attr("name", "new_vis_reg_cont");
+  $("#submit_button_save_and_exit").attr("name", "new_vis_reg_save");
+  $("#submit_button_add_reg").attr("disabled", "true");
+  $("#visitor_mobile_no").removeAttr("data-autocomplete");
+  $("#visitor_name").removeAttr("data-autocomplete");
+  $("#registration_visitor_id").attr("hidden", "true");
+  $("#enableNewVisitorLink").remove();
+
+}
+function clearVisitorDetails(){
+  $("#visitor_age").val("");
+  $("#visitor_address").val("");
+  $("#visitor_mobile_no").val(' ');
+  $("#visitor_name").val(' ');
+}
+
+function changeLinkLocation(){
+}
+
+jQuery(document).ready(function(){
+  $("#enableNewVisitorLink").click(enableAddNewVisitor);
+  $("#clearFormLink").click(clearVisitorDetails);
+});
+
+

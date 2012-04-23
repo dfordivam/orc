@@ -1,0 +1,46 @@
+= javascript_include_tag 'registration'
+= form_for @registration do |registration|
+  - visitor = @registration.visitor
+  = render "shared/flash_messages"
+  = render "shared/error_messages", :target => @registration
+  %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+    %tbody
+      %tr
+        %td{:colspan => "4" ,:align=>"center"}
+          .header_font
+            = registration.label :visitor_registration, 'Visitor Registration Form'
+      %tr
+      %tr
+      %tr
+        %td
+          = label_tag :visitor_name_tag, 'Name:'
+        %td
+          = label_tag :visitor_name, visitor.name 
+        %td
+          = label_tag :visitor_age_tag, 'Age:'
+        %td
+          = label_tag :visitor_age, visitor.age 
+        %td
+          = registration.number_field :visitor_id, :readonly => true, :class => 'text_feld_area_smaller', :hidden => true
+      %tr
+        %td
+          = registration.label :accompanying_males, 'Accompanying persons (Male)'
+        %td
+          = registration.number_field :accompanying_males, :class => 'text_feld_area'
+        %td
+          = registration.label :accompanying_females, 'Accompanying persons (Female)'
+        %td
+          = registration.number_field :accompanying_females, :class => 'text_feld_area'
+      %tr
+        %td
+          = registration.label :event, 'Event*'
+        %td
+          = select :registration, :event_id, @event_list.collect { |e| [e.name, e.id] }
+      %tr
+        %td{:colspan => "2",:align=>"right"}
+          - if @registration.id.nil?
+            = submit_tag 'Save', :disable_with => 'Save', :name => "save", :title => "Save and go back to registrations\'s main page"
+          - else
+            = submit_tag 'Update', :disable_with => 'Update'
+        %td{:colspan => "2",:align=>"left"}
+          = link_to button_to("Cancel"), visitors_path, :method => "get", :title => "Cancel registering the visito"

@@ -1,0 +1,47 @@
+%div{:class=>"mid_bg_add text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  -#= render "shared/error_messages", :target => @building
+  .div_link
+    = render "shared/flash_messages"
+    = link_to image_tag('newbuilding.png',:title=>'Click to add new building',:mouseover => 'newbuildingover.png', :height=>40), new_building_path
+  .paginate_ss
+    = will_paginate
+  .wrapper_building
+    .row_hover
+      %table{:width=>"920px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Vacant Rooms
+            %td
+              %b No. of Rooms
+            %td
+              %b No. of Floors
+            %td{:colspan => 4}
+          - @buildings.each do |building|
+            %tr.datarow
+              %td
+                &nbsp;
+                = link_to building.name, building_path(building.id)
+              %td
+                = building.rooms.where("is_delete = ? AND empty_beds > 0", 0).count
+              %td
+                = building.rooms.where("is_delete = ?", 0).count
+              %td
+                = building.floors
+              %td{:align => "center"}
+                - if building.rooms.count > 0
+                  = link_to image_tag('view.png',:title => "View Record"), building_path(building.id)
+                - else
+                  = image_tag('view_disable.png',:title => "No room exists!! Kindly add rooms first")
+              %td{:align => "center"}
+                = link_to image_tag('plus.gif',:width => 16, :title => "Add Rooms to '#{building.name}'"), add_rooms_to_building_path(:building_id => building.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png',:title => "Edit '#{building.name}'"), edit_building_path(building.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png',:title => "Delete '#{building.name}'"), building_path(building.id), :confirm => "Are you sure to delete #{building.name} ?",:method => :delete
+  .paginate_ss
+    = will_paginate

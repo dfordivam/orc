@@ -1,0 +1,62 @@
+= javascript_include_tag 'visitor'
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  .div_link{ :align => "right" }
+    - form_tag ('/search/visitors') do
+      /= search_field_tag('search_value', @search_value)
+      /= submit_tag ('Search Visitors')
+    = render "shared/flash_messages"
+  .div_link
+    /= link_to image_tag('newvisitor.png',:title=>'Click to add new visitor',:mouseover => 'newvisitorover.png', :height=>40), new_visitor_path
+  .paginate_ss
+    = will_paginate
+  .wrapper_vistors
+    .row_hover
+      %table{:width=>"980px",:style => "margin-left:15px",:cellpadding=>"0", :cellspacing=>"0"}
+        %tbody
+          %tr{:style => "background-color: #3A82F1"}
+            %td
+              &nbsp;
+              %b Name
+            %td
+              %b Age
+            %td
+              %b Gender
+            %td
+              %b Address
+            %td
+              %b Mobile
+            %td
+              %b Visitor Type
+            %td
+              %b Event
+            %td{:colspan => 5}
+          - @registrations.each do |registration|
+            - visitor = registration.visitor
+            %tr.datarow
+              %td
+                &nbsp;
+                - if registration.checkin.blank?
+                  = link_to visitor.name, new_checkin_path(:registration_id => registration.id)
+                - else
+                  = link_to visitor.name, edit_checkin_path(registration.id)
+              %td
+                = visitor.age
+              %td
+                = gender(visitor.gender)
+              %td
+                = visitor.address
+              %td
+                = visitor.mobile_no
+              %td
+                = visitor.visitor_type
+              %td
+                = registration.event.name
+              %td{:align => "center"}
+                = link_to image_tag('view.png',:title => "View Record"), registration_path(registration.id)
+              %td{:align => "center"}
+                = link_to image_tag('edit.png', :title => "Edit '#{visitor.name}'"), edit_registration_path(registration.id)
+              %td{:align => "center"}
+                - if can? :update, @user
+                  = link_to image_tag('delete.png', :title => "Delete '#{visitor.name}'"), registration_path(registration.id), :confirm=>"Are you sure to delete #{visitor.name}?", :method => :delete
+    .paginate_ss
+      = will_paginate

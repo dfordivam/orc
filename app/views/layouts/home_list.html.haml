@@ -1,0 +1,43 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title ORC Accomodation Administration Console
+    = stylesheet_link_tag "stylesheet"
+    = javascript_include_tag :defaults, 'jquery', 'jquery.min', 'jquery_ujs', 'jquery-ui'
+    = csrf_meta_tag
+  %body
+    %table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr
+        %td{:align => "center", :valign => "top"}
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "960"}
+            %tr
+              %td{:align => "center", :valign => "top"}
+                %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                  %tr
+                    %td{:align => "right", :valign => "top"}
+                      %a{:href => "#"}
+                        %img.padd20tp{:border => "0", :src => "/images/login_img.png"}/
+                  %tr
+                    %td{:align => "left", :valign => "top"}
+                      %a{:href => "#"}
+                        %img.paddlt5.paddtp10{:border => "0", :src => "/images/copny_name_img.png"}/
+                  %tr
+                    %td{:align => "left", :valign => "top"}
+                      #templatemo_menu
+                        %ul
+                          %li
+                            %a{:href => "CATALOG.html"}
+                              %span
+                              = succeed "Events" do
+                                %img.paddrt5{:align => "absmiddle", :border => "0", :src => "/images/event_img.jpg"}/
+                          %li
+                            %a{:href => "Order.html"}
+                              %span
+                              = succeed "Visitors" do
+                                %img.paddrt5{:align => "absmiddle", :border => "0", :src => "/images/visitor_img.png"}/
+                          %li
+                            %a{:href => "Promotion.html"}
+                              %span
+                              = succeed "Reports" do
+                                %img.paddrt5{:align => "absmiddle", :border => "0", :src => "/images/reports_img.png"}/
+                  = yield

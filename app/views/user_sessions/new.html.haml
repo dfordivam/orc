@@ -1,0 +1,27 @@
+%div{:class => "newlogin"}
+  - form_for @user_session do |form|
+    = render "shared/flash_messages"
+    = render "shared/error_messages", :target => @user_session
+    %table
+      %tbody
+        %tr
+          %td{:colspan=>"2",:align=>"center"}
+            = image_tag('s4a2.jpg')
+          %td
+            %table{:style => "padding-top:100px",:class => "table-structure", :cellspacing=>"20"}
+              %tbody
+                %tr
+                  %td
+                    %b
+                      = form.label :username, "Username"
+                  %td
+                    = form.text_field :username, :class => 'text_feld_area_login_page'
+                %tr
+                  %td
+                    %b
+                      = form.label :password, "Password"
+                  %td
+                    = form.password_field :password, :class => 'text_feld_area_login_page'
+                %tr
+                  %td{:colspan => "2", :align=>"center"}
+                    = form.submit "Log In", :style => 'width:80px;font-weight:bold'            

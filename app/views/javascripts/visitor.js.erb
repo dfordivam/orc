@@ -1,0 +1,39 @@
+var rooms_array = new Array();
+<% for room in @full_room_list -%>
+  rooms_array.push(new Array(<%= room.building_id %>, '<%=h room.room_no %>', <%= room.id %>, <%= room.floor %>));
+<% end -%>
+
+function getFloor() {
+  var temp_build_id_array = new Array();
+  building_id = $("#room_building_id").attr("value");
+  $("#f1_f11").html("");
+  $(rooms_array).each(function(i) {
+    if (rooms_array[i][0] == building_id && temp_build_id_array[rooms_array[i][3]] != 'T') {
+      $("#f1_f11").append("<option value=" + rooms_array[i][3] + ">" + rooms_array[i][3] + "</option>")
+      temp_build_id_array[rooms_array[i][3]] = 'T'
+    }
+  });
+}
+
+function getRoom() {
+  building_id = $("#room_building_id").attr("value");
+  floor_no = $("#f1_f11").attr("value");
+  $("#r1_r11").html("");
+  $(rooms_array).each(function(i) {
+    if (rooms_array[i][3] == floor_no && rooms_array[i][0] == building_id) {
+      $("#r1_r11").append("<option value=" + rooms_array[i][1] + ">" + rooms_array[i][1] + "</option>")
+    }
+  });
+}
+
+jQuery(document).ready(function(){
+  getFloor();
+  $("#room_building_id").change(getFloor);
+  $("#room_building_id").change(getRoom);
+  getRoom();
+  $("#f1_f11").change(getRoom);
+//  $("a[rel='colorbox']").colorbox({transition:"fade", open:false, overlayClose: false, loop: false, scrolling: false, current:'', previous:'', next:'' });
+  $("#visitor_dob").datepicker({
+    dateFormat: 'dd MM yy', changeMonth: true, changeYear: true, showOtherMonths: true, selectOtherMonths: true, yearRange: "1900:2036"
+  });
+});
