@@ -44,7 +44,8 @@ class VisitorsController < ApplicationController
     @visitor[:is_driver_accom_req] = 'false'
     @visitor[:is_driver_in_gyan] = 'false'
     @visitor[:is_special_care_req] = 'false'
-    @registration = Registration.new 
+#    @accompany_visitors = AccompanyVisitor.new
+    @registration = Registration.new
     @registration.visitor = @visitor
     @event_list = Event.where(:is_delete => false, :is_active => true)
   end
@@ -104,6 +105,14 @@ class VisitorsController < ApplicationController
       @registration = Registration.new(params[:registration])
       @registration.visitor = @visitor
       if @registration.save
+        unless params[:accompany_visitors].blank?
+          params[:accompany_visitors].each do |accompany_visitor|
+            acc_visitor = AccompanyVisitor.new(accompany_visitor)
+            acc_visitor.registration_id = @registration.id
+            acc_visitor.event_id = @registration.event_id
+            acc_visitor.save
+          end
+        end
         if params[:new_vis_reg_save] or params[:reg_save]
           redirect_to registrations_path
         else

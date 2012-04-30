@@ -1,10 +1,11 @@
 class Registration < ActiveRecord::Base
 
   belongs_to :visitor
-
   belongs_to :event
+  has_many :accompany_visitors #, :conditions => "is_delete=false"
+#  has_many :checkins
+  has_one :checkin, :as => :source
 
-  has_many :checkins
 
   before_create :set_default_values
   

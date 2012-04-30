@@ -11,6 +11,7 @@ gem 'mysql'
 gem 'will_paginate'
 #gem 'authlogic'
 gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => "rails3"
+#gem 'authlogic', "~> 3.1.0"
 gem 'cancan'
 
 # For Search Functionality

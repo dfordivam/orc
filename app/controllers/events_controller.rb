@@ -97,6 +97,7 @@ class EventsController < ApplicationController
     end
     redirect_to events_path
   end
+<<<<<<< HEAD
 
   
   def create_excel_and_send (event, participants)

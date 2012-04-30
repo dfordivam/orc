@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+user = User.new({:username => 'superadmin' , :email => 'superadmin@gmail.com',
+    :password => 'orc-demo', :password_confirmation => 'orc-demo', :role_id => 1})
+begin
+  puts "Superadmin Registration successful." if user.save
+rescue Exception => e
+  puts "Error: #{e}"
+end

@@ -67,6 +67,7 @@ Orc::Application.routes.draw do
       post :add_fields_1
       post :add_fields_2
       post :additional_info
+      post :add_accompany_info
     end
   end
 
@@ -74,6 +75,7 @@ Orc::Application.routes.draw do
   post 'events/inactivate/:id' => "events#inactivate", :as => :inactivate_event
   post 'events/activate/:id' => "events#activate", :as => :activate_event
 
+  resources :accompany_visitors
   resources :registrations
   resources :buildings
   resources :rooms

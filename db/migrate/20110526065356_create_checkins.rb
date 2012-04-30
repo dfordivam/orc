@@ -1,13 +1,14 @@
 class CreateCheckins < ActiveRecord::Migration
   def self.up
     create_table :checkins do |t|
-      t.date    :checkin_date
-      t.time    :checkin_time
-      t.integer :no_of_days
-      t.integer :visitor_id
-      t.integer :event_id
-      t.integer :room_id
-      t.timestamps
+       t.integer :source_id
+       t.string  :source_type
+       t.integer :building_id
+       t.integer :floor_id
+       t.integer :room_id
+       t.boolean :is_active, :default => true
+       t.boolean :is_delete, :default => false
+       t.timestamps
     end
   end
 

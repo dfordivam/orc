@@ -1062,4 +1062,6 @@ table tr.list_line_even_show_page {background-color: #9999FF;}
 .paginate_ss a {color: #105CB6;text-decoration: none;border: 1px solid #9AAFE5;background-color:#CCFFCC;}
 .paginate_ss a:hover, .paginate_ss a:focus {color: red;border-color: red}
 .paginate_ss em.current{text-decoration: none;border: 1px solid #064B70;background-color:#33FF33;font-style:normal;}
-
+#accompany_info {cursor: pointer}
+.delete_accompany_info {cursor: pointer}
+.checkin_span_space{padding-right:100px}

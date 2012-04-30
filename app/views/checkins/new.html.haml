@@ -1,2 +1,106 @@
-= render :partial => "form"
-
+-#= render :partial => "form"
+= javascript_include_tag 'checkin', 'common'
+%div{:class=>"mid_bg_add_visitors text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2", :border=>"0"}
+  = form_for @checkin do |f|
+    %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"20"}
+      %tbody
+        %tr
+          %td{:colspan=>"4"}
+            .header_font{:style => "align-font:center !important; background-color: #3A82F1;"}
+              %p= "Event: #{@registration.event.name}"
+              -#= f.label :visitor_checkin, "Checkin details for '#{@registration.name}' and Accompanied Visitors"
+          %td
+            -#= f.hidden_field :visitor_id, :readonly => true, :size => 1
+          %td
+            -#= f.hidden_field "source_id[]", :value =>@registration.id
+            -#= f.hidden_field "source_type[]", :value =>@registration.class
+            = hidden_field_tag "registration_id", @registration.id
+            = hidden_field_tag "registration_type", @registration.class
+        %tr
+          %td
+            %table
+              %tr{:style => "background-color: #3A82F1"}
+                %td
+                  %span.checkin_span_space= label_tag :name, 'Name'
+                %td
+                  %span.checkin_span_space= label_tag :gender, 'Gender'
+                %td
+                  %span.checkin_span_space= label_tag :Visitor_type, 'Type'
+                %td
+                  %span.checkin_span_space= label_tag :building, 'Building*'
+                %td
+                  %span.checkin_span_space= label_tag :fc, 'Floor*'
+                %td
+                  %span.checkin_span_space= label_tag :rc, 'Room*'
+              %tr
+                %td
+                  %span.checkin_span_space= @registration.visitor.name
+                %td
+                  %span.checkin_span_space= @registration.visitor.gender
+                %td
+                  %span.checkin_span_space= @registration.visitor.visitor_type
+                %td
+                  %span.checkin_span_space= select :checkin, :building_id, @building_list.collect {|e| [e.name, e.id] }, :include_blank => "Select"
+                  -#%span.checkin_span_space= select_tag "building_ids[]", @building_list.collect {|e| [e.name, e.id] }, :include_blank => "Select"
+                  -#= f.hidden_field "building_id[]", :value =>"b_1"
+                %td
+                  %span.checkin_span_space= select :fc1, :fc11, @flr_list
+                  -#%span.checkin_span_space= select_tag "floor_ids[]", @flr_list, :include_blank => "Select"
+                %td
+                  %span= select :rc1,:rc11, @rm_list
+                  -#%span= select_tag "room_ids[]", @rm_list, :include_blank => "Select"
+              - index_total = 0
+              -#- acc_visitors =@registration.accompany_visitors.select{|acc_v| acc_v.event_id == @registration.event.id }
+              - acc_visitors =@registration.accompany_visitors
+              - unless acc_visitors.blank?
+                - acc_visitors.each_with_index do |accompany_visitor, index|
+                  %tr
+                    %td
+                      %span.checkin_span_space= accompany_visitor.name
+                    %td
+                      %span.checkin_span_space= accompany_visitor.gender
+                    %td
+                      %span.checkin_span_space= accompany_visitor.visitor_type
+                    %td
+                      = hidden_field_tag "source_id_#{index}", accompany_visitor.id
+                      = hidden_field_tag "source_type_#{index}", accompany_visitor.class
+                      - index_total = index_total + 1
+                      %span.checkin_span_space= select_tag "accompany_visitor_building_#{index}", options_for_select(@building_list.collect {|e| [e.name, e.id] }, ""), :include_blank => "Select"
+                      -#%span.checkin_span_space= select_tag "building_ids[]", @building_list.collect {|e| [e.name, e.id] }, :include_blank => "Select"
+                    %td
+                      %span.checkin_span_space= select_tag "accompany_visitor_floor_#{index}", options_for_select(@flr_list, "")
+                      -#%span.checkin_span_space= select_tag "floor_ids[]", @flr_list, :include_blank => "Select"
+                    %td
+                      %span.checkin_span_space= select_tag "accompany_visitor_room_#{index}", options_for_select(@rm_list, "")
+                      -#%span.checkin_span_space= select_tag "room_ids[]", @rm_list, :include_blank => "Select"
+                  :javascript
+                    jQuery(document).ready(function(){
+                      getFloorCheckin_index("accompany_visitor_building_#{index}", "accompany_visitor_floor_#{index}", "accompany_visitor_room_#{index}", null);
+                      $("#accompany_visitor_building_#{index}").bind('change', function(){
+                        getFloorCheckin_index("accompany_visitor_building_#{index}", "accompany_visitor_floor_#{index}", "accompany_visitor_room_#{index}", null);
+                      });
+                      $("#accompany_visitor_building_#{index}").bind('change', function(){
+                        getRoomCheckin_index("accompany_visitor_building_#{index}", "accompany_visitor_floor_#{index}", "accompany_visitor_room_#{index}", null);
+                      });
+                      getRoomCheckin_index("accompany_visitor_building_#{index}", "accompany_visitor_floor_#{index}", "accompany_visitor_room_#{index}", null);
+                      $("#accompany_visitor_floor_#{index}").bind('change', function(){
+                        getRoomCheckin_index("accompany_visitor_building_#{index}", "accompany_visitor_floor_#{index}", "accompany_visitor_room_#{index}", null);
+                      });
+                      });
+        = hidden_field_tag "index_total", index_total
+        %tr
+          %td{:align=>"center"}
+            %table
+              %tr
+                %td
+                  = submit_tag "Submit", :disable_with => 'Submit'
+                %td
+                  = link_to button_to("Cancel"),checkins_path, :method => "get"
+:javascript
+  jQuery(document).ready(function(){
+    getFloorCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11', null);
+    $("#checkin_building_id").bind('change', function(){getFloorCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11', null)});
+    $("#checkin_building_id").bind('change', function(){getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11', null)});
+    getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11', null);
+    $("#fc1_fc11").bind('change', function(){getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11', null)});
+  });
