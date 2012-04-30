@@ -18,15 +18,15 @@
         %td
           = visitor.label :mobile_no, 'Contact No*'
         %td
-          - json = ActiveSupport::JSON.encode( :abbr => "#visitor_mobile_no" )
-          = visitor.autocomplete_field :mobile_no, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
-          =# visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          -# json = ActiveSupport::JSON.encode( :abbr => "#visitor_mobile_no" )
+          =# visitor.autocomplete_field :mobile_no, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
         %td
           = visitor.label :name, 'Name*'
         %td
-          - json = ActiveSupport::JSON.encode( :abbr => "#visitor_name" )
-          = visitor.autocomplete_field :name, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
-          =# visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          -# json = ActiveSupport::JSON.encode( :abbr => "#visitor_name" )
+          =# visitor.autocomplete_field :name, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
       %tr
         %td
           = visitor.label :age, 'Age (Yrs)*'

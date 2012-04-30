@@ -2,7 +2,7 @@ class Visitor < ActiveRecord::Base
 #  has_many :checkins
   has_many :registrations
   has_many :events, :through => :registrations
-  has_many :accompany_visitors
+#  has_many :accompany_visitors
 #  before_create :set_default_values
   
 #  def set_default_values

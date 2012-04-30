@@ -39,7 +39,7 @@
       %tr
         %td{:colspan => "2",:align=>"right"}
           - if @registration.id.nil?
-            = submit_tag 'Save', :disable_with => 'Save', :name => "save", :title => "Save and go back to registrations\'s main page"
+            = submit_tag 'Submit', :disable_with => 'Save', :name => "save", :title => "Save and go back to registrations\'s main page"
           - else
             = submit_tag 'Update', :disable_with => 'Update'
         %td{:colspan => "2",:align=>"left"}
