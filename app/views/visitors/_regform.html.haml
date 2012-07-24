@@ -18,11 +18,15 @@
         %td
           = visitor.label :mobile_no, 'Contact No*'
         %td
-          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id", :visitor_type => "#visitor_visitor_type" }, :class => 'text_feld_area'
+          -# json = ActiveSupport::JSON.encode( :abbr => "#visitor_mobile_no" )
+          =# visitor.autocomplete_field :mobile_no, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :mobile_no, visitors_autocomplete_visitor_mobile_no_path, :update_elements => {:age => "#visitor_age", :name => "#visitor_name", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
         %td
           = visitor.label :name, 'Name*'
         %td
-          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id", :visitor_type => "#visitor_visitor_type" }, :class => 'text_feld_area'
+          -# json = ActiveSupport::JSON.encode( :abbr => "#visitor_name" )
+          =# visitor.autocomplete_field :name, 'data-update-elements' => json, :as => :autocomplete, :url => visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
+          = visitor.autocomplete_field :name, visitors_autocomplete_visitor_name_path, :update_elements => {:age => "#visitor_age", :mobile_no => "#visitor_mobile_no", :address => "#visitor_address", :id => "#registration_visitor_id" }, :class => 'text_feld_area'
       %tr
         %td
           = visitor.label :age, 'Age (Yrs)*'
@@ -75,24 +79,25 @@
             %tbody{:id => 'additional_info'}
               - if((!params["visitor"].blank?) && (!params["visitor"]["designation"].blank? || !params["visitor"]["organisation"].blank? || !params["visitor"]["transport_mode"].blank? || !params["visitor"]["age"].blank? || !params["visitor"]["is_guide"].blank? || !params["visitor"]["is_driver_along"].blank?)) || @controller.action_name == 'edit'
                 = render :partial => "additional_info"
+      %tr
+        %td{:colspan =>3}
+          %b
+            %u Accompany Visitors
+            = image_tag 'add-Icon.png', :id => 'accompany_info'
+      %tr
+        %td{:colspan => "4"}
+          %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+            %tbody{:id => 'add_accompany_info'}
+              -#= render :partial => "accompany_info"
       = form_for @registration do |registration|
         %tr
           %td
             = registration.number_field :visitor_id, :class => 'text_feld_area', :hidden => true
         %tr
           %td
-            = registration.label :accompanying_males, 'Accompanying persons (Male)'
-          %td
-            = registration.number_field :accompanying_males, :class => 'text_feld_area'
-          %td
-            = registration.label :accompanying_females, 'Accompanying persons (Female)'
-          %td
-            = registration.number_field :accompanying_females, :class => 'text_feld_area'
-        %tr
-          %td
             = registration.label :event, 'Event*'
           %td
-            = select :registration, :event_id, @event_list.collect { |e| [e.name, e.id] }
+            = select :registration, :event_id, @event_list.collect { |e| [e.name, e.id] }, :include_blank => "Select"
       %tr
         %td{:colspan => "2",:align=>"right"}
           = submit_tag 'Save and Exit', :disable_with => 'Save and Exit', :name => "reg_save", :title => "Save and go back to visitors main page", :id => "submit_button_save_and_exit"

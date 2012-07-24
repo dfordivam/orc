@@ -1,0 +1,18 @@
+%tr
+  %td
+    = label_tag :name, 'Accompanied Visitor*'
+  %td
+    = text_field_tag 'accompany_visitors[][name]', "", :class => 'text_feld_area'
+  %td
+    = label_tag :gender, 'Gender*'
+    = select_tag 'accompany_visitors[][gender]', options_for_select(['Male', 'Female'], ""), :include_blank => "Select"
+  %td
+    = label_tag :visitor_type, 'Visitor Type*'
+    = select_tag 'accompany_visitors[][visitor_type]', options_for_select(VISITOR_TYPE, ""), :include_blank => "Select"
+  %td
+    %span.delete_accompany_info= image_tag('Minus.png')
+
+:javascript
+  $('.delete_accompany_info').live('click', function() {
+    $(this).parent().parent().remove();
+  });

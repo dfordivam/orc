@@ -1,4 +1,4 @@
-= javascript_include_tag 'registration'
+= javascript_include_tag 'registration' , 'visitor'
 = form_for @registration do |registration|
   - visitor = @registration.visitor
   = render "shared/flash_messages"
@@ -23,14 +23,25 @@
         %td
           = registration.number_field :visitor_id, :readonly => true, :class => 'text_feld_area_smaller', :hidden => true
       %tr
+        -#%td
+          -#= registration.label :accompanying_males, 'Accompanying persons (Male)'
         %td
-          = registration.label :accompanying_males, 'Accompanying persons (Male)'
-        %td
-          = registration.number_field :accompanying_males, :class => 'text_feld_area'
-        %td
-          = registration.label :accompanying_females, 'Accompanying persons (Female)'
-        %td
-          = registration.number_field :accompanying_females, :class => 'text_feld_area'
+          -#= registration.number_field :accompanying_males, :class => 'text_feld_area'
+        -#%td
+          -#= registration.label :accompanying_females, 'Accompanying persons (Female)'
+        -#%td
+          -#= registration.number_field :accompanying_females, :class => 'text_feld_area'
+      %tr
+      %tr
+        %td{:colspan =>3}
+          %b
+            %u Accompany Visitors
+            = image_tag 'add-Icon.png', :id => 'accompany_info'
+      %tr
+        %td{:colspan => "4"}
+          %table{:class => "table-structure", :cellpadding=>"10", :cellspacing=>"10"}
+            %tbody{:id => 'add_accompany_info'}
+              = render :partial => "accompany_info" 
       %tr
         %td
           = registration.label :event, 'Event*'
@@ -39,7 +50,7 @@
       %tr
         %td{:colspan => "2",:align=>"right"}
           - if @registration.id.nil?
-            = submit_tag 'Save', :disable_with => 'Save', :name => "save", :title => "Save and go back to registrations\'s main page"
+            = submit_tag 'Submit', :disable_with => 'Save', :name => "save", :title => "Save and go back to registrations\'s main page"
           - else
             = submit_tag 'Update', :disable_with => 'Update'
         %td{:colspan => "2",:align=>"left"}

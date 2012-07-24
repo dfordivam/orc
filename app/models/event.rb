@@ -1,7 +1,9 @@
 class Event < ActiveRecord::Base
+  #has_many :registrations
+  has_many :visitors, :through => :registrations
   has_many :registrations
-  has_many :checkins
- 
+#  has_many :checkins
+  has_many :accompany_visitors
   before_create :set_default_values
   
   def set_default_values

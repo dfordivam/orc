@@ -4,6 +4,7 @@
       %tr
         %td{:colspan => 3,:height => "40px"}
           .header_font
+            - visitor = @registration.visitor
             = "Registration details for #{@registration.visitor.name.humanize}"
         %td{:align => "right"}
           = link_to button_to(" Go Back "),registrations_path, :method => "get", :title => "Go back to list"
@@ -14,75 +15,61 @@
         %td
           %b= label :name, 'Name'
         %td
-          = text_field_tag 'name', @registration.visitor.name.upcase, :disabled => true, :class => 'text_feld_area_show_page'
+          = text_field_tag 'name', visitor.name.upcase, :disabled => true, :class => 'text_feld_area_show_page'
         %td
           %b= label :age, 'Age (Yrs)'
         %td
-          = text_field_tag 'age', @registration.visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
+          = text_field_tag 'age', visitor.age, :disabled => true, :class => 'text_feld_area_show_page'
       %tr
         %td
-          %b= label :visitor_id, 'Visitor ID'
+          %b= label :gender, 'Gender'
         %td
-          = text_field_tag 'visitor_id', @registration.visitor_id, :disabled => true, :class => 'text_feld_area_show_page'
+          = text_field_tag 'gender', visitor.gender, :disabled => true, :class => 'text_feld_area_show_page'
         %td
-          %b= label :accompanying_males, 'Accompanying persons(Male)'
+          %b= label :address, 'Address'
         %td
-          = text_field_tag 'accompanying_males', @registration.accompanying_males.nil? ? "0" : @registration.accompanying_males, :disabled => true, :class => 'text_feld_area_smaller'
+          = text_field_tag 'address', visitor.address, :disabled => true, :class => 'text_feld_area_show_page'
       %tr
         %td
-          %b= label :accompanying_females, 'Accompanying persons (Female)'
+          %b= label :mobile_no, 'Mobile'
         %td
-          = text_field_tag 'accompanying_females', @registration.accompanying_females.nil? ? "0" : @registration.accompanying_females, :disabled => true, :class => 'text_feld_area_smaller'
+          = text_field_tag 'mobile_no', visitor.mobile_no, :disabled => true, :class => 'text_feld_area_show_page'
+        %td
+          %b= label :visitor_type, 'Visitor Type'
+        %td
+          = text_field_tag 'visitor_type', visitor.visitor_type, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
         %td
           %b= label :event, 'Event'
         %td
           = text_field_tag 'event', @registration.event.name, :disabled => true, :class => 'text_feld_area_show_page'
+      %tr
+        %td{:colspan => 4}
+          %hr
+          %hr
       - if @registration.id != 0
         %tr 
           %td{:align => "center",:colspan => 5}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            %b Checkin Details
+            %b Registration Details
             %hr
             %hr
         %tr          
           %td
             &nbsp;
-            %b Building Name
+            %b Accompanied Visitor
           %td
-            %b Room No
+            %b Gender
           %td
-            %b No. of Days
-          %td
-            %b Checkin Date
-          %td
-            %b Checkout Date
-          %td
-            %b Is Active
-          %td{:colspan => 1}
-        - @checkins.each do |checkin|
-          -building = checkin.room.building
-          -room = checkin.room
-          %tr.datarow        
+            %b Visitor Type
+          %td{:colspan => 5}
+        - @accompany_visitors.each do |accompany_visitor|
+          - registration = accompany_visitor.registration
+          %tr.datarow
           %td
             &nbsp;
-            = link_to checkin.room.building.name, building_path(building.id)
+            = accompany_visitor.name
           %td
-            = link_to checkin.room.room_no, room_path(room.id)
+            = accompany_visitor.gender
           %td
-            = checkin.no_of_days
-          %td
-            = checkin.checkin_date
-          %td
-            = checkin.checkout_date
-          %td
-            = checkin.is_active
-          %td{:align => "center"}
-            = link_to image_tag('view.png',:title => "View Record"), checkin_path(checkin.id)
-          %td{:align => "center"}
-            = link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin"), edit_checkin_path(checkin.id)
-          %td{:align => "center"}
-            - if can? :update, @user
-              = link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?" 
-          
-         
-     
+            = accompany_visitor.visitor_type

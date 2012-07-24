@@ -50,7 +50,23 @@ $(document).ready(function() {
   $("#visitor_is_driver_along_false").live('change', function(){
     $("#add_fields2").html('');
   });
-  
+
+  $("#accompany_info").live('click', function(){
+    //if($("#accompany_info").attr("src").indexOf("add-Icon") > -1)
+		//{
+		//$("#add_fields2").html('');
+		$.post("/visitors/add_accompany_info",
+		  function(data){$("#add_accompany_info").append(data)}
+		);
+		//$("#accompany_info").show("slow");
+		//$("#add_info").attr("src","/images/Minus.png");
+	//}
+	/* else {
+		$("#additional_info").hide("slow");
+		$("#add_info").attr("src","/images/add-Icon.png");
+	} */
+  });
+
 //  $("#add_info").click(function(){
 //    $.post("/visitors/additional_info",
 //      function(data){$("#addintional_info").html(data)}

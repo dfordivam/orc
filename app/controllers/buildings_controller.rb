@@ -19,6 +19,7 @@ class BuildingsController < ApplicationController
 
   def index
     @buildings = Building.find(:all, :conditions => ["is_delete = ?", 0], :order => "name").paginate(:page => params[:page], :per_page => 15)
+    #@buildings = Building.order("name").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show

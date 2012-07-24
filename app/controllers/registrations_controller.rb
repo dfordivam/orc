@@ -6,8 +6,11 @@ class RegistrationsController < ApplicationController
   end
 
   def show
-    @registration = Registration.where(:id => params[:id], :is_delete => false).first
-    @checkins = @registration.checkins.where(:is_delete => false)
+    #@registration = Registration.where(:id => params[:id], :is_delete => false).first
+    #@checkins = @registration.checkins.where(:is_delete => false)
+    @registration = Registration.find(params[:id], :conditions => ["is_delete = ?", false])
+    @accompany_visitors = @registration.accompany_visitors
+    #@accompany_visitors = AccompanyVisitor.where(:registration_id => params[:id], :is_delete => false)
   end
 
   def new
@@ -41,7 +44,8 @@ class RegistrationsController < ApplicationController
 
   def edit
     @event_list = Event.where(:is_delete => false)
-    @registration = Registration.where(:id => params[:id], :is_delete => false).first
+    @registration = Registration.find(params[:id], :conditions => ["is_delete = ?", false])
+    @accompany_visitors = @registration.accompany_visitors
   end
 
   def update

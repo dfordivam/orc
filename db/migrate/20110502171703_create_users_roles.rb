@@ -3,7 +3,7 @@ class CreateUsersRoles < ActiveRecord::Migration
     create_table :users_roles do |t|
       t.integer :user_id
       t.integer :role_id
-
+      t.boolean :is_delete, :default => false
       t.timestamps
     end
     add_index :users_roles, :user_id

@@ -1,20 +1,19 @@
 class Visitor < ActiveRecord::Base
-
-  has_many :checkins
+#  has_many :checkins
   has_many :registrations
+  has_many :events, :through => :registrations
+#  has_many :accompany_visitors
+#  before_create :set_default_values
   
-
-  before_create :set_default_values
-  
-  def set_default_values
-    self.is_delete = 0
-    self.is_guide = 0
-    self.is_driver_along = 0
-    self.is_driver_accom_req = 0
-    self.is_driver_in_gyan = 0
-    self.is_special_care_req = 0
-    self.is_physically_challenged = 0
-  end
+#  def set_default_values
+#    self.is_delete = 0
+#    self.is_guide = 0
+#    self.is_driver_along = 0
+#    self.is_driver_accom_req = 0
+#    self.is_driver_in_gyan = 0
+#    self.is_special_care_req = 0
+#    self.is_physically_challenged = 0
+#  end
 
 #  attr_accessible :name, :age
 
@@ -28,7 +27,8 @@ class Visitor < ActiveRecord::Base
   validates :visitor_type, :presence => true
   validates :in_gyan_years, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}, :inclusion => (0..90), :numericality => true
   validates :centre_addr, :presence => true, :if => Proc.new { |visitor| visitor.visitor_type == 'bk'}
-  validates :is_physically_challenged, :presence => true
+#  validates_presence_of :is_physically_challenged
+#  validates :is_physically_challenged, :presence => true
 
 # The following code (define_index) is needed by thinking-sphinx gem to index this class
   define_index do 

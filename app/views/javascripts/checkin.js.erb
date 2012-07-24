@@ -3,39 +3,48 @@ var rooms_checkin_array = new Array();
   rooms_checkin_array.push(new Array(<%= room.building_id %>, '<%=h room.room_no %>', <%= room.id %>, <%= room.floor %>));
 <% end -%>
 
-function getFloorCheckin() {
+function hideAdditionalInfo() {
+$("#additional_info2_checkin").hide("slow");
+$("#additional_info_checkin").hide("slow");
+}
+
+function getFloorCheckin_index(building, floor, room, floor_no) {
   var temp_build_id_array = new Array();
-  building_id = $("#room_building_id").attr("value");
-  $("#fc1_fc11").html("");
+  building_id = $("#"+building).attr("value");
+  $("#"+floor).html("");
   $(rooms_checkin_array).each(function(i) {
     if (rooms_checkin_array[i][0] == building_id && temp_build_id_array[rooms_checkin_array[i][3]] != 'T') {
-      $("#fc1_fc11").append("<option value=" + rooms_checkin_array[i][3] + ">" + rooms_checkin_array[i][3] + "</option>")
+      if (rooms_checkin_array[i][3] == floor_no)
+        $("#"+floor).append("<option selected='selected' value=" + rooms_checkin_array[i][3] + ">" + rooms_checkin_array[i][3] + "</option>")
+      else
+        $("#"+floor).append("<option value=" + rooms_checkin_array[i][3] + ">" + rooms_checkin_array[i][3] + "</option>")
+
       temp_build_id_array[rooms_checkin_array[i][3]] = 'T'
     }
   });
 }
 
-function getRoomCheckin() {
-  building_id = $("#room_building_id").attr("value");
-  floor_no = $("#fc1_fc11").attr("value");
-  $("#rc1_rc11").html("");
+function getRoomCheckin_index(building, floor, room, room_id) {
+  building_id = $("#"+building).attr("value");
+  floor_no = $("#"+floor).attr("value");
+  $("#"+room).html("");
   $(rooms_checkin_array).each(function(i) {
     if (rooms_checkin_array[i][3] == floor_no && rooms_checkin_array[i][0] == building_id) {
-      $("#rc1_rc11").append("<option value=" + rooms_checkin_array[i][1] + ">" + rooms_checkin_array[i][1] + "</option>")
+      if (rooms_checkin_array[i][2] == room_id)
+        $("#"+room).append("<option selected='selected' value=" + rooms_checkin_array[i][2] + ">" + rooms_checkin_array[i][1] + "</option>")
+      else
+        $("#"+room).append("<option value=" + rooms_checkin_array[i][2] + ">" + rooms_checkin_array[i][1] + "</option>")
     }
   });
 }
 
-function hideAdditionalInfo() {
-$("#additional_info2_checkin").hide("slow");
-$("#additional_info_checkin").hide("slow");
-//alert("Hiding Additional Info");
-}
 
+/*
 jQuery(document).ready(function(){
-  getFloorCheckin();
-  $("#room_building_id").change(getFloorCheckin);
-  $("#room_building_id").change(getRoomCheckin);
-  getRoomCheckin();
-  $("#fc1_fc11").change(getRoomCheckin);
+  getFloorCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11');
+  $("#checkin_building_id").bind('change', function(){getFloorCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11')});
+  $("#checkin_building_id").bind('change', function(){getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11')});
+  getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11');
+  $("#fc1_fc11").bind('change', function(){getRoomCheckin_index('checkin_building_id', 'fc1_fc11', 'rc1_rc11')});
 });
+*/

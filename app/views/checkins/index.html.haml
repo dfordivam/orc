@@ -14,19 +14,15 @@
               &nbsp;
               %b Visitor Name
             %td
-              %b Age
-            %td
               %b Gender
-            %td
-              %b Address
-            %td
-              %b Mobile
             %td
               %b Visitor Type
             %td
               %b Event
             %td
               %b Building
+            %td
+              %b Floor No
             %td
               %b Room No
             %td
@@ -36,35 +32,36 @@
             %tr.datarow
               %td
                 &nbsp;
-                - if checkin.visitor
-                  = checkin.visitor.name
+                - visitor_name = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.name : checkin.source.name
+                = visitor_name
               %td
-                = checkin.visitor.age
+                = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.gender : checkin.source.gender
+                -#= checkin.source.gender
               %td
-                = gender(checkin.visitor.gender)
+                = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.visitor_type : checkin.source.visitor_type
+                -#= checkin.source.visitor_type
               %td
-                = checkin.visitor.address
+                -#= checkin.event.name
+                = checkin.source_type.eql?("Registration") ?  checkin.source.event.name : checkin.source.registration.event.name
               %td
-                = checkin.visitor.mobile_no
+                = checkin.building.name
               %td
-                = checkin.visitor.visitor_type
+                = checkin.floor_id
               %td
-                - if checkin.event
-                  = checkin.event.name
+                = checkin.room.room_no
               %td
-                - if checkin.room
-                  = checkin.room.building.name
+                = checkin.is_active ? "Yes" : "NO"
               %td
-                - if checkin.room
-                  = checkin.room.room_no
-              %td
-                = checkin.is_active
-              %td{:align => "center"}
-                = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
-              %td{:align => "center"}
-                = link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
-              %td{:align => "center"}
-                - if can? :update, @user
-                  = link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?" 
+                -if checkin.is_active
+                  = link_to "Inactivate", inactivate_checkin_path(checkin.id), :method => :post
+                %td{:align => "center"}
+                  = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
+                %td{:align => "center"}
+                  -#= link_to image_tag('edit.png',:title => "Edit #{checkin.visitor.name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
+                  = link_to image_tag('edit.png',:title => "Edit #{visitor_name}'s Checkin", :width => 15), edit_checkin_path(checkin.id)
+                %td{:align => "center"}
+                  - if can? :update, @user
+                    -#= link_to image_tag('delete.png',:title => "Delete #{checkin.visitor.name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{checkin.visitor.name} checkin ?"
+                    = link_to image_tag('delete.png',:title => "Delete #{visitor_name}'s Checkin", :width => 15), checkin_path(checkin.id), :method => :delete, :confirm=>"Are you sure to delete visitor #{visitor_name} checkin ?"
   .paginate_ss
     = will_paginate

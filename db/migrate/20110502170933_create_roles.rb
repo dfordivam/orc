@@ -2,7 +2,7 @@ class CreateRoles < ActiveRecord::Migration
   def self.up
     create_table :roles do |t|
       t.string :rolename
-      t.integer :is_delete
+      t.boolean :is_delete, :default => false
 
       t.timestamps
     end

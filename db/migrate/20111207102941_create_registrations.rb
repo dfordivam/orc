@@ -6,9 +6,8 @@ class CreateRegistrations < ActiveRecord::Migration
       t.integer :accompanying_males
       t.integer :accompanying_females
       t.string :remarks
-      t.boolean :is_delete
       t.boolean :is_accom_req
-
+      t.boolean :is_delete, :default => false
       t.timestamps
     end
   end
