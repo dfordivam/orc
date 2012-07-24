@@ -4,6 +4,9 @@ class CheckinsController < ApplicationController
   def new
     if (params[:registration_id])
       @registration = Registration.find(params[:registration_id])
+      #@visitor = @registration.visitor
+      #@building = Building.new
+      #@room = Room.new
       @checkin = Checkin.new
       @building_list = Building.where("is_delete = ?", 0)
       @rm_list = []
@@ -14,15 +17,31 @@ class CheckinsController < ApplicationController
   end
 
   def edit
-    @registration = Registration.find(params[:id])
-    @checkin = @registration.checkin
+    #@registration = Registration.find(params[:registration_id])
+    @checkin = Checkin.find(params[:id])
+    if @checkin.source_type = "AccompanyVisitor"
+      # source id is accompany visitor id
+      @acc_v = AccompanyVisitor.find(@checkin.source_id)
+      if @acc_v
+        @registration = @acc_v.registration
+      end
+    else
+      #if @checkin.source_type = "Registration"
+        # source id is registration id
+        #@checkin = Checkin.find(params[:source_id])
+      @registration = Registration.find(params[:id])
+      #@registration = Registration.find(@checkin.source_id)
+      #@registration = @reg.registration
+      #end
+      #@registration = @checkin.registration
+    end
     @building_list = Building.where("is_delete = ?", 0)
     @rm_list = []
     @flr_list = []
   end
 
   def index
-    @checkins = Checkin.where("is_delete = ?", false).paginate(:page => params[:page], :per_page => 15)
+    @checkins = Checkin.where("is_delete = ?", false).order("created_at DESC").paginate(:page => params[:page], :per_page => 15)
   end
 
   def show 
@@ -30,10 +49,19 @@ class CheckinsController < ApplicationController
   end
 
   def update
-    @checkin = Checkin.find_by_id params[:id]
+    @checkin = Checkin.find(params[:id])
+    #@checkin = Checkin.find_by_id params[:id]
+    if @checkin.room && @checkin.room.occupied_beds > 0 
+      @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds - 1)
+      @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+    end
     @checkin.building_id = params[:checkin][:building_id]
     @checkin.floor_id = params[:fc1][:fc11]
     @checkin.room_id = params[:rc1][:rc11]
+    if @checkin.room && @checkin.room.empty_beds > 0 
+      @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+      @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+    end
     Checkin.transaction do
       if @checkin.save
 #        AccompanyVisitor.where(:registration_id => @checkin.source_id).update_all(:is_delete => true)
@@ -43,10 +71,18 @@ class CheckinsController < ApplicationController
             @checkin_accm_user = Checkin.new
             @checkin_accm_user.source_id = params["source_id_#{index}"]
             @checkin_accm_user.source_type = "AccompanyVisitor"
+            if @checkin.room && @checkin.room.occupied_beds > 0 
+              @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds - 1)
+              @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+            end
             @checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
             @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
             @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
             @checkin_accm_user.is_active = true
+            if @checkin.room && @checkin.room.empty_beds > 0 
+              @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+              @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+            end
             @checkin_accm_user.save
           end
         end
@@ -56,24 +92,56 @@ class CheckinsController < ApplicationController
   end
 
   def create
+    #temp_room = Room.where("is_delete = 0 AND building_id = ? AND floor = ? AND room_no = ?", params[:room_id][:building_id],params[:fc1][:fc11],params[:rc1][:rc11]).first
+
+    #if (temp_room.nil? == false)
+      #if ! (temp_room.occupied_beds < temp_room.total_beds)
+        #flash[:notice] = "#ERROR#This room is full now !! Please select some other room. "
+        #redirect_to checkins_path
+        #return
+      #end
+    #else
+      #flash[:notice] = "#ERROR#Wrong room specified, please try again. "
+      #redirect_to checkins_path
+      #return
+    #end
+
+
     @checkin = Checkin.new
     @checkin.source_id = params[:registration_id]
     @checkin.source_type = "Registration"
     @checkin.building_id = params[:checkin][:building_id]
     @checkin.floor_id = params[:fc1][:fc11]
     @checkin.room_id = params[:rc1][:rc11]
+    #@checkin.building_id = temp_room
+    #@checkin.floor_id = temp_room
+    #@checkin.room_id = temp_room
+    if @checkin.room && @checkin.room.empty_beds > 0
+      @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+      @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+    end
     @checkin.is_active = true
     Checkin.transaction do
       if @checkin.save
         unless params[:index_total].blank?
           params[:index_total].to_i.times do |index|
-            @checkin_accm_user = Checkin.new
-            @checkin_accm_user.source_id = params["source_id_#{index}"]
-            @checkin_accm_user.source_type = "AccompanyVisitor"
-            @checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
-            @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
-            @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
-            @checkin_accm_user.is_active = true
+            if @checkin.room && @checkin.room.empty_beds > 0 
+              @checkin_accm_user = Checkin.new
+              @checkin_accm_user.source_id = params["source_id_#{index}"]
+              @checkin_accm_user.source_type = "AccompanyVisitor"
+              @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+              @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
+              @checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
+              @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
+              @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
+              @checkin_accm_user.is_active = true
+              else
+              flash[:notice] = "#ERROR#No more beds available,Please select some other room for the accompanying vistor "              
+              #@checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
+              #@checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
+              #@checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
+              #@checkin_accm_user.is_active = true
+            end
             @checkin_accm_user.save
           end
         end
@@ -90,8 +158,8 @@ class CheckinsController < ApplicationController
     end
     ## @checkin.destroy
     @checkin.is_delete = 1
-    @visitor = @checkin.visitor
-    @visitor.update_attribute(:checkin_date, NIL)
+    #@visitor = @checkin.visitor
+    #@visitor.update_attribute(:checkin_date, NIL)
 
     if @checkin.save 
       flash[:notice] = "Check In Record has been deleted" 

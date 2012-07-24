@@ -50,8 +50,10 @@
               %td
                 = checkin.room.room_no
               %td
-                = checkin.is_active
-              /
+                = checkin.is_active ? "Yes" : "NO"
+              %td
+                -if checkin.is_active
+                  = link_to "Inactivate", inactivate_checkin_path(checkin.id), :method => :post
                 %td{:align => "center"}
                   = link_to image_tag('view.png',:title => "View Record", :width => 15), checkin_path(checkin.id)
                 %td{:align => "center"}

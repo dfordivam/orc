@@ -192,6 +192,11 @@ class VisitorsController < ApplicationController
   def additional_info
     render :partial => "additional_info"
   end
+  
+  # Adding accompany form fields
+  def add_accompany_info
+    render :partial => "accompany_info"
+  end
 
   def create_excel_and_send (visitor, registrations)
     file_name = "#{visitor.name}.xls"

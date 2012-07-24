@@ -70,7 +70,10 @@ Orc::Application.routes.draw do
       post :add_accompany_info
     end
   end
-
+  
+  resources :checkins
+  post 'checkins/inactivate/:id' => "checkins#inactivate", :as => :inactivate_checkin
+  
   resources :events 
   post 'events/inactivate/:id' => "events#inactivate", :as => :inactivate_event
   post 'events/activate/:id' => "events#activate", :as => :activate_event
@@ -84,8 +87,8 @@ Orc::Application.routes.draw do
       post :roomsearch
     end
   end
-
-  match "checkins/inactivate/:id" => "checkins#inactivate"
+ 
+  #match "checkins/inactivate/:id" => "checkins#inactivate"
 
   get 'javascripts/checkin' => 'javascripts#checkin'
   get 'javascripts/visitor' => 'javascripts#visitor'

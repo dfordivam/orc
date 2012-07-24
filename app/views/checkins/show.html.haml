@@ -4,7 +4,8 @@
       %tr
         %td{:colspan => 3,:height => "40px"}
           .header_font
-            = "Check-In details for #{@checkin.visitor.name.humanize}"
+            - visitor_name = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.name : @checkin.source.name
+            = "Check-In details for #{visitor_name.humanize}"
         %td{:align => "right"}
           = link_to button_to(" Go Back "),checkins_path, :method => "get", :title => "Go back to list"
       %tr
@@ -14,43 +15,29 @@
         %td
           %b= label :name, 'Name'
         %td
-          = text_field_tag 'name', @checkin.visitor.name.upcase, :disabled => true, :class => 'text_feld_area_show_page'
-        %td
-          %b= label :dob, 'Date of Birth'
-        %td
-          = text_field_tag 'dob', @checkin.visitor.dob.strftime("%d-%b-%Y  [ %A ]"), :disabled => true, :class => 'text_feld_area_show_page'
-      %tr
-        %td
-          %b= label :age, 'Age (Yrs)'
-        %td
-          = text_field_tag 'age', @checkin.visitor.age, :disabled => true, :class => 'text_feld_area_smaller'
-        %td
-          %b= label :event, 'Event'
-        %td
-          = text_field_tag 'event', @checkin.visitor.event.name, :disabled => true, :class => 'text_feld_area_show_page'
-      %tr
-        %td
-          %b= label :address, 'Address'
-        %td
-          = text_area_tag 'address', @checkin.visitor.address, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
+          - visitor_name = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.name : @checkin.source.name
+          = text_field_tag 'name', visitor_name.upcase, :disabled => true, :class => 'text_feld_area_show_page'
         %td
           %b= label :gender, 'Gender'
         %td
-          = text_field_tag 'dob', @checkin.visitor.gender == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
+          - gender = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.gender : @checkin.source.gender
+          = text_field_tag 'dob', gender == "female" ? "Female" : "Male", :disabled => true, :class => 'text_feld_area_small'
       %tr
-        %td
-          %b= label :mobile_no, 'Mobile No'
-        %td
-          = text_field_tag 'mobile_no', @checkin.visitor.mobile_no, :class => 'text_feld_area_show_page', :disabled => true
         %td
           %b= label :visitor_type, 'Visitor Type'
         %td
-          = text_field_tag 'visitor', @checkin.visitor.visitor_type.upcase, :class => 'text_feld_area_small', :disabled => true
+          -visitor_type = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.visitor_type : @checkin.source.visitor_type
+          = text_field_tag 'visitor', visitor_type.upcase, :class => 'text_feld_area_small', :disabled => true
+        %td
+          %b= label :event, 'Event'
+        %td
+          -event = @checkin.source_type.eql?("Registration") ?  @checkin.source.event.name : @checkin.source.event.name
+          = text_field_tag 'event', event.upcase, :class => 'text_feld_area_show_page', :disabled => true
       %tr
         %td
           %b= label :build_name, 'Building'
         %td
-          = text_field_tag 'build_name', @checkin.room.building.name, :class => 'text_feld_area_show_page', :disabled => true
+          = text_field_tag 'build_name', @checkin.building.name, :class => 'text_feld_area_show_page', :disabled => true
         %td
           %b= label :room_no, 'Room No'
         %td
@@ -59,36 +46,8 @@
         %td
           %b= label :floor, 'Floor'
         %td
-          = text_field_tag 'floor', @checkin.room.floor, :class => 'text_feld_area_smaller', :disabled => true
+          = text_field_tag 'floor', @checkin.floor_id, :class => 'text_feld_area_small', :disabled => true
         %td
           %b= label :is_active, 'Is Active'
         %td
-          = text_field_tag 'is_active', @checkin.is_active == true ? 'YES' : 'NO', :class => 'text_feld_area_smaller', :disabled => true
-      %tr
-        %td
-          %b= label :checkin_date, 'Checkin Date'
-        %td
-          = text_field_tag 'checkin_date', @checkin.checkin_date.strftime("%d-%b-%Y  [ %A ]"), :class => 'text_feld_area_show_page', :disabled => true
-        %td
-          %b= label :checkin_time, 'Checkin Time'
-        %td
-          = text_field_tag 'checkin_time', @checkin.checkin_time.strftime("%H:%M:%S"), :class => 'text_feld_area_small', :disabled => true
-      %tr
-        %td
-          %b= label :no_of_days, 'Days To Stay'
-        %td
-          = text_field_tag 'no_of_days', @checkin.no_of_days, :class => 'text_feld_area_smaller', :disabled => true
-        %td
-          %b= label :meals, 'Meals Req'
-        %td
-          = text_field_tag 'meals', @checkin.meals_req == 0 ? 'NO' : 'YES', :class => 'text_feld_area_smaller', :disabled => true
-      %tr
-        %td
-          %b= label :sight_seeing, 'Sight Seeing Req'
-        %td
-          = text_field_tag 'sight_seeing', @checkin.is_sight_seeing_req == true ? 'YES' : 'NO', :class => 'text_feld_area_smaller', :disabled => true
-        %td
-          %b= label :remarks, 'Remarks'
-        %td
-          = text_area_tag 'remarks', @checkin.remarks, :size=> "30x2", :disabled => true, :style => "font-size:12px;"
-
+          = text_field_tag 'is_active', @checkin.is_active == true ? 'YES' : 'NO', :class => 'text_feld_area_small', :disabled => true
