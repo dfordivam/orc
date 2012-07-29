@@ -53,17 +53,17 @@ class UtilitiesController < ApplicationController
     successful_loaded_rooms = 0
     buildings_rooms.length.times do |br|
       if ! buildings_rooms[br][:isbad]
-        temp_build = Building.find_by_sql("select * from buildings where is_delete = 0 and upper(name) = upper('#{buildings_rooms[br][:building_name]}')")
+        temp_build = Building.find_by_sql("select * from buildings where is_delete = ? and upper(name) = upper('#{buildings_rooms[br][:building_name]}')", false)
         temp_build_id = temp_build[0].nil? ? nil : temp_build[0][:id]
         if temp_build[0].nil?
-          new_building = Building.new(:name => buildings_rooms[br][:building_name], :no_of_rooms => 0, :floors => 0, :is_delete => 0)
+          new_building = Building.new(:name => buildings_rooms[br][:building_name], :no_of_rooms => 0, :floors => 0, :is_delete => false)
           if new_building.save
             temp_build_id = new_building[:id]
           else
             flash[:notice] = "#ERROR#Fatal Error (#{new_building.errors.full_messages[0]||''}) While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
           end
         end
-        new_old_building = Building.find(:first, :conditions => ["id = ? and is_delete = 0",temp_build_id])
+        new_old_building = Building.find(:first, :conditions => ["id = ? and is_delete = ?",temp_build_id, false])
         temp_room = Room.new()
         temp_room[:floor] = buildings_rooms[br][:floor]
         temp_room[:category] = buildings_rooms[br][:category]
@@ -77,8 +77,8 @@ class UtilitiesController < ApplicationController
           temp_room.update_attribute(:beds_extensible,buildings_rooms[br][:beds_extensible]||0)
           temp_room.update_attribute(:occupied_beds,buildings_rooms[br][:occupied_beds]||0)
           temp_room.update_attribute(:empty_beds,"#{buildings_rooms[br][:occupied_beds].nil? ? buildings_rooms[br][:total_beds] : buildings_rooms[br][:total_beds].to_i - buildings_rooms[br][:occupied_beds].to_i}")
-          no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = 0 and building_id = #{temp_build_id}")
-          no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = 0 and building_id= #{temp_build_id}")
+          no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = ? and building_id = #{temp_build_id}", false)
+          no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = ? and building_id= #{temp_build_id}", false)
           new_old_building.update_attribute(:no_of_rooms,no_of_rooms_in_building[0][:ct])
           new_old_building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
@@ -181,7 +181,7 @@ class UtilitiesController < ApplicationController
         @new_event.end_date_time = events[event][:event_end_date]
         @new_event.location = events[event][:location]
         @new_event.capacity = events[event][:capacity].to_i
-        @new_event.is_delete = 0
+        @new_event.is_delete = false
         if @new_event.save
           @successful_loaded_events += 1
         else
@@ -225,7 +225,7 @@ class UtilitiesController < ApplicationController
   private
 
   def check_users_for_errors(users)
-    email_list = User.find_by_sql("select distinct trim(email) as email from users where is_delete = 0")
+    email_list = User.find_by_sql("select distinct trim(email) as email from users where is_delete = ?", false)
     users.length.times do |us|
       existing_user = User.find(:first,:conditions => ["username = ?", users[us][:username]])
       if users[us][:username].nil? || users[us][:email].nil? || users[us][:role_id].nil? || users[us][:password].nil? || users[us][:role].nil?
@@ -301,11 +301,11 @@ class UtilitiesController < ApplicationController
         buildings_rooms[br][:comment] = "Give All Fields"
       end 
       if ! buildings_rooms[br][:building_name].nil?
-        temp_build = Building.find_by_sql("select * from buildings where is_delete = 0 and upper(name) = upper('#{buildings_rooms[br][:building_name]}')")
+        temp_build = Building.find_by_sql("select * from buildings where is_delete = ? and upper(name) = upper('#{buildings_rooms[br][:building_name]}')", false)
         if (! temp_build[0].nil?) && (! buildings_rooms[br][:floor].nil?) && (! buildings_rooms[br][:room_name].nil?)
           temp_build_id = temp_build[0][:id]
           temp_room_no = "#{buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i}"
-          temp_rec = Room.find_by_sql("select * from rooms where is_delete = 0 and floor = #{buildings_rooms[br][:floor]} and upper(room_no) = upper('#{temp_room_no}') and building_id = #{temp_build_id}")
+          temp_rec = Room.find_by_sql("select * from rooms where is_delete = ? and floor = #{buildings_rooms[br][:floor]} and upper(room_no) = upper('#{temp_room_no}') and building_id = #{temp_build_id}", false)
           if ! temp_rec[0].nil?
             buildings_rooms[br][:isbad] = true
             buildings_rooms[br][:comment] = "Room Exists !!"

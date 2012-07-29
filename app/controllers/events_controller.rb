@@ -56,15 +56,15 @@ class EventsController < ApplicationController
   def destroy 
     @event = Event.find(params[:id])
     ## @event.destroy
-    @event.is_delete = 1
+    @event.is_delete = true
     if @event.save 
       temp_registration = Registration.find(:all,:conditions => ["event_id = ?", @event.id])
       temp_checkin = Checkin.find(:all,:conditions => ["event_id = ?", @event.id])
       for t_r in temp_registration
-        t_r.update_attribute(:is_delete,1)
+        t_r.update_attribute(:is_delete,true)
       end
       for t_c in temp_checkin
-        t_c.update_attribute(:is_delete,1)
+        t_c.update_attribute(:is_delete,true)
       end
       flash[:notice] = "Event #{@event.name} has been deleted" 
     else

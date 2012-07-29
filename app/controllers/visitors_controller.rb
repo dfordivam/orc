@@ -19,7 +19,7 @@ class VisitorsController < ApplicationController
   def index
     @search_value  = params[:search_value]
     if @search_value
-      @visitors = Visitor.search @search_value, :conditions => { :is_delete => '0' }
+      @visitors = Visitor.search @search_value, :conditions => { :is_delete => false }
     else 
       @visitors = Visitor.where(:is_delete => false).order(:name,:address).paginate(:page => params[:page], :per_page => 15)
     end
@@ -51,7 +51,7 @@ class VisitorsController < ApplicationController
   end
 
   def edit
-    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @visitor = Visitor.find(params[:id], :conditions => ["is_delete = ?", false])
     @visitor.dob = @visitor.dob.strftime("%d %B %Y")
   end
 
@@ -151,15 +151,15 @@ class VisitorsController < ApplicationController
 
   def destroy
     @visitor = Visitor.find(params[:id])
-    @visitor.is_delete = 1
+    @visitor.is_delete = true
     if @visitor.save 
       temp_registration = @visitor.registrations.where(:is_delete => false)
       temp_checkin = Checkin.find(:all,:conditions => ["visitor_id = ?", @visitor.id])
       for t_r in temp_registration
-        t_r.update_attribute(:is_delete,1)
+        t_r.update_attribute(:is_delete,true)
       end
       for t_c in temp_checkin
-        t_c.update_attribute(:is_delete,1)
+        t_c.update_attribute(:is_delete,true)
       end
       flash[:notice] = "Visitor #{@visitor.name} has been deleted" 
       redirect_to visitors_path

@@ -8,7 +8,7 @@ class CheckinsController < ApplicationController
       #@building = Building.new
       #@room = Room.new
       @checkin = Checkin.new
-      @building_list = Building.where("is_delete = ?", 0)
+      @building_list = Building.where("is_delete = ?", false)
       @rm_list = []
       @flr_list = []
     else
@@ -35,7 +35,7 @@ class CheckinsController < ApplicationController
       #end
       #@registration = @checkin.registration
     end
-    @building_list = Building.where("is_delete = ?", 0)
+    @building_list = Building.where("is_delete = ?", false)
     @rm_list = []
     @flr_list = []
   end
@@ -157,7 +157,7 @@ class CheckinsController < ApplicationController
       @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
     end
     ## @checkin.destroy
-    @checkin.is_delete = 1
+    @checkin.is_delete = true
     #@visitor = @checkin.visitor
     #@visitor.update_attribute(:checkin_date, NIL)
 

@@ -27,18 +27,18 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = Room.find(:all, :conditions => ["is_delete = ?", 0])
+    @rooms = Room.find(:all, :conditions => ["is_delete = ?", false])
   end
 
   def show 
-    @room = Room.find(params[:id], :conditions => ["is_delete = ?", 0])
+    @room = Room.find(params[:id], :conditions => ["is_delete = ?", false])
     @checkins = @room.checkins.where(:is_delete => false)
   end
 
   def destroy 
     @room = Room.find(params[:id])
     ## @room.destroy
-    @room.is_delete = 1
+    @room.is_delete = true
     if @room.save 
       @building = Building.find(@room.building)
       #@building = @room.building
@@ -46,7 +46,7 @@ class RoomsController < ApplicationController
 
       temp_checkin = Checkin.find(:all,:conditions => ["room_id = ?", @room.id])
       for t_c in temp_checkin
-        t_c.update_attribute(:is_delete,1)
+        t_c.update_attribute(:is_delete,true)
       end
       flash[:notice] = "Room #{@room.room_no} has been deleted" 
     else
