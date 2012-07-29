@@ -24,20 +24,20 @@ class BuildingsController < ApplicationController
 
   def show
     @building = Building.find(params[:id])
-    @room = Room.find(:all,:conditions => ["building_id = ? and is_delete = 0", @building.id], :order => "floor, room_no")
+    @room = Room.find(:all,:conditions => ["building_id = ? and is_delete = ?", @building.id, false], :order => "floor, room_no")
   end
 
   def destroy
     @building = Building.find(params[:id])
     ## @building.destroy
-    @building.is_delete = 1
+    @building.is_delete = true
     if @building.save 
-      temp_room = Room.find(:all,:conditions => ["building_id = ? and is_delete = 0", @building.id])
+      temp_room = Room.find(:all,:conditions => ["building_id = ? and is_delete = ?", @building.id, false])
       for t_r in temp_room
-        t_r.update_attribute(:is_delete,1)
-        temp_checkin = Checkin.find(:all, :conditions => ["room_id = ? and is_delete = 0", t_r.id])
+        t_r.update_attribute(:is_delete, true)
+        temp_checkin = Checkin.find(:all, :conditions => ["room_id = ? and is_delete = ?", t_r.id, false])
         for t_c in temp_checkin
-          t_c.update_attribute(:is_delete, 1)
+          t_c.update_attribute(:is_delete, true)
           visitor = t_c.visitor
           visitor.update_attribute(:checkin_date, NIL)
         end

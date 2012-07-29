@@ -26,9 +26,9 @@
                 &nbsp;
                 = link_to building.name, building_path(building.id)
               %td
-                = building.rooms.where("is_delete = ? AND empty_beds > 0", 0).count
+                = building.rooms.where("is_delete = ? AND empty_beds > 0", false).count
               %td
-                = building.rooms.where("is_delete = ?", 0).count
+                = building.rooms.where("is_delete = ?", false).count
               %td
                 = building.floors
               %td{:align => "center"}
