@@ -12,13 +12,13 @@ class BuildingsController < ApplicationController
     if @building.save
       redirect_to buildings_path 
     else
-      flash[:notice] = nil
+      flash[:notice] = "Error in creating Building"
       render 'new'
     end
   end
 
   def index
-    @buildings = Building.find(:all, :conditions => ["is_delete = ?", 0], :order => "name").paginate(:page => params[:page], :per_page => 15)
+    @buildings = Building.find(:all, :conditions => ["is_delete = ?", false], :order => "name").paginate(:page => params[:page], :per_page => 15)
     #@buildings = Building.order("name").paginate(:page => params[:page], :per_page => 15)
   end
 
