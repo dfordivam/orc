@@ -16,4 +16,13 @@ class Registration < ActiveRecord::Base
   validates :event_id, :presence => true
   validates :visitor_id, :presence => true
 
+  def participants
+    @participants = []
+    @participants += [Participant.from_registration(self)]
+    avs = self.accompany_visitors
+    avs.each do |av|
+      @participants += [Participant.from_accompany_visitor(av)]
+    end
+    return @participants
+  end
 end
