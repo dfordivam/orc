@@ -47,31 +47,21 @@
               &nbsp;
               %b Name
             %td
-              %b Age
-            %td
               %b Gender
-            %td
-              %b Address
-            %td
-              %b Mobile
             %td
               %b Visitor Type
             %td{:colspan => 5}
-          - @participants.each do |registration|
+          =# debug @participants
+          -# @participants.each do |registration|
             - visitor = registration.visitor
+          - @participants.each do |participant|
             %tr.datarow
               %td
                 &nbsp;
-                = link_to visitor.name, visitor_path(visitor.id)
+                = link_to participant.name, registration_path(participant.registration_id)
               %td
-                = visitor.age
+                = gender(participant.gender)
               %td
-                = gender(visitor.gender)
-              %td
-                = visitor.address
-              %td
-                = visitor.mobile_no
-              %td
-                = visitor.visitor_type
+                = participant.visitor_type
     .paginate_ss
     = will_paginate @participants

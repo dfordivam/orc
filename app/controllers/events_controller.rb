@@ -46,11 +46,12 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @registrations = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
-    @participants = nil
+    @registrations = Registration.where(:event_id => params[:id], :is_delete => false)
+    participants_list = []
     @registrations.each do |registration|
-	@participants += registration.participants
+	participants_list += registration.participants
     end
+    @participants = participants_list.paginate(:page => params[:page], :per_page => 15)
     #@participants = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
     respond_to do |format|
       format.xls { create_excel_and_send( @event, @participants) }
@@ -83,8 +84,8 @@ class EventsController < ApplicationController
   end
 
   def participants
-    @registrations = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
-    @participants += @registration.participants
+    #@registrations = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
+    #@participants += @registration.participants
 #    @participants = [1,2]
   end
 
