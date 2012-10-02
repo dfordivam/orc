@@ -66,26 +66,26 @@ class UtilitiesController < ApplicationController
           end
         end
 
-        temp_room = Room.new()
-        temp_room[:floor] = buildings_rooms[br][:floor]
-        temp_room[:category] = buildings_rooms[br][:category]
-        temp_room.building = building
-        temp_room[:room_no] = buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i
-        temp_room[:total_beds] = buildings_rooms[br][:total_beds]
-        temp_room[:is_delete] = false 
-        if temp_room.save
-          temp_room.update_attribute(:is_ac,buildings_rooms[br][:is_ac])
-          temp_room.update_attribute(:is_extensible,buildings_rooms[br][:is_extensible])
-          temp_room.update_attribute(:beds_extensible,buildings_rooms[br][:beds_extensible]||0)
-          temp_room.update_attribute(:occupied_beds,buildings_rooms[br][:occupied_beds]||0)
-          temp_room.update_attribute(:empty_beds,"#{buildings_rooms[br][:occupied_beds].nil? ? buildings_rooms[br][:total_beds] : buildings_rooms[br][:total_beds].to_i - buildings_rooms[br][:occupied_beds].to_i}")
+        room = Room.new()
+        room[:floor] = buildings_rooms[br][:floor]
+        room[:category] = buildings_rooms[br][:category]
+        room.building = building
+        room[:room_no] = buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i
+        room[:total_beds] = buildings_rooms[br][:total_beds]
+        room[:is_delete] = false 
+        if room.save
+          room.update_attribute(:is_ac,buildings_rooms[br][:is_ac])
+          room.update_attribute(:is_extensible,buildings_rooms[br][:is_extensible])
+          room.update_attribute(:beds_extensible,buildings_rooms[br][:beds_extensible]||0)
+          room.update_attribute(:occupied_beds,buildings_rooms[br][:occupied_beds]||0)
+          room.update_attribute(:empty_beds,"#{buildings_rooms[br][:occupied_beds].nil? ? buildings_rooms[br][:total_beds] : buildings_rooms[br][:total_beds].to_i - buildings_rooms[br][:occupied_beds].to_i}")
           #no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = ? and building_id = #{temp_build_id}", false)
           #no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = ? and building_id= #{temp_build_id}", false)
           #building.update_attribute(:no_of_rooms,no_of_rooms_in_building[0][:ct])
           #building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
         else
-          flash[:notice] = "#ERROR#Fatal Error (#{temp_room.errors.full_messages[0]||''}) While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
+          flash[:notice] = "#ERROR#Fatal Error (#{room.errors.full_messages[0]||''}) While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
           next
         end
       end
@@ -296,22 +296,24 @@ class UtilitiesController < ApplicationController
   def check_buildings_for_errors(buildings_rooms)
     buildings_rooms.length.times do |br|
 
+      if buildings_rooms[br][:building_name].nil? || buildings_rooms[br][:floor].nil? || buildings_rooms[br][:room_name].nil? || buildings_rooms[br][:is_ac].nil? || buildings_rooms[br][:total_beds].nil? || buildings_rooms[br][:category].nil? || buildings_rooms[br][:is_extensible].nil?
+        buildings_rooms[br][:isbad] = true
+        buildings_rooms[br][:comment] = "Give All Fields"
+        next
+      end 
+
       if (buildings_rooms[br][:is_extensible]) && (buildings_rooms[br][:beds_extensible].nil?)
         buildings_rooms[br][:isbad] = true
         buildings_rooms[br][:comment] = "Give Beds Extensible"
       end
 
-      if buildings_rooms[br][:building_name].nil? || buildings_rooms[br][:floor].nil? || buildings_rooms[br][:room_name].nil? || buildings_rooms[br][:is_ac].nil? || buildings_rooms[br][:total_beds].nil? || buildings_rooms[br][:category].nil? || buildings_rooms[br][:is_extensible].nil?
-        buildings_rooms[br][:isbad] = true
-        buildings_rooms[br][:comment] = "Give All Fields"
-      end 
-
       if ! buildings_rooms[br][:building_name].nil?
         temp_build = Building.find(:first, :conditions => ["upper(name) = upper('#{buildings_rooms[br][:building_name]}')", "is_delete = false"  ] )
 
-        if (! temp_build.nil?) && (! buildings_rooms[br][:floor].nil?) && (! buildings_rooms[br][:room_name].nil?)
+        if (! temp_build.nil?) 
           temp_build_id = temp_build[:id]
-          temp_room_no = "#{buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i}"
+          #temp_room_no = "#{buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i}"
+          temp_room_no = buildings_rooms[br][:room_name]
         
           temp_rec = Room.find(:first, :conditions => ["is_delete = false",
                                 "floor = #{buildings_rooms[br][:floor]}",
