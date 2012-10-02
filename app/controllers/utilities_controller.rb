@@ -440,80 +440,29 @@ def extract_events_from_excel(full_file_name)
   end
 
   def handleUploadUserList(file)
-    if ! file.nil?
-      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
-        @unique_file_name = save_file(file,"user_list")
-        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/user_list/#{ @unique_file_name}"
-        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
-        @users = extract_users_from_excel(@full_file_name)
-        if flash[:notice].nil?
-          render 'user_list'
-        else
-          render 'index'
-        end
-      else
-        flash[:notice] = "#ERROR#File type (#{file.content_type.chomp}) error. Please upload MS-Excel File !!"
-        render 'index'
-      end
-    else
-      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
-      render 'index'
-    end
+    handleUpload(file, method(:extract_users_from_excel), 'user_list')
   end
 
   def handleUploadVisitorList(file)
-    if ! file.nil?
-      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
-        @unique_file_name = save_file(file,"visitor_list")
-        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/visitor_list/#{ @unique_file_name}"
-        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
-        @visitors = extract_visitors_from_excel(@full_file_name)
-        if flash[:notice].nil?
-          render 'visitor_list'
-        else
-          render 'index'
-        end
-      else
-        flash[:notice] = '#ERROR#File type (#{file.content_type.chomp})error. Please upload MS-Excel File !!'
-        render 'index'
-      end
-    else
-      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
-      render 'index'
-    end
+    handleUpload(file, method(:extract_visitors_from_excel), 'visitor_list')
   end
 
   def handleUploadBuildingList(file)
-    if ! file.nil?
-      if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
-        @unique_file_name = save_file(file,"building_list")
-        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/building_list/#{ @unique_file_name}"
-        @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
-        @buildings_rooms = extract_buildings_from_excel(@full_file_name)
-        if flash[:notice].nil?
-          render 'building_list'
-        else
-          render 'index'
-        end
-      else
-        flash[:notice] = '#ERROR#File type (#{file.content_type.chomp})error. Please upload MS-Excel File !!'
-        render 'index'
-      end
-    else
-      flash[:notice] = file.original_filename||"#ERROR# Please choose the file first and then upload !!"
-      render 'index'
-    end
+    handleUpload(file, method(:extract_buildings_from_excel), 'building_list')
   end
 
   def handleUploadEventList(file)
+    handleUpload(file, method(:extract_events_from_excel), 'event_list')
+  end
+
+  def handleUpload (file, extractionFun, renderPage)
    if ! file.nil?
       if (file.content_type && (file.content_type.chomp == "application/vnd.ms-excel" || file.content_type.chomp == "application/octet-stream"))
         @unique_file_name = save_file(file,"event_list")
-        ## @full_file_name = "#{RAILS_ROOT}/public/uploads/event_list/#{ @unique_file_name}"
         @full_file_name = "#{RAILS_ROOT}/tmp/#{ @unique_file_name}"
-        @events = extract_events_from_excel(@full_file_name)
+        @events = extractionFun.call(@full_file_name)
         if flash[:notice].nil?
-          render 'event_list'
+          render renderPage
         else
           render 'index'
         end
@@ -537,25 +486,22 @@ def extract_events_from_excel(full_file_name)
   end
 
   def handleDownloadUserList
-    file = "UsersList_Template.xls"
-    file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
-    send_file file_path, :type => 'application/vnd.ms-excel'
+    handleDownload "UsersList_Template.xls"
   end
 
   def handleDownloadVisitorList
-    file = "VisitorList_Template.xls"
-    file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
-    send_file file_path, :type => 'application/vnd.ms-excel'
+    handleDownload "VisitorList_Template.xls"
   end
 
   def handleDownloadBuildingList
-    file = "BuildingList_Template.xls"
-    file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
-    send_file file_path, :type => 'application/vnd.ms-excel'
+    handleDownload "BuildingList_Template.xls"
   end
 
   def handleDownloadEventList
-    file = "EventList_Template.xls"
+    handleDownload "EventList_Template.xls"
+  end
+
+  def handleDownload file
     file_path = "#{RAILS_ROOT}/public/downloads/#{file}"
     send_file file_path, :type => 'application/vnd.ms-excel'
   end
