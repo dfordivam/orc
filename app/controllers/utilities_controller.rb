@@ -24,22 +24,22 @@ class UtilitiesController < ApplicationController
   end
 
   def download_user_list
-    handleDownloadUserList
+    handleDownload "UsersList_Template.xls"
     return
   end
 
   def download_building_list
-    handleDownloadBuildingList
+    handleDownload "BuildingList_Template.xls"
     return
   end
 
   def download_event_list
-    handleDownloadEventList
+    handleDownload "EventList_Template.xls"
     return
   end
 
   def download_visitor_list
-    handleDownloadVisitorList
+    handleDownload "VisitorList_Template.xls"
     return
   end
 
@@ -53,37 +53,40 @@ class UtilitiesController < ApplicationController
     successful_loaded_rooms = 0
     buildings_rooms.length.times do |br|
       if ! buildings_rooms[br][:isbad]
-        temp_build = Building.find_by_sql("select * from buildings where is_delete = ? and upper(name) = upper('#{buildings_rooms[br][:building_name]}')", false)
-        temp_build_id = temp_build[0].nil? ? nil : temp_build[0][:id]
-        if temp_build[0].nil?
+        #temp_build = Building.find_by_sql("select * from buildings where is_delete = ? and upper(name) = upper('#{buildings_rooms[br][:building_name]}')", false)
+        building = Building.find(:first, :conditions => ["upper(name) = upper('#{buildings_rooms[br][:building_name]}')", "is_delete = false"  ] )
+
+        if building.nil?
           new_building = Building.new(:name => buildings_rooms[br][:building_name], :no_of_rooms => 0, :floors => 0, :is_delete => false)
           if new_building.save
-            temp_build_id = new_building[:id]
+            building = new_building
           else
             flash[:notice] = "#ERROR#Fatal Error (#{new_building.errors.full_messages[0]||''}) While Saving Building. Contact Admin !! Reference: #{unique_file_name}"
+            next
           end
         end
-        new_old_building = Building.find(:first, :conditions => ["id = ? and is_delete = ?",temp_build_id, false])
+
         temp_room = Room.new()
         temp_room[:floor] = buildings_rooms[br][:floor]
         temp_room[:category] = buildings_rooms[br][:category]
-        temp_room.building = new_old_building
+        temp_room.building = building
         temp_room[:room_no] = buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i
         temp_room[:total_beds] = buildings_rooms[br][:total_beds]
-        temp_room[:is_delete] = 0 
+        temp_room[:is_delete] = false 
         if temp_room.save
           temp_room.update_attribute(:is_ac,buildings_rooms[br][:is_ac])
           temp_room.update_attribute(:is_extensible,buildings_rooms[br][:is_extensible])
           temp_room.update_attribute(:beds_extensible,buildings_rooms[br][:beds_extensible]||0)
           temp_room.update_attribute(:occupied_beds,buildings_rooms[br][:occupied_beds]||0)
           temp_room.update_attribute(:empty_beds,"#{buildings_rooms[br][:occupied_beds].nil? ? buildings_rooms[br][:total_beds] : buildings_rooms[br][:total_beds].to_i - buildings_rooms[br][:occupied_beds].to_i}")
-          no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = ? and building_id = #{temp_build_id}", false)
-          no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = ? and building_id= #{temp_build_id}", false)
-          new_old_building.update_attribute(:no_of_rooms,no_of_rooms_in_building[0][:ct])
-          new_old_building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
+          #no_of_rooms_in_building = Room.find_by_sql("select count(room_no) as ct from rooms where is_delete = ? and building_id = #{temp_build_id}", false)
+          #no_of_floors_in_building = Room.find_by_sql("select max(floor) as flr from rooms where is_delete = ? and building_id= #{temp_build_id}", false)
+          #building.update_attribute(:no_of_rooms,no_of_rooms_in_building[0][:ct])
+          #building.update_attribute(:floors,no_of_floors_in_building[0][:flr])
           successful_loaded_rooms += 1
         else
           flash[:notice] = "#ERROR#Fatal Error (#{temp_room.errors.full_messages[0]||''}) While Saving Rooms. Contact Admin !! Reference: #{unique_file_name}"
+          next
         end
       end
     end
@@ -292,21 +295,30 @@ class UtilitiesController < ApplicationController
 
   def check_buildings_for_errors(buildings_rooms)
     buildings_rooms.length.times do |br|
+
       if (buildings_rooms[br][:is_extensible]) && (buildings_rooms[br][:beds_extensible].nil?)
         buildings_rooms[br][:isbad] = true
         buildings_rooms[br][:comment] = "Give Beds Extensible"
       end
+
       if buildings_rooms[br][:building_name].nil? || buildings_rooms[br][:floor].nil? || buildings_rooms[br][:room_name].nil? || buildings_rooms[br][:is_ac].nil? || buildings_rooms[br][:total_beds].nil? || buildings_rooms[br][:category].nil? || buildings_rooms[br][:is_extensible].nil?
         buildings_rooms[br][:isbad] = true
         buildings_rooms[br][:comment] = "Give All Fields"
       end 
+
       if ! buildings_rooms[br][:building_name].nil?
-        temp_build = Building.find_by_sql("select * from buildings where is_delete = ? and upper(name) = upper('#{buildings_rooms[br][:building_name]}')", false)
-        if (! temp_build[0].nil?) && (! buildings_rooms[br][:floor].nil?) && (! buildings_rooms[br][:room_name].nil?)
-          temp_build_id = temp_build[0][:id]
+        temp_build = Building.find(:first, :conditions => ["upper(name) = upper('#{buildings_rooms[br][:building_name]}')", "is_delete = false"  ] )
+
+        if (! temp_build.nil?) && (! buildings_rooms[br][:floor].nil?) && (! buildings_rooms[br][:room_name].nil?)
+          temp_build_id = temp_build[:id]
           temp_room_no = "#{buildings_rooms[br][:room_name].to_i == 0 ? buildings_rooms[br][:room_name] : buildings_rooms[br][:room_name].to_i}"
-          temp_rec = Room.find_by_sql("select * from rooms where is_delete = ? and floor = #{buildings_rooms[br][:floor]} and upper(room_no) = upper('#{temp_room_no}') and building_id = #{temp_build_id}", false)
-          if ! temp_rec[0].nil?
+        
+          temp_rec = Room.find(:first, :conditions => ["is_delete = false",
+                                "floor = #{buildings_rooms[br][:floor]}",
+                                "upper(room_no) = upper('#{temp_room_no}')",
+                                "building_id = #{temp_build_id}"] )
+
+          if ! temp_rec.nil?
             buildings_rooms[br][:isbad] = true
             buildings_rooms[br][:comment] = "Room Exists !!"
           end
@@ -483,22 +495,6 @@ def extract_events_from_excel(full_file_name)
     path = File.join(directory,unique_file_name)
     File.open(path, "wb") { |f| f.write(file.read) }
     return unique_file_name
-  end
-
-  def handleDownloadUserList
-    handleDownload "UsersList_Template.xls"
-  end
-
-  def handleDownloadVisitorList
-    handleDownload "VisitorList_Template.xls"
-  end
-
-  def handleDownloadBuildingList
-    handleDownload "BuildingList_Template.xls"
-  end
-
-  def handleDownloadEventList
-    handleDownload "EventList_Template.xls"
   end
 
   def handleDownload file
