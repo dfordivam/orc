@@ -48,6 +48,11 @@ class CheckinsController < ApplicationController
     @checkin = Checkin.find(params[:id])
   end
 
+  def print
+    @checkin = Checkin.find(params[:id])
+    render :layout => false
+  end
+
   def update
     @checkin = Checkin.find(params[:id])
     #@checkin = Checkin.find_by_id params[:id]
@@ -121,6 +126,7 @@ class CheckinsController < ApplicationController
       @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
     end
     @checkin.is_active = true
+    @checkin.is_delete = false
     Checkin.transaction do
       if @checkin.save
         unless params[:index_total].blank?
@@ -135,6 +141,7 @@ class CheckinsController < ApplicationController
               @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
               @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
               @checkin_accm_user.is_active = true
+              @checkin_accm_user.is_delete = false
               else
               flash[:notice] = "#ERROR#No more beds available,Please select some other room for the accompanying vistor "              
               #@checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
@@ -147,7 +154,11 @@ class CheckinsController < ApplicationController
         end
       end
     end
-    redirect_to checkins_path
+    if params[:submit_and_print]
+      redirect_to print_checkin_path(@checkin)
+    else
+      redirect_to checkins_path
+    end
   end
 
   def destroy

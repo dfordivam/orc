@@ -93,7 +93,9 @@
             %table
               %tr
                 %td
-                  = submit_tag "Submit", :disable_with => 'Submit'
+                  = submit_tag "Submit & Print", :disable_with => 'Submit & Print', :name => "submit_and_print"
+                %td
+                  = submit_tag "Submit", :disable_with => 'Submit', :name => "submit"
                 %td
                   = link_to button_to("Cancel"),checkins_path, :method => "get"
 :javascript

@@ -35,10 +35,10 @@
             %tr.datarow
               %td
                 &nbsp;
-                - if registration.checkin.blank?
-                  = link_to visitor.name, new_checkin_path(:registration_id => registration.id)
-                - else
+                - if registration.checkin.blank? == false and registration.checkin.is_delete == false
                   = link_to visitor.name, edit_checkin_path(registration.id)
+                - else
+                  = link_to visitor.name, new_checkin_path(:registration_id => registration.id)
               %td
                 = visitor.age
               %td

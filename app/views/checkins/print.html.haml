@@ -1,0 +1,39 @@
+%div{:class=>"show_page text_add_6 padd25bt padd20tp-1", :cellspacing=>"2", :cellpadding=>"2"}
+  %table{:class => "table-structure_show_page", :cellpadding=>"5", :cellspacing=>"1", :border=>0}
+    %tbody
+      %tr
+        %td
+          %b= label :name, 'Name'
+        %td
+          - visitor_name = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.name : @checkin.source.name
+          = visitor_name.upcase
+      %tr
+        %td
+          %b= label :visitor_type, 'Visitor Type'
+        %td
+          -visitor_type = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.visitor_type : @checkin.source.visitor_type
+          - gender = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.gender : @checkin.source.gender
+          = gender == "female" ? "Sister" : "Brother"
+          = visitor_type.upcase 
+          = gender == "female" ? ", Sister" : ", Brother"
+      %tr
+        %td
+          %b= label :event, 'Event'
+        %td
+          -event = @checkin.source_type.eql?("Registration") ?  @checkin.source.event.name : @checkin.source.event.name
+          = event.upcase
+      %tr
+        %td
+          %b= label :build_name, 'Building'
+        %td
+          = @checkin.building.name
+      %tr
+        %td
+          %b= label :room_no, 'Room No'
+        %td
+          = @checkin.room.room_no
+      %tr
+        %td
+          %b= label :floor, 'Floor'
+        %td
+          = @checkin.floor_id == 0 ? "Ground" : @checkin.floor_id

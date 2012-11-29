@@ -33,7 +33,7 @@
               %td
                 &nbsp;
                 - visitor_name = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.name : checkin.source.name
-                = visitor_name
+                = link_to visitor_name, print_checkin_path(checkin.id), :method => :get
               %td
                 = checkin.source_type.eql?("Registration") ?  checkin.source.visitor.gender : checkin.source.gender
                 -#= checkin.source.gender

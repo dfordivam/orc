@@ -73,6 +73,7 @@ Orc::Application.routes.draw do
   
   resources :checkins
   post 'checkins/inactivate/:id' => "checkins#inactivate", :as => :inactivate_checkin
+  get 'checkins/print/:id' => "checkins#print", :as => :print_checkin
   
   resources :events 
   post 'events/inactivate/:id' => "events#inactivate", :as => :inactivate_event
