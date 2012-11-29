@@ -172,6 +172,8 @@ class CheckinsController < ApplicationController
     #@visitor = @checkin.visitor
     #@visitor.update_attribute(:checkin_date, NIL)
 
+# This is required as regis.checkin should return the correct checkin
+    @checkin.source_id = nil
     if @checkin.save 
       flash[:notice] = "Check In Record has been deleted" 
     else
