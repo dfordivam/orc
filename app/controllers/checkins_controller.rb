@@ -19,7 +19,7 @@ class CheckinsController < ApplicationController
   def edit
     #@registration = Registration.find(params[:registration_id])
     @checkin = Checkin.find(params[:id])
-    if @checkin.source_type = "AccompanyVisitor"
+    if @checkin.source_type == "AccompanyVisitor"
       # source id is accompany visitor id
       @acc_v = AccompanyVisitor.find(@checkin.source_id)
       if @acc_v
