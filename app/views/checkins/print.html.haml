@@ -37,3 +37,13 @@
           %b= label :floor, 'Floor'
         %td
           = @checkin.floor_id == 0 ? "Ground" : @checkin.floor_id
+      %tr
+        %td
+          %b= label :start_date, 'From'
+        %td
+          = @participant.event.nil? ? "" : @participant.event.start_date_time.strftime("%d-%b-%Y")
+      %tr
+        %td
+          %b= label :end_date, 'To'
+        %td
+          = @participant.event.nil? ? "" : @participant.event.end_date_time.strftime("%d-%b-%Y")

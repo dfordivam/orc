@@ -50,6 +50,7 @@ class CheckinsController < ApplicationController
 
   def print
     @checkin = Checkin.find(params[:id])
+    @participant = @checkin.participant
     render :layout => false
   end
 

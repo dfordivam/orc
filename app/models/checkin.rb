@@ -18,6 +18,17 @@ class Checkin < ActiveRecord::Base
 #    self.is_active = 1
 #  end
 
+  def participant
+    p = Participant.new
+    if self.source_type == "Registration"
+      r = Registration.find self.source_id
+      p = r.participant
+    else 
+      a = AccompanyVisitor.find self.source_id
+      p = a.participant
+    end
+    return p
+  end
 #  validates :visitor_id, :presence => true
 #  validates :event_id, :presence => true
 #  validates :registration_id, :presence => true

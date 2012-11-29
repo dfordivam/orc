@@ -14,6 +14,10 @@ class Participant
       send("#{name}=", value)
     end
   end
+
+  def event
+    Event.find self.event_id
+  end
  
   def self.from_registration(registration )
     new(:name => registration.visitor.name, :event_id => registration.event_id, :visitor_type => registration.visitor.visitor_type, :gender => registration.visitor.gender , :registration_id => registration.id) 
