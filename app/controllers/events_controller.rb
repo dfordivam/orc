@@ -162,15 +162,15 @@ class EventsController < ApplicationController
 #     sheet.row(row_counter).insert 8, "ZONE"
 
      participants.length.times do |serial_no|
-       participant = participants[serial_no].visitor
+       participant = participants[serial_no]
        row_counter += 1 
        sheet.row(row_counter).insert 0, (serial_no+1)
        sheet.row(row_counter).insert 1, participant.name
-       sheet.row(row_counter).insert 2, participant.age
+#       sheet.row(row_counter).insert 2, participant.age.nil? ? "NA" : participant.age
        sheet.row(row_counter).insert 3, participant.gender.capitalize
-       sheet.row(row_counter).insert 4, participant.mobile_no
+#       sheet.row(row_counter).insert 4, participant.mobile_no
        sheet.row(row_counter).insert 5, participant.visitor_type
-       sheet.row(row_counter).insert 6, participant.address
+#       sheet.row(row_counter).insert 6, participant.address
 #       sheet.row(row_counter).insert 7, Centre.find_by_id(centres[serial_no].id).name
 #       sheet.row(row_counter).insert 8, zones[serial_no].name
      end
