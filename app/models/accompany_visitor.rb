@@ -5,6 +5,6 @@ belongs_to :event
 has_one :checkin, :as => :source
 
   def participant
-    return Participant.from_registration(self)
+    return Participant.from_accompany_visitor(self)
   end
 end

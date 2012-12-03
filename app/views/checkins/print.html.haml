@@ -13,7 +13,6 @@
         %td
           -visitor_type = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.visitor_type : @checkin.source.visitor_type
           - gender = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.gender : @checkin.source.gender
-          = gender == "female" ? "Sister" : "Brother"
           = visitor_type.upcase 
           = gender == "female" ? ", Sister" : ", Brother"
       %tr
