@@ -128,33 +128,31 @@ class CheckinsController < ApplicationController
     end
     @checkin.is_active = true
     @checkin.is_delete = false
+
     Checkin.transaction do
       if @checkin.save
         unless params[:index_total].blank?
-          params[:index_total].to_i.times do |index|
-            if @checkin.room && @checkin.room.empty_beds > 0 
-              @checkin_accm_user = Checkin.new
-              @checkin_accm_user.source_id = params["source_id_#{index}"]
+	  params[:index_total].to_i.times do |index|
+	    @checkin_accm_user = Checkin.new
+            @checkin_accm_user.source_id = params["source_id_#{index}"]
+            @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
+            @checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
+            @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
+            if @checkin_accm_user.room && @checkin_accm_user.room.empty_beds > 0 
               @checkin_accm_user.source_type = "AccompanyVisitor"
-              @checkin.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
-              @checkin.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
-              @checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
-              @checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
-              @checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
+              @checkin_accm_user.room.update_attribute(:occupied_beds , @checkin.room.occupied_beds + 1)
+              @checkin_accm_user.room.update_attribute(:empty_beds , @checkin.room.total_beds - @checkin.room.occupied_beds)
               @checkin_accm_user.is_active = true
               @checkin_accm_user.is_delete = false
-              else
-              flash[:notice] = "#ERROR#No more beds available,Please select some other room for the accompanying vistor "              
-              #@checkin_accm_user.building_id = params["accompany_visitor_building_#{index}"]
-              #@checkin_accm_user.floor_id = params["accompany_visitor_floor_#{index}"]
-              #@checkin_accm_user.room_id = params["accompany_visitor_room_#{index}"]
-              #@checkin_accm_user.is_active = true
+	      @checkin_accm_user.save
+	    else
+	      flash[:notice] = "#ERROR#No more beds available,Please select some other room for the accompanying vistor "              
             end
-            @checkin_accm_user.save
           end
         end
       end
     end
+
     if params[:submit_and_print]
       redirect_to print_checkin_path(@checkin)
     else
