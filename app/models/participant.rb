@@ -3,7 +3,7 @@ class Participant
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :name, :event_id, :gender, :visitor_type, :registration_id
+  attr_accessor :name, :event_id, :gender, :visitor_type, :registration_id, :mobile_no, :age, :address, :email
   
 #  validates_presence_of :name
 #  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
@@ -20,12 +20,13 @@ class Participant
   end
  
   def self.from_registration(registration )
-    new(:name => registration.visitor.name, :event_id => registration.event_id, :visitor_type => registration.visitor.visitor_type, :gender => registration.visitor.gender , :registration_id => registration.id) 
+    new(:name => registration.visitor.name, :event_id => registration.event_id, :visitor_type => registration.visitor.visitor_type, :gender => registration.visitor.gender , :registration_id => registration.id, :mobile_no => registration.visitor.mobile_no, :age => registration.visitor.age, :address => registration.visitor.address, :email => registration.visitor.email) 
 
   end
 
   def self.from_accompany_visitor(av )
-    new(:name => av.name, :event_id => av.event_id, :visitor_type => av.visitor_type, :gender => av.gender , :registration_id => av.registration_id) 
+    registration = Registration.find av.registration_id
+    new(:name => av.name, :event_id => av.event_id, :visitor_type => av.visitor_type, :gender => av.gender , :registration_id => av.registration_id, :mobile_no => registration.visitor.mobile_no, :age => nil, :address => registration.visitor.address, :email => registration.visitor.email) 
   end
 
   def persisted?

@@ -5,22 +5,19 @@
         %td
           %b= label :name, 'Name'
         %td
-          - visitor_name = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.name : @checkin.source.name
-          = visitor_name.upcase
+          = @participant.name.upcase
       %tr
         %td
           %b= label :visitor_type, 'Visitor Type'
         %td
-          -visitor_type = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.visitor_type : @checkin.source.visitor_type
-          - gender = @checkin.source_type.eql?("Registration") ?  @checkin.source.visitor.gender : @checkin.source.gender
-          = visitor_type.upcase 
-          = gender == "female" ? ", Sister" : ", Brother"
+          - gender = @participant.gender.upcase
+          = @participant.visitor_type.upcase 
+          = gender == "FEMALE" ? ", Sister" : ", Brother"
       %tr
         %td
           %b= label :event, 'Event'
         %td
-          -event = @checkin.source_type.eql?("Registration") ?  @checkin.source.event.name : @checkin.source.event.name
-          = event.upcase
+          = @participant.event.nil? ? "" : @participant.event.name.upcase
       %tr
         %td
           %b= label :build_name, 'Building'
