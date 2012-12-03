@@ -54,7 +54,7 @@ class EventsController < ApplicationController
     @participants = participants_list.paginate(:page => params[:page], :per_page => 15)
     #@participants = Registration.where(:event_id => params[:id], :is_delete => false).paginate(:page => params[:page], :per_page => 15)
     respond_to do |format|
-      format.xls { create_excel_and_send( @event, @participants) }
+      format.xls { create_excel_and_send( @event, participants_list) }
       format.html { render :show }
     end
   end
